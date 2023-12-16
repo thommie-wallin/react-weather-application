@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.content-hourly {
+  background: whitesmoke;
+  color: black;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
+}
+
+.content-hourly > h3 {
+  margin-bottom: .5rem;
+}
+
+.list-hourly {
+  list-style-type: none;
+}
+
+.list-hourly > li {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px dotted black;
+}

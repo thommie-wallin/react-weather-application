@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.content-forecast {
+  background: whitesmoke;
+  color: black;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
+}
+
+.list-forecast {
+  list-style-type: none;
+}
+
+.list-forecast > li {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px dotted black;
+}

@@ -1,0 +1,11 @@
+.content-today {
+  background: hsla(0, 0%, 100%, .1) !important;
+  color: whitesmoke;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
+}
+
+.list-today {
+  list-style-type: none;
+}
