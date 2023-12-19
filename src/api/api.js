@@ -3,20 +3,20 @@ import { getGeolocationPos } from "./geolocation";
 import { WEATHER_API_URL } from "../utils/constants";
 import fakeData from "../apiCall.json";
 
-async function makeAPICall(endpoint) {
-  const res = await fetch(endpoint);
-  if (res.status !== 200) {
-    throw new Error("Unable to send weather data");
-  }
-  const data = await res.json();
-  return data;
-}
+// async function makeAPICall(endpoint) {
+//   const res = await fetch(endpoint);
+//   if (res.status !== 200) {
+//     throw new Error("Unable to send weather data");
+//   }
+//   const data = await res.json();
+//   return data;
+// }
 
-async function makeMultipleAPICalls(endpoints) {
-  const promises = endpoints.map(makeAPICall);
-  const responses = await Promise.all(promises);
-  return responses;
-}
+// async function makeMultipleAPICalls(endpoints) {
+//   const promises = endpoints.map(makeAPICall);
+//   const responses = await Promise.all(promises);
+//   return responses;
+// }
 
 // Multiple endpoints
 // const responses = await makeMultipleAPICalls([
@@ -37,33 +37,39 @@ export const useWeatherData = async () => {
   // const [weatherData, setWeatherData] = useState(fakeData);
   const [currentWeather, setCurrentWeather] = useState({});
   const [forecast, setforecast] = useState({});
-  const [latitud, setlatitud] = useState(null);
-  const [longitud, setLongitud] = useState(null);
+  const [latitude, setlatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   // const parameter = "alert,minutely";
 
+  const res = await getGeolocationPos();
+  // const { latitude, longitude } = res.coords;
+
+  // Multiple API requests in parallel
+  // const responses = await makeMultipleAPICalls([
+  //   `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+  //   `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+  // ]);
+  // const weatherResponse = await responses[0];
+  // const forcastResponse = await responses[1];
+
+  // setCurrentWeather({ ...weatherResponse });
+  // setforecast({ ...forcastResponse });
+  // console.log(currentWeather, forecast);
+
   // getGeolocationPos()
+  //   .then(async (response) => {
+  //     const { latitude, longitude } = await response.coords;
+  //     setlatitude(latitude);
+  //     setLongitude(longitude);
+  //     // const res = response.coords.json();
+  //     // console.log(res);
+  //   })
   //   .then((data) => {
-  //     setlatitud(data.coords.latitud);
-  //     setLongitud(data.coords.longitud);
-  //     console.log(data.coords);
+  //     console.log(latitude, longitude);
   //   })
   //   .catch((err) => {
   //     console.error(err.message);
   //   });
-
-  try {
-    const res = await getGeolocationPos();
-    const { latitude, longitude } = res.coords;
-
-    // Multiple API requests in parallel
-    // const responses = await makeMultipleAPICalls([
-    //   `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
-    //   `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
-    // ]);
-    // console.log(latitude, longitude);
-  } catch (err) {
-    console.error(err.message);
-  }
 
   // Multiple API requests in parallel
   // const responses = await makeMultipleAPICalls([

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Search } from "./search/Search.js";
 
-export const Header = ({ toggleTempUnit }) => {
+export const Header = ({ toggleTempUnit, search }) => {
   const [isTempUnit, setIsTempUnit] = useState(false);
 
   // Toggle temperature unit and send to parent
@@ -21,6 +22,8 @@ export const Header = ({ toggleTempUnit }) => {
         </div>
         <div className="timezone">
           {/* <h3>Time Zone: {weatherData.timezone}</h3> */}
+          {/* <Search /> */}
+          {search}
         </div>
       </div>
       <nav className="navbar">

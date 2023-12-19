@@ -8,12 +8,16 @@ import Hourly from "./components/Hourly";
 import WeekForecast from "./components/WeekForecast";
 import { getGeolocationPos } from "./api/geolocation.js";
 import { Header } from "./components/Header.jsx";
+import { Search } from "./components/search/Search.js";
 
 function App() {
   // const { latitude, longitude, error } = useGeolocation();
-  // const { location, error } = getGeolocationPos();
+  // const geolocationPosition = getGeolocationPos();
+  // console.log(geolocationPosition);
 
-  const { weatherData } = useWeatherData();
+  // useEffect(() => {}, []);
+
+  // const { weatherData } = useWeatherData();
   // console.log(location);
   const [userLocation, setUserLocation] = useState(null);
   const [isTempUnit, setIsTempUnit] = useState(true);
@@ -22,6 +26,13 @@ function App() {
   const handleTempUnit = (tempUnit) => {
     setIsTempUnit(tempUnit);
   };
+
+  navigator.permissions.query({ name: "geolocation" });
+  // .then((res) => console.log(res.state));
+  // console.log("geolocation" in navigator);
+  // console.log(navigator);
+
+  //! Behöver en komponent för att visa väder som får data antingen från Geoloaction API eller sök-komponent.
 
   // const getUserLocation = () => {
   //   // if geolocation is supported by the users browser
@@ -51,10 +62,17 @@ function App() {
   //   useGeolocation();
   // }, []);
 
+  const handleSearch = (searchData) => {
+    console.log(searchData);
+  };
+
   return (
     <Router>
       <div className="content">
-        <Header toggleTempUnit={handleTempUnit} />
+        <Header
+          toggleTempUnit={handleTempUnit}
+          search={<Search getSearchData={handleSearch} />}
+        />
         <div className="router-content">
           <Switch>
             <Route exact path="/">
