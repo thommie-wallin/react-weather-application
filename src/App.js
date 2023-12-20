@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "./App.css";
-import { useWeatherData } from "./api/api.js";
+import { WeatherData } from "./api/api.js";
+import { getWeatherData } from "./api/api.js";
 import Today from "./components/Today";
 import WeekOverview from "./components/WeekOverview";
 import Hourly from "./components/Hourly";
@@ -11,15 +12,59 @@ import { Header } from "./components/Header.jsx";
 import { Search } from "./components/search/Search.js";
 
 function App() {
+  const [position, setPosition] = useState(null);
+  const [currentWeather, setCurrentWeather] = useState({});
+  const [forecast, setforecast] = useState({});
   // const { latitude, longitude, error } = useGeolocation();
   // const geolocationPosition = getGeolocationPos();
   // console.log(geolocationPosition);
 
-  // useEffect(() => {}, []);
+  async function handlePositionChange(position) {
+    const data = await getWeatherData(position);
+    // console.log(data);
+    setCurrentWeather(data[0]);
+    setforecast(data[1]);
+  }
+
+  //! Kanske behöver lägga in useWeatherData i denna hook för att sidan ska ha data innan något syns på skärmen.
+  useLayoutEffect(() => {
+    navigator.permissions
+      .query({ name: "geolocation" })
+      .then(async (res) => {
+        if (res.state === "granted") {
+          const posObj = await getGeolocationPos();
+          setPosition({
+            latitude: posObj.coords.latitude,
+            longitude: posObj.coords.longitude,
+          });
+          // console.log(position);
+        }
+      })
+      .then(() => {
+        // const data = handlePositionChange(position);
+        // const data = await getWeatherData(position);
+        // console.log(position);
+        // const weatherData = WeatherData(position);
+        // console.log(res);
+      });
+  }, []);
+
+  // const { weatherData } = WeatherData(position);
+  // console.log(weatherData);
+
+  useEffect(() => {
+    // handlePositionChange(position);
+    // const { weatherData } = WeatherData();
+    // console.log(weatherData);
+    if (position !== null) {
+      handlePositionChange(position);
+      // console.log(position);
+    }
+  }, [position]);
 
   // const { weatherData } = useWeatherData();
   // console.log(location);
-  const [userLocation, setUserLocation] = useState(null);
+
   const [isTempUnit, setIsTempUnit] = useState(true);
 
   // Callback to toggle isTempUnit from header component
@@ -27,7 +72,7 @@ function App() {
     setIsTempUnit(tempUnit);
   };
 
-  navigator.permissions.query({ name: "geolocation" });
+  // navigator.permissions.query({ name: "geolocation" });
   // .then((res) => console.log(res.state));
   // console.log("geolocation" in navigator);
   // console.log(navigator);
@@ -67,8 +112,8 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="content">
+    <div className="content">
+      <Router>
         <Header
           toggleTempUnit={handleTempUnit}
           search={<Search getSearchData={handleSearch} />}
@@ -76,10 +121,10 @@ function App() {
         <div className="router-content">
           <Switch>
             <Route exact path="/">
-              {/* {Object.keys(weatherData).length > 0 && (
-                <Today weatherData={weatherData} isTempUnit={isTempUnit} />
+              {Object.keys(currentWeather).length > 0 && (
+                <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
               )}
-              {Object.keys(weatherData).length > 0 && (
+              {/* {Object.keys(weatherData).length > 0 && (
                 <WeekOverview
                   weatherData={weatherData}
                   isTempUnit={isTempUnit}
@@ -101,8 +146,8 @@ function App() {
             </Route>
           </Switch>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 

@@ -36,6 +36,7 @@ export const Search = ({ getSearchData }) => {
         pattern="[A-z]"
         aria-label="Search for forecast in specific city"
         onChange={handleOnChange}
+        autoComplete="off"
       />
       <button onClick={sendData}>Search</button>
     </div>

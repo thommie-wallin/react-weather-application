@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
 import { getGeolocationPos } from "./geolocation";
 import { WEATHER_API_URL } from "../utils/constants";
-import fakeData from "../apiCall.json";
+import fakeData from "../getWeatherData.json";
 
-// async function makeAPICall(endpoint) {
-//   const res = await fetch(endpoint);
-//   if (res.status !== 200) {
-//     throw new Error("Unable to send weather data");
-//   }
-//   const data = await res.json();
-//   return data;
-// }
+async function makeAPICall(endpoint) {
+  const res = await fetch(endpoint);
+  if (res.status !== 200) {
+    throw new Error("Unable to send weather data");
+  }
+  const data = await res.json();
+  return data;
+}
 
-// async function makeMultipleAPICalls(endpoints) {
-//   const promises = endpoints.map(makeAPICall);
-//   const responses = await Promise.all(promises);
-//   return responses;
-// }
+async function makeMultipleAPICalls(endpoints) {
+  const promises = endpoints.map(makeAPICall);
+  const responses = await Promise.all(promises);
+  return responses;
+}
 
 // Multiple endpoints
 // const responses = await makeMultipleAPICalls([
@@ -28,21 +28,29 @@ import fakeData from "../apiCall.json";
 // Geolocation API weather
 // Search term weather
 
-export const useWeatherData = async () => {
+export const getWeatherData = (position) => {
+  // const { latitude, longitude } = position;
+  // const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+  // const responses = makeMultipleAPICalls([
+  //   `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+  //   `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+  // ]);
+  return fakeData;
+};
+
+export function WeatherData(position) {
   // const positionObj = await getGeolocationPos();
-  // console.log(positionObj);
-  // const apiKey = process.env.WEATHER_API_KEY;
   const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
   // const [weatherData, setWeatherData] = useState({});
   // const [weatherData, setWeatherData] = useState(fakeData);
-  const [currentWeather, setCurrentWeather] = useState({});
-  const [forecast, setforecast] = useState({});
+
   const [latitude, setlatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   // const parameter = "alert,minutely";
 
-  const res = await getGeolocationPos();
-  // const { latitude, longitude } = res.coords;
+  // return new Promise((resolve, reject) => {
+  //   return { resolve, reject };
+  // });
 
   // Multiple API requests in parallel
   // const responses = await makeMultipleAPICalls([
@@ -97,4 +105,4 @@ export const useWeatherData = async () => {
 
   // return { weatherData, error };
   // return { weatherData };
-};
+}
