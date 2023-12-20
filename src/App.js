@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "./App.css";
 import { WeatherData } from "./api/api.js";
 import { getWeatherData } from "./api/api.js";
-import Today from "./components/Today";
-import WeekOverview from "./components/WeekOverview";
+import Today from "./components/forecasts/Today.js";
+import WeekOverview from "./components/forecasts/WeekOverview.js";
 import Hourly from "./components/Hourly";
 import WeekForecast from "./components/WeekForecast";
 import { getGeolocationPos } from "./api/geolocation.js";
@@ -21,7 +21,6 @@ function App() {
 
   async function handlePositionChange(position) {
     const data = await getWeatherData(position);
-    // console.log(data);
     setCurrentWeather(data[0]);
     setforecast(data[1]);
   }
@@ -124,12 +123,9 @@ function App() {
               {Object.keys(currentWeather).length > 0 && (
                 <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
               )}
-              {/* {Object.keys(weatherData).length > 0 && (
-                <WeekOverview
-                  weatherData={weatherData}
-                  isTempUnit={isTempUnit}
-                />
-              )} */}
+              {Object.keys(forecast).length > 0 && (
+                <WeekOverview weatherData={forecast} isTempUnit={isTempUnit} />
+              )}
             </Route>
             <Route path="/hourly">
               {/* {Object.keys(weatherData).length > 0 && (

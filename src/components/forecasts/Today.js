@@ -1,5 +1,5 @@
-import "../styles/Today.css";
-import { tempUnitConverter } from "./../utils/converters";
+import "../../styles/Today.css";
+import { tempUnitConverter } from "../../utils/numberUtils";
 
 const Today = ({ weatherData, isTempUnit }) => {
   const sunrise = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString(
