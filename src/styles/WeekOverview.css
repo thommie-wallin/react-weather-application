@@ -5,7 +5,8 @@
 }
 
 .content-overview {
-  background: whitesmoke;
+  /* background: whitesmoke; */
+  background: hsla(0, 0%, 100%, .1) !important;
   color: black;
   padding: 1rem;
   border-radius: 6px;
@@ -32,7 +33,7 @@
   flex-direction: column;
 }
 
-.list-item {
+.list-item:not(:last-child) {
   border-right: 1px dotted black;
 }
 

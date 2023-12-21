@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getGeolocationPos } from "./geolocation";
-import { WEATHER_API_URL } from "../utils/constants";
+import { WEATHER_API_URL, IMAGE_API_URL } from "../utils/constants";
 import fakeData from "../getWeatherData.json";
 
 async function makeAPICall(endpoint) {

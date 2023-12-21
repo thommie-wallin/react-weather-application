@@ -1,11 +1,10 @@
 import "../../styles/WeekOverview.css";
-import { filterTemps } from "../../utils/numberUtils";
+import { filterArr } from "../../utils/numberUtils";
 import { tempUnitConverter } from "../../utils/numberUtils";
+import { IMAGE_API_URL } from "./../../utils/constants.js";
 
 const WeekOverview = ({ weatherData, isTempUnit }) => {
-  const imgUrl = "https://openweathermap.org/img/wn";
-
-  // Get 5 dates and weekdays out of every week
+  // Get the next 5 dates and weekdays including today
   const date = new Date();
   const dateArr = [{}, {}, {}, {}, {}];
   const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -19,14 +18,18 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
     return (d = { day: weekDay, date: date.getDate() });
   });
 
-  // Filter 5 day / 3 hour forecast data (each day have 8 readings).
-  const dailyForecasts = filterTemps(weatherData.list, 8);
+  // Filter 5 day / 3 hour forecast-data (each day have 8 readings).
+  const dailyForecasts = filterArr(weatherData.list, 8);
 
   // Get temperatures
   const temps = dailyForecasts.map((t) => {
-    // Toggle celsius or fahrenheit, temp rounded to one decimal and parsed into an integer.
     const temp = tempUnitConverter(isTempUnit, t.main.temp);
     return temp;
+  });
+
+  // Get weather icons URL endpoints
+  const iconsURL = dailyForecasts.map((data) => {
+    return `${IMAGE_API_URL}/${data.weather[0].icon}.png`;
   });
 
   return (
@@ -35,7 +38,6 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
       <ul className="list-overview">
         <li className="list-item">
           <div className="item">
-            {/* <p>Today</p> */}
             <p>
               {dates[0].day} {dates[0].date}
             </p>
@@ -43,10 +45,7 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
               {temps[0]} {isTempUnit ? "℃" : "℉"}
             </p>
           </div>
-          <img
-            src={`${imgUrl}/${dailyForecasts[0].weather[0].icon}.png`}
-            alt=""
-          />
+          <img src={iconsURL[0]} alt="" />
         </li>
         <li className="list-item">
           <div className="item">
@@ -57,10 +56,7 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
               {temps[1]} {isTempUnit ? "℃" : "℉"}
             </p>
           </div>
-          <img
-            src={`${imgUrl}/${dailyForecasts[1].weather[0].icon}.png`}
-            alt=""
-          />
+          <img src={iconsURL[1]} alt="" />
         </li>
         <li className="list-item">
           <div className="item">
@@ -71,10 +67,7 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
               {temps[2]} {isTempUnit ? "℃" : "℉"}
             </p>
           </div>
-          <img
-            src={`${imgUrl}/${dailyForecasts[2].weather[0].icon}.png`}
-            alt=""
-          />
+          <img src={iconsURL[2]} alt="" />
         </li>
         <li className="list-item">
           <div className="item">
@@ -85,12 +78,9 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
               {temps[3]} {isTempUnit ? "℃" : "℉"}
             </p>
           </div>
-          <img
-            src={`${imgUrl}/${dailyForecasts[3].weather[0].icon}.png`}
-            alt=""
-          />
+          <img src={iconsURL[3]} alt="" />
         </li>
-        <li>
+        <li className="list-item">
           <div className="item">
             <p>
               {dates[4].day} {dates[4].date}
@@ -99,10 +89,7 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
               {temps[4]} {isTempUnit ? "℃" : "℉"}
             </p>
           </div>
-          <img
-            src={`${imgUrl}/${dailyForecasts[4].weather[0].icon}.png`}
-            alt=""
-          />
+          <img src={iconsURL[4]} alt="" />
         </li>
       </ul>
     </div>
