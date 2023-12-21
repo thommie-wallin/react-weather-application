@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search } from "./search/Search.js";
 
-export const Header = ({ toggleTempUnit, search }) => {
+export const Header = ({ toggleTempUnit, locationName, search }) => {
   const [isTempUnit, setIsTempUnit] = useState(false);
 
   // Toggle temperature unit and send to parent
@@ -15,15 +14,17 @@ export const Header = ({ toggleTempUnit, search }) => {
     <header>
       <div className="header">
         <div className="title">
-          <h1>u09 Weather App </h1>
+          <h1>Weather App</h1>
           <button onClick={sendData}>
             Change to {isTempUnit ? "℃" : "℉"}
           </button>
         </div>
         <div className="timezone">
           {/* <h3>Time Zone: {weatherData.timezone}</h3> */}
-          {/* <Search /> */}
           {search}
+        </div>
+        <div className="location">
+          <h3>{locationName}</h3>
         </div>
       </div>
       <nav className="navbar">

@@ -115,6 +115,7 @@ function App() {
       <Router>
         <Header
           toggleTempUnit={handleTempUnit}
+          locationName={currentWeather.name}
           search={<Search getSearchData={handleSearch} />}
         />
         <div className="router-content">

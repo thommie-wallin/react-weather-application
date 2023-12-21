@@ -35,6 +35,15 @@
   height: 2.5rem;
 }
 
+.location {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #794c9e;
+  color: whitesmoke;
+  height: 2rem;
+}
+
 .navbar {
   background-color: #42265B;
   height: 3rem;
