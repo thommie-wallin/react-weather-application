@@ -29,13 +29,14 @@ async function makeMultipleAPICalls(endpoints) {
 // Search term weather
 
 export const getWeatherData = (position) => {
-  // const { latitude, longitude } = position;
-  // const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
-  // const responses = makeMultipleAPICalls([
-  //   `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
-  //   `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
-  // ]);
-  return fakeData;
+  const { latitude, longitude } = position;
+  const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+  const responses = makeMultipleAPICalls([
+    `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+    `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+  ]);
+  return responses;
+  // return fakeData;
 };
 
 export function WeatherData(position) {

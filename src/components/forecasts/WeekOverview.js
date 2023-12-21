@@ -4,10 +4,16 @@ import { tempUnitConverter } from "../../utils/numberUtils";
 import { IMAGE_API_URL } from "./../../utils/constants.js";
 
 const WeekOverview = ({ weatherData, isTempUnit }) => {
-  const dates = getFiveDays();
-
   // Filter 5 day / 3 hour forecast-data (each day have 8 readings).
   const dailyForecasts = filterArr(weatherData.list, 8);
+
+  // Get the dates and weekdays
+  const dates = dailyForecasts.map((d) => {
+    return new Date(d.dt * 1000).toLocaleDateString("en-US", {
+      weekday: "short",
+      day: "numeric",
+    });
+  });
 
   // Get temperatures
   const temps = dailyForecasts.map((d) => {
@@ -24,9 +30,7 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
     return (
       <li key={i} className="list-item">
         <div className="item">
-          <p>
-            {dates[i].day} {dates[i].date}
-          </p>
+          <p>{dates[i]}</p>
           <p>
             {temps[i]} {isTempUnit ? "℃" : "℉"}
           </p>

@@ -6,7 +6,7 @@ import { getWeatherData } from "./api/api.js";
 import Today from "./components/forecasts/Today.js";
 import WeekOverview from "./components/forecasts/WeekOverview.js";
 import Hourly from "./components/forecasts/Hourly.js";
-import WeekForecast from "./components/WeekForecast";
+import WeekForecast from "./components/forecasts/WeekForecast.js";
 import { getGeolocationPos } from "./api/geolocation.js";
 import { Header } from "./components/Header.jsx";
 import { Search } from "./components/search/Search.js";
@@ -133,12 +133,9 @@ function App() {
               )}
             </Route>
             <Route path="/fiveday">
-              {/* {Object.keys(weatherData).length > 0 && (
-                <WeekForecast
-                  weatherData={weatherData}
-                  isTempUnit={isTempUnit}
-                />
-              )} */}
+              {Object.keys(forecast).length > 0 && (
+                <WeekForecast weatherData={forecast} isTempUnit={isTempUnit} />
+              )}
             </Route>
           </Switch>
         </div>
