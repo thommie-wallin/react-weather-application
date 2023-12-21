@@ -21,7 +21,6 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
   });
 
   const renderElement = dailyForecasts.map((d, i) => {
-    console.log(d);
     return (
       <li key={i} className="list-item">
         <div className="item">
@@ -32,7 +31,7 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
             {temps[i]} {isTempUnit ? "℃" : "℉"}
           </p>
         </div>
-        <img src={iconsURL[i]} alt="" />
+        <img src={iconsURL[i]} alt={d.weather[0].main} />
       </li>
     );
   });
