@@ -2,7 +2,7 @@ import { useEffect, useState, useLayoutEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "./App.css";
 import { WeatherData } from "./api/api.js";
-import { getWeatherData } from "./api/api.js";
+import { getWeatherData, getSearchResult } from "./api/api.js";
 import Today from "./components/forecasts/Today.js";
 import WeekOverview from "./components/forecasts/WeekOverview.js";
 import Hourly from "./components/forecasts/Hourly.js";
@@ -15,55 +15,6 @@ function App() {
   const [position, setPosition] = useState(null);
   const [currentWeather, setCurrentWeather] = useState({});
   const [forecast, setforecast] = useState({});
-  // const { latitude, longitude, error } = useGeolocation();
-  // const geolocationPosition = getGeolocationPos();
-  // console.log(geolocationPosition);
-
-  async function handlePositionChange(position) {
-    const data = await getWeatherData(position);
-    setCurrentWeather(data[0]);
-    setforecast(data[1]);
-  }
-
-  //! Kanske behöver lägga in useWeatherData i denna hook för att sidan ska ha data innan något syns på skärmen.
-  useLayoutEffect(() => {
-    navigator.permissions
-      .query({ name: "geolocation" })
-      .then(async (res) => {
-        if (res.state === "granted") {
-          const posObj = await getGeolocationPos();
-          setPosition({
-            latitude: posObj.coords.latitude,
-            longitude: posObj.coords.longitude,
-          });
-          // console.log(position);
-        }
-      })
-      .then(() => {
-        // const data = handlePositionChange(position);
-        // const data = await getWeatherData(position);
-        // console.log(position);
-        // const weatherData = WeatherData(position);
-        // console.log(res);
-      });
-  }, []);
-
-  // const { weatherData } = WeatherData(position);
-  // console.log(weatherData);
-
-  useEffect(() => {
-    // handlePositionChange(position);
-    // const { weatherData } = WeatherData();
-    // console.log(weatherData);
-    if (position !== null) {
-      handlePositionChange(position);
-      // console.log(position);
-    }
-  }, [position]);
-
-  // const { weatherData } = useWeatherData();
-  // console.log(location);
-
   const [isTempUnit, setIsTempUnit] = useState(true);
 
   // Callback to toggle isTempUnit from header component
@@ -71,44 +22,39 @@ function App() {
     setIsTempUnit(tempUnit);
   };
 
-  // navigator.permissions.query({ name: "geolocation" });
-  // .then((res) => console.log(res.state));
-  // console.log("geolocation" in navigator);
-  // console.log(navigator);
+  async function handleSearch(searchData) {
+    const data = await getSearchResult(searchData);
+    setPosition({
+      latitude: data[0].lat,
+      longitude: data[0].lon,
+    });
+  }
 
-  //! Behöver en komponent för att visa väder som får data antingen från Geoloaction API eller sök-komponent.
+  async function handlePositionChange(position) {
+    const data = await getWeatherData(position);
+    setCurrentWeather(data[0]);
+    setforecast(data[1]);
+  }
 
-  // const getUserLocation = () => {
-  //   // if geolocation is supported by the users browser
-  //   if (navigator.geolocation) {
-  //     // get the current users location
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         // save the geolocation coordinates in two variables
-  //         const { latitude, longitude } = position.coords;
-  //         // update the value of userlocation variable
-  //         setUserLocation({ latitude, longitude });
-  //         console.log(userLocation);
-  //       },
-  //       // if there was an error getting the users location
-  //       (error) => {
-  //         console.error("Error getting user location:", error);
-  //       }
-  //     );
-  //   }
-  //   // if geolocation is not supported by the users browser
-  //   else {
-  //     console.error("Geolocation is not supported by this browser.");
-  //   }
-  // };
-  // useEffect(() => {
-  //   getUserLocation();
-  //   useGeolocation();
-  // }, []);
+  // If allowed, get user position from Geolocation API before first render.
+  useLayoutEffect(() => {
+    navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
+      if (res.state === "granted") {
+        const posObj = await getGeolocationPos();
+        setPosition({
+          latitude: posObj.coords.latitude,
+          longitude: posObj.coords.longitude,
+        });
+      }
+    });
+  }, []);
 
-  const handleSearch = (searchData) => {
-    console.log(searchData);
-  };
+  // Get new longitude and latitude when position updates.
+  useEffect(() => {
+    if (position !== null) {
+      handlePositionChange(position);
+    }
+  }, [position]);
 
   return (
     <div className="content">

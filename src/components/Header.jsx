@@ -19,8 +19,7 @@ export const Header = ({ toggleTempUnit, locationName, search }) => {
             Change to {isTempUnit ? "℃" : "℉"}
           </button>
         </div>
-        <div className="timezone">
-          {/* <h3>Time Zone: {weatherData.timezone}</h3> */}
+        <div className="search">
           {search}
         </div>
         <div className="location">

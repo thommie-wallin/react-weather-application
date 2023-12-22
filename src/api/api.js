@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { getGeolocationPos } from "./geolocation";
-import { WEATHER_API_URL, IMAGE_API_URL } from "../utils/constants";
+import {
+  WEATHER_API_URL,
+  IMAGE_API_URL,
+  GEOCODING_API_URL,
+} from "../utils/constants";
 import fakeData from "../getWeatherData.json";
 
 async function makeAPICall(endpoint) {
@@ -18,16 +22,6 @@ async function makeMultipleAPICalls(endpoints) {
   return responses;
 }
 
-// Multiple endpoints
-// const responses = await makeMultipleAPICalls([
-//   "https://api.example.com/v1/endpoint1",
-//   "https://api.example.com/v1/endpoint2",
-//   "https://api.example.com/v1/endpoint3",
-// ]);
-
-// Geolocation API weather
-// Search term weather
-
 export const getWeatherData = (position) => {
   // const { latitude, longitude } = position;
   // const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
@@ -38,6 +32,25 @@ export const getWeatherData = (position) => {
   // return responses;
   return fakeData;
 };
+
+// Geocoding API (Direct geocoding)(Limit(optional): number of search results).
+export const getSearchResult = (searchTerm) => {
+  const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+  const response = makeAPICall(
+    `${GEOCODING_API_URL}/direct?q=${searchTerm}&limit=${1}&appid=${apiKey}`
+  );
+  return response;
+};
+
+// Multiple endpoints
+// const responses = await makeMultipleAPICalls([
+//   "https://api.example.com/v1/endpoint1",
+//   "https://api.example.com/v1/endpoint2",
+//   "https://api.example.com/v1/endpoint3",
+// ]);
+
+// Geolocation API weather
+// Search term weather
 
 export function WeatherData(position) {
   // const positionObj = await getGeolocationPos();
