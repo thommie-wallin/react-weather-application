@@ -24,7 +24,7 @@ async function makeMultipleAPICalls(endpoints) {
 
 export const getWeatherData = (position) => {
   // const { latitude, longitude } = position;
-  // const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+  // const apiKey = import.meta.env.REACT_APP_WEATHER_API_KEY;
   // const responses = makeMultipleAPICalls([
   //   `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
   //   `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
@@ -35,7 +35,7 @@ export const getWeatherData = (position) => {
 
 // Geocoding API (Direct geocoding)(Limit(optional): number of search results).
 export const getSearchResult = (searchTerm) => {
-  const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+  const apiKey = import.meta.env.REACT_APP_WEATHER_API_KEY;
   const response = makeAPICall(
     `${GEOCODING_API_URL}/direct?q=${searchTerm}&limit=${1}&appid=${apiKey}`
   );
@@ -54,7 +54,7 @@ export const getSearchResult = (searchTerm) => {
 
 export function WeatherData(position) {
   // const positionObj = await getGeolocationPos();
-  const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+  const apiKey = import.meta.env.REACT_APP_WEATHER_API_KEY;
   // const [weatherData, setWeatherData] = useState({});
   // const [weatherData, setWeatherData] = useState(fakeData);
 

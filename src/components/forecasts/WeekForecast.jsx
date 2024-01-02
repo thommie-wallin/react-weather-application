@@ -1,6 +1,6 @@
 import "./../../styles/WeekForecast.css";
-import { IMAGE_API_URL } from "./../../utils/constants.js";
-import { filterArr, tempUnitConverter } from "./../../utils/numberUtils.js";
+import { IMAGE_API_URL } from "../../utils/constants.jsx";
+import { filterArr, tempUnitConverter } from "../../utils/numberUtils.jsx";
 
 const WeekForecast = ({ weatherData, isTempUnit }) => {
   // Filter 5 day / 3 hour forecast-data (each day have 8 readings).

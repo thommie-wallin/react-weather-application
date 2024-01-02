@@ -1,15 +1,15 @@
 import { useEffect, useState, useLayoutEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "./App.css";
-import { WeatherData } from "./api/api.js";
-import { getWeatherData, getSearchResult } from "./api/api.js";
-import Today from "./components/forecasts/Today.js";
-import WeekOverview from "./components/forecasts/WeekOverview.js";
-import Hourly from "./components/forecasts/Hourly.js";
-import WeekForecast from "./components/forecasts/WeekForecast.js";
-import { getGeolocationPos } from "./api/geolocation.js";
+// import { WeatherData } from "./api/api.jsx";
+import { getWeatherData, getSearchResult } from "./api/api.jsx";
+import Today from "./components/forecasts/Today.jsx";
+import WeekOverview from "./components/forecasts/WeekOverview.jsx";
+import Hourly from "./components/forecasts/Hourly.jsx";
+import WeekForecast from "./components/forecasts/WeekForecast.jsx";
+import { getGeolocationPos } from "./api/geolocation.jsx";
 import { Header } from "./components/Header.jsx";
-import { Search } from "./components/search/Search.js";
+import { Search } from "./components/search/Search.jsx";
 
 function App() {
   const [position, setPosition] = useState(null);

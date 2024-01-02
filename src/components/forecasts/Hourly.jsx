@@ -1,6 +1,6 @@
 import "../../styles/Hourly.css";
-import { tempUnitConverter } from "./../../utils/numberUtils.js";
-import { IMAGE_API_URL } from "./../../utils/constants.js";
+import { tempUnitConverter } from "../../utils/numberUtils.jsx";
+import { IMAGE_API_URL } from "../../utils/constants.jsx";
 
 const Hourly = ({ weatherData, isTempUnit }) => {
   // Get todays date

@@ -1,7 +1,7 @@
 import "../../styles/WeekOverview.css";
-import { filterArr, getFiveDays } from "../../utils/numberUtils";
-import { tempUnitConverter } from "../../utils/numberUtils";
-import { IMAGE_API_URL } from "./../../utils/constants.js";
+import { filterArr, getFiveDays } from "../../utils/numberUtils.jsx";
+import { tempUnitConverter } from "../../utils/numberUtils.jsx";
+import { IMAGE_API_URL } from "../../utils/constants.jsx";
 
 const WeekOverview = ({ weatherData, isTempUnit }) => {
   // Filter 5 day / 3 hour forecast-data (each day have 8 readings).
