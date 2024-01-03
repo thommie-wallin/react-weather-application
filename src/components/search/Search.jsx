@@ -1,16 +1,31 @@
 import { useState } from "react";
+import { GEODB_API_URL } from "../../utils/constants";
+import { geoApiOptions } from "../../api/geoDB";
 
-export const Search = ({ getSearchData }) => {
+export const Search = ({ getSearchData, onSearchChange }) => {
   const [search, setSearch] = useState(null);
 
+  const loadOption = async (inputValue) => {
+    try {
+      const response = await fetch(`${GEODB_API_URL}?minPopulation=1000000&namePrefix=${inputValue}`, geoApiOptions);
+      const result = await response.json();
+      console.log(result);
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const handleOnChange = (searchTerm) => {
+    // loadOption(searchTerm.target.value)
     setSearch(searchTerm.target.value);
-    // onSearchChange(searchData.target.value);
-    // console.log(searchData);
+    onSearchChange(searchTerm.target.value);
+    // console.log(searchTerm.target.value);
   };
 
   const sendData = () => {
-    getSearchData(search);
+    loadOption(search)
+    // getSearchData(search);
   };
 
   // const handleOnChange = (e) => {

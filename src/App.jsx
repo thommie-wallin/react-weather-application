@@ -1,5 +1,5 @@
 import { useEffect, useState, useLayoutEffect } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 // import { WeatherData } from "./api/api.jsx";
 import { getWeatherData, getSearchResult } from "./api/api.jsx";
@@ -24,11 +24,16 @@ function App() {
 
   async function handleSearch(searchData) {
     const data = await getSearchResult(searchData);
+    console.log(data);
     setPosition({
       latitude: data[0].lat,
       longitude: data[0].lon,
     });
   }
+
+  function handleOnSearchChange(searchData) {
+    // console.log(searchData);
+  };
 
   async function handlePositionChange(position) {
     const data = await getWeatherData(position);
@@ -62,7 +67,7 @@ function App() {
         <Header
           toggleTempUnit={handleTempUnit}
           locationName={currentWeather.name}
-          search={<Search getSearchData={handleSearch} />}
+          search={<Search getSearchData={handleSearch} onSearchChange={handleOnSearchChange} />}
         />
         <div className="router-content">
           <Switch>
