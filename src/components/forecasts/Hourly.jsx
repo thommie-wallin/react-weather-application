@@ -1,3 +1,4 @@
+import React from "react";
 import "../../styles/Hourly.css";
 import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";

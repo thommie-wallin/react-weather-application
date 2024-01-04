@@ -1,4 +1,4 @@
-import { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 // import { WeatherData } from "./api/api.jsx";
@@ -10,12 +10,16 @@ import WeekForecast from "./components/forecasts/WeekForecast.jsx";
 import { getGeolocationPos } from "./api/geolocation.jsx";
 import { Header } from "./components/Header.jsx";
 import { Search } from "./components/search/Search.jsx";
+import { Autocomplete } from "./components/search/Autocomplete.jsx";
+import { getSearchLocation } from "./api/geoDB.jsx";
 
 function App() {
   const [position, setPosition] = useState(null);
   const [currentWeather, setCurrentWeather] = useState({});
   const [forecast, setforecast] = useState({});
   const [isTempUnit, setIsTempUnit] = useState(true);
+  const [searchChange, setSearchChange] = useState(null);
+  const [searchResult, setSearchResult] = useState("");
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
@@ -24,16 +28,37 @@ function App() {
 
   async function handleSearch(searchData) {
     const data = await getSearchResult(searchData);
-    console.log(data);
+    // console.log(data);
     setPosition({
       latitude: data[0].lat,
       longitude: data[0].lon,
     });
   }
 
-  function handleOnSearchChange(searchData) {
-    // console.log(searchData);
-  };
+  async function searchLocation(searchTerm) {
+    const data = await getSearchLocation(searchTerm);
+    setSearchResult(data);
+    // console.log(data);
+    // return data;
+  }
+
+  async function handleOnSearchChange(searchData) {
+    if (searchData.trim().length !== 0) {
+      setSearchChange(searchData);
+      setSearchResult(null);
+      // const data = await getSearchLocation(searchData);
+      // setSearchChange(searchData);
+      // console.log(searchData);
+    }
+    // if (searchData) {
+    //   const data = await getSearchLocation(searchData);
+    //   setSearchResult(data);
+    // }
+
+    //
+  }
+
+  function searchTyping() {}
 
   async function handlePositionChange(position) {
     const data = await getWeatherData(position);
@@ -54,6 +79,12 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    if (searchChange !== null) {
+      searchLocation(searchChange);
+    }
+  }, [searchChange]);
+
   // Get new longitude and latitude when position updates.
   useEffect(() => {
     if (position !== null) {
@@ -67,7 +98,14 @@ function App() {
         <Header
           toggleTempUnit={handleTempUnit}
           locationName={currentWeather.name}
-          search={<Search getSearchData={handleSearch} onSearchChange={handleOnSearchChange} />}
+          search={
+            <Search
+              getSearchData={handleSearch}
+              onSearchChange={handleOnSearchChange}
+              // Autocomplete={<Autocomplete searchResult={searchResult} />}
+              searchResult={searchResult}
+            />
+          }
         />
         <div className="router-content">
           <Switch>

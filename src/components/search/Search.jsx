@@ -1,32 +1,26 @@
+import React from "react";
 import { useState } from "react";
 import { GEODB_API_URL } from "../../utils/constants";
 import { geoApiOptions } from "../../api/geoDB";
+import { Autocomplete } from "./Autocomplete";
 
-export const Search = ({ getSearchData, onSearchChange }) => {
+export const Search = ({ getSearchData, onSearchChange, searchResult }) => {
   const [search, setSearch] = useState(null);
 
-  const loadOption = async (inputValue) => {
-    try {
-      const response = await fetch(`${GEODB_API_URL}?minPopulation=1000000&namePrefix=${inputValue}`, geoApiOptions);
-      const result = await response.json();
-      console.log(result);
-      return result;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const handleOnChange = (searchTerm) => {
+  const handleOnChange = (e) => {
+    e.preventDefault();
     // loadOption(searchTerm.target.value)
-    setSearch(searchTerm.target.value);
-    onSearchChange(searchTerm.target.value);
-    // console.log(searchTerm.target.value);
+    setSearch(e.target.value);
+    onSearchChange(e.target.value);
+    // console.log(e.target.value);
   };
 
   const sendData = () => {
-    loadOption(search)
-    // getSearchData(search);
+    // loadOption(search);
+    getSearchData(search);
   };
+
+  console.log(searchResult);
 
   // const handleOnChange = (e) => {
   //   // console.log(e.target.value.toLowerCase());
@@ -41,18 +35,41 @@ export const Search = ({ getSearchData, onSearchChange }) => {
   // };
 
   return (
-    <div>
-      <input
-        type="search"
-        name="q"
-        id="search-input"
-        placeholder="Search for a city"
-        size="30"
-        pattern="[A-z]"
-        aria-label="Search for forecast in specific city"
-        onChange={handleOnChange}
-        autoComplete="off"
-      />
+    // <div>
+    //   <input
+    //     type="search"
+    //     name="q"
+    //     id="search-input"
+    //     placeholder="Search for a city"
+    //     size="30"
+    //     pattern="[A-z]"
+    //     aria-label="Search for forecast in specific city"
+    //     onChange={handleOnChange}
+    //     autoComplete="off"
+    //   />
+    //   <button onClick={sendData}>Search</button>
+    // </div>
+
+    <div className="search-component">
+      <div className="searchBar">
+        <input
+          // className="searchBar"
+          type="search"
+          name="q"
+          id="search-input"
+          placeholder="Search for a city"
+          size="30"
+          pattern="[A-z]"
+          aria-label="Search for forecast in specific city"
+          onChange={handleOnChange}
+          autoComplete="off"
+        />
+        {search && searchResult !== null && (
+          <Autocomplete searchResult={searchResult} />
+        )}
+        {/* {search && <Autocomplete searchResult={searchResult} />} */}
+        {/* {Autocomplete} */}
+      </div>
       <button onClick={sendData}>Search</button>
     </div>
   );

@@ -34,6 +34,33 @@
   color: whitesmoke;
   height: 2.5rem;
 }
+.search-component {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.searchBar {
+  position: relative;
+  /* display: inline-block; */
+  width: 100%;
+}
+.autocomplete-container {
+  position: absolute;
+  width: 100%;
+}
+/* .autocomplete-list {
+  list-style: none;
+} */
+.autocomplete-list-item {
+  list-style: none;
+  cursor: pointer;
+  background-color: whitesmoke;
+  color: black;
+}
+.autocomplete-list-item:hover {
+  background-color: #8B65AD;
+  color: black;
+}
 
 .location {
   display: flex;

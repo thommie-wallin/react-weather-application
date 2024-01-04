@@ -1,14 +1,15 @@
+import React from "react";
 import "../../styles/Today.css";
 import { tempUnitConverter } from "../../utils/numberUtils";
 
 const Today = ({ weatherData, isTempUnit }) => {
   const sunrise = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString(
     [],
-    { hour: "2-digit", minute: "2-digit" }
+    { hour: "2-digit", minute: "2-digit" },
   );
   const sunset = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString(
     [],
-    { hour: "2-digit", minute: "2-digit" }
+    { hour: "2-digit", minute: "2-digit" },
   );
 
   // Toggle celsius or fahrenheit, temp rounded to one decimal.

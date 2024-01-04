@@ -5,9 +5,8 @@ import {
   IMAGE_API_URL,
   GEOCODING_API_URL,
 } from "../utils/constants";
-// import fakeData from "../getWeatherData.json";
 
-async function makeAPICall(endpoint) {
+export async function makeAPICall(endpoint) {
   const res = await fetch(endpoint);
   if (res.status !== 200) {
     throw new Error("Unable to send weather data");
@@ -16,7 +15,7 @@ async function makeAPICall(endpoint) {
   return data;
 }
 
-async function makeMultipleAPICalls(endpoints) {
+export async function makeMultipleAPICalls(endpoints) {
   const promises = endpoints.map(makeAPICall);
   const responses = await Promise.all(promises);
   return responses;
@@ -32,9 +31,7 @@ export const getWeatherData = (position) => {
   // return responses;
 
   // JSON Server
-  const response = makeAPICall(
-    `http://localhost:8000/data`
-  );
+  const response = makeAPICall(`http://localhost:8000/data`);
   // console.log(response);
   return response;
 };
@@ -44,13 +41,12 @@ export const getSearchResult = (searchTerm) => {
   // const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
   // const response = makeAPICall(
   //   `${GEOCODING_API_URL}/direct?q=${searchTerm}&limit=${5}&appid=${apiKey}`
+  //   // `${GEOCODING_API_URL}/direct?q=${searchTerm}&appid=${apiKey}`
   // );
   // return response;
 
   // JSON Server
-  const response = makeAPICall(
-    `http://localhost:9000/data`
-  );
+  const response = makeAPICall(`http://localhost:9000/data`);
   // console.log(response);
   return response;
 };
