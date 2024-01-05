@@ -1,29 +1,24 @@
 import React from "react";
 import { data } from "../../../json_server/searchGeoDB.json";
 
-export const Autocomplete = ({ searchResult, getSearchData }) => {
-  // console.log(searchResult);
-
-  // const sendData = () => {
-  //   // loadOption(search);
-  //   getSearchData({
-  //     latitude: result.lat,
-  //     longitude: result.lon,
-  //   });
-  // };
-
-  const autocomplete = searchResult.map((result, key) => {
-    // console.log(result);
+export const Autocomplete = ({
+  searchResult,
+  setSearchResult,
+  setPosition,
+}) => {
+  const autocomplete = searchResult.data.map((result, key) => {
     return (
       <li
         className="autocomplete-list-item"
         key={key}
         onClick={(e) => {
           e.preventDefault();
-          getSearchData({
+          setPosition({
             latitude: result.latitude,
             longitude: result.longitude,
           });
+          setSearchResult({});
+          document.getElementById("search-input").value = null;
         }}
       >
         {result.name}, {result.countryCode}

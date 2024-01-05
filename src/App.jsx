@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-// import { WeatherData } from "./api/api.jsx";
 import { getWeatherData, getSearchResult } from "./api/api.jsx";
 import Today from "./components/forecasts/Today.jsx";
 import WeekOverview from "./components/forecasts/WeekOverview.jsx";
@@ -18,7 +17,6 @@ function App() {
   const [currentWeather, setCurrentWeather] = useState({});
   const [forecast, setforecast] = useState({});
   const [isTempUnit, setIsTempUnit] = useState(true);
-  // const [searchChange, setSearchChange] = useState(null);
   const [searchResult, setSearchResult] = useState({});
 
   // Callback to toggle isTempUnit from header component
@@ -28,40 +26,18 @@ function App() {
 
   async function handleSearch(searchData) {
     const data = await getSearchResult(searchData);
-    // console.log(data);
     setPosition({
       latitude: data[0].lat,
       longitude: data[0].lon,
     });
   }
 
-  // async function searchLocation(searchTerm) {
-  //   const data = await getSearchLocation(searchTerm);
-  //   setSearchResult(data);
-  //   // console.log(data);
-  //   // return data;
-  // }
-
   async function handleOnSearchChange(searchData) {
-    if (searchData.trim().length !== 0) {
+    if (searchData !== null) {
       const data = await getSearchLocation(searchData);
       setSearchResult(data);
-      // console.log(data);
-      // setSearchChange(searchData);
-      // setSearchResult(null);
-      // const data = await getSearchLocation(searchData);
-      // setSearchChange(searchData);
-      // console.log(searchData);
     }
-    // if (searchData) {
-    //   const data = await getSearchLocation(searchData);
-    //   setSearchResult(data);
-    // }
-
-    //
   }
-
-  function searchTyping() {}
 
   async function handlePositionChange(position) {
     const data = await getWeatherData(position);
@@ -82,17 +58,10 @@ function App() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (searchChange !== null) {
-  //     searchLocation(searchChange);
-  //   }
-  // }, [searchChange]);
-
   // Get new longitude and latitude when position updates.
   useEffect(() => {
     if (position !== null) {
       handlePositionChange(position);
-      console.log(position);
     }
   }, [position]);
 
@@ -106,15 +75,15 @@ function App() {
             <Search
               getSearchData={handleSearch}
               onSearchChange={handleOnSearchChange}
-              Autocomplete={
+              autocomplete={
                 Object.keys(searchResult).length > 0 && (
                   <Autocomplete
                     searchResult={searchResult}
-                    getSearchData={setPosition}
+                    setSearchResult={setSearchResult}
+                    setPosition={setPosition}
                   />
                 )
               }
-              // searchResult={searchResult}
             />
           }
         />
