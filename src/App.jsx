@@ -18,8 +18,8 @@ function App() {
   const [currentWeather, setCurrentWeather] = useState({});
   const [forecast, setforecast] = useState({});
   const [isTempUnit, setIsTempUnit] = useState(true);
-  const [searchChange, setSearchChange] = useState(null);
-  const [searchResult, setSearchResult] = useState("");
+  // const [searchChange, setSearchChange] = useState(null);
+  const [searchResult, setSearchResult] = useState({});
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
@@ -35,17 +35,20 @@ function App() {
     });
   }
 
-  async function searchLocation(searchTerm) {
-    const data = await getSearchLocation(searchTerm);
-    setSearchResult(data);
-    // console.log(data);
-    // return data;
-  }
+  // async function searchLocation(searchTerm) {
+  //   const data = await getSearchLocation(searchTerm);
+  //   setSearchResult(data);
+  //   // console.log(data);
+  //   // return data;
+  // }
 
   async function handleOnSearchChange(searchData) {
     if (searchData.trim().length !== 0) {
-      setSearchChange(searchData);
-      setSearchResult(null);
+      const data = await getSearchLocation(searchData);
+      setSearchResult(data);
+      // console.log(data);
+      // setSearchChange(searchData);
+      // setSearchResult(null);
       // const data = await getSearchLocation(searchData);
       // setSearchChange(searchData);
       // console.log(searchData);
@@ -79,16 +82,17 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    if (searchChange !== null) {
-      searchLocation(searchChange);
-    }
-  }, [searchChange]);
+  // useEffect(() => {
+  //   if (searchChange !== null) {
+  //     searchLocation(searchChange);
+  //   }
+  // }, [searchChange]);
 
   // Get new longitude and latitude when position updates.
   useEffect(() => {
     if (position !== null) {
       handlePositionChange(position);
+      console.log(position);
     }
   }, [position]);
 
@@ -102,8 +106,15 @@ function App() {
             <Search
               getSearchData={handleSearch}
               onSearchChange={handleOnSearchChange}
-              // Autocomplete={<Autocomplete searchResult={searchResult} />}
-              searchResult={searchResult}
+              Autocomplete={
+                Object.keys(searchResult).length > 0 && (
+                  <Autocomplete
+                    searchResult={searchResult}
+                    getSearchData={setPosition}
+                  />
+                )
+              }
+              // searchResult={searchResult}
             />
           }
         />

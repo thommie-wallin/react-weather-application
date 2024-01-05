@@ -4,7 +4,7 @@ import { GEODB_API_URL } from "../../utils/constants";
 import { geoApiOptions } from "../../api/geoDB";
 import { Autocomplete } from "./Autocomplete";
 
-export const Search = ({ getSearchData, onSearchChange, searchResult }) => {
+export const Search = ({ getSearchData, onSearchChange, Autocomplete }) => {
   const [search, setSearch] = useState(null);
 
   const handleOnChange = (e) => {
@@ -20,7 +20,7 @@ export const Search = ({ getSearchData, onSearchChange, searchResult }) => {
     getSearchData(search);
   };
 
-  console.log(searchResult);
+  // console.log(searchResult);
 
   // const handleOnChange = (e) => {
   //   // console.log(e.target.value.toLowerCase());
@@ -64,11 +64,7 @@ export const Search = ({ getSearchData, onSearchChange, searchResult }) => {
           onChange={handleOnChange}
           autoComplete="off"
         />
-        {search && searchResult !== null && (
-          <Autocomplete searchResult={searchResult} />
-        )}
-        {/* {search && <Autocomplete searchResult={searchResult} />} */}
-        {/* {Autocomplete} */}
+        {search && Autocomplete}
       </div>
       <button onClick={sendData}>Search</button>
     </div>

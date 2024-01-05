@@ -1,3 +1,4 @@
+import React from "react";
 import "../../styles/WeekOverview.css";
 import { filterArr, getFiveDays } from "../../utils/numberUtils.jsx";
 import { tempUnitConverter } from "../../utils/numberUtils.jsx";
