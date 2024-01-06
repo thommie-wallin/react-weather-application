@@ -45,8 +45,12 @@
   width: 100%;
 }
 .autocomplete-container {
+  display: none;
   position: absolute;
   width: 100%;
+}
+.autocomplete-container.open {
+  display: block;
 }
 /* .autocomplete-list {
   list-style: none;

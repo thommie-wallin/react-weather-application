@@ -1,12 +1,26 @@
 import React from "react";
-import { data } from "../../../json_server/searchGeoDB.json";
+import data from "../../../json_server/searchGeoDB.json";
 
 export const Autocomplete = ({
   searchResult,
   setSearchResult,
   setPosition,
+  toggle,
 }) => {
-  const autocomplete = searchResult.data.map((result, key) => {
+  function closeAutocomplete() {
+    // const autocomplete = document.querySelector(".autocomplete-container");
+    // autocomplete.classList.toggle("open");
+  }
+  // if (data) {
+  //   const autocompleteElem = document.querySelector(".autocomplete-container");
+  //   autocompleteElem.addEventListener("click", function (event) {
+  //     console.log(event);
+  //     console.log(event.target);
+  //     console.log(event.currentTarget);
+  //   });
+  // }
+
+  const autocomplete = searchResult.map((result, key) => {
     return (
       <li
         className="autocomplete-list-item"
@@ -17,7 +31,8 @@ export const Autocomplete = ({
             latitude: result.latitude,
             longitude: result.longitude,
           });
-          setSearchResult({});
+          // setSearchResult({});
+          toggle();
           document.getElementById("search-input").value = null;
         }}
       >

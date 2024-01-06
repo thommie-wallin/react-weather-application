@@ -11,6 +11,7 @@ import { Header } from "./components/Header.jsx";
 import { Search } from "./components/search/Search.jsx";
 import { Autocomplete } from "./components/search/Autocomplete.jsx";
 import { getSearchLocation } from "./api/geoDB.jsx";
+import data from "../json_server/searchGeoDB.json";
 
 function App() {
   const [position, setPosition] = useState(null);
@@ -36,6 +37,7 @@ function App() {
     if (searchData !== null) {
       const data = await getSearchLocation(searchData);
       setSearchResult(data);
+      toggleAutocomplete();
     }
   }
 
@@ -65,6 +67,19 @@ function App() {
     }
   }, [position]);
 
+  function toggleAutocomplete() {
+    const autocomplete = document.querySelector(".autocomplete-container");
+    autocomplete.classList.toggle("open");
+  }
+
+  // const autocomplete = document.querySelector(".body");
+
+  // autocomplete.addEventListener("click", function (event) {
+  //   // console.log(event);
+  //   // console.log(event.target);
+  //   // console.log(event.currentTarget);
+  // });
+
   return (
     <div className="content">
       <Router>
@@ -81,6 +96,7 @@ function App() {
                     searchResult={searchResult}
                     setSearchResult={setSearchResult}
                     setPosition={setPosition}
+                    toggle={toggleAutocomplete}
                   />
                 )
               }

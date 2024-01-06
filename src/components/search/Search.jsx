@@ -37,6 +37,7 @@ export const Search = ({ getSearchData, onSearchChange, autocomplete }) => {
           aria-label="Search for forecast in specific city"
           onChange={handleOnChange}
           autoComplete="off"
+          // onFocus={closeAutocomplete}
         />
         {search && autocomplete}
       </div>
