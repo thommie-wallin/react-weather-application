@@ -45,13 +45,15 @@
   width: 100%;
 }
 .autocomplete-container {
-  display: none;
+  /* display: none; */
   position: absolute;
   width: 100%;
 }
-.autocomplete-container.open {
+/* .autocomplete-container.open {
   display: block;
-}
+} */
+
+
 /* .autocomplete-list {
   list-style: none;
 } */

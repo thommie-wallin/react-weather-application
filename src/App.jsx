@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, {
+  useEffect,
+  useState,
+  useLayoutEffect,
+  useRef,
+  forwardRef,
+} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { getWeatherData, getSearchResult } from "./api/api.jsx";
@@ -67,10 +73,31 @@ function App() {
     }
   }, [position]);
 
+  const [autocompleteOpen, setAutocompleteOpen] = useState(false);
+  let autocompleteRef = forwardRef();
+
   function toggleAutocomplete() {
     const autocomplete = document.querySelector(".autocomplete-container");
     autocomplete.classList.toggle("open");
   }
+
+  useEffect(() => {
+    let handler = (e) => {
+      // if (autocompleteRef.current.contains(e.target)) {
+      //   setAutocompleteOpen(false);
+      //   console.log(autocompleteRef.current);
+      // }
+
+      // setAutocompleteOpen(false);
+      // toggleAutocomplete();
+      console.log(autocompleteRef);
+    };
+
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
 
   // const autocomplete = document.querySelector(".body");
 
@@ -91,14 +118,15 @@ function App() {
               getSearchData={handleSearch}
               onSearchChange={handleOnSearchChange}
               autocomplete={
-                Object.keys(searchResult).length > 0 && (
-                  <Autocomplete
-                    searchResult={searchResult}
-                    setSearchResult={setSearchResult}
-                    setPosition={setPosition}
-                    toggle={toggleAutocomplete}
-                  />
-                )
+                // Object.keys(searchResult).length > 0 && (
+                <Autocomplete
+                  searchResult={searchResult}
+                  setSearchResult={setSearchResult}
+                  setPosition={setPosition}
+                  toggle={toggleAutocomplete}
+                  ref={autocompleteRef}
+                />
+                // )
               }
             />
           }

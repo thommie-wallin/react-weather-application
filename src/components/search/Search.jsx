@@ -14,8 +14,8 @@ export const Search = ({ getSearchData, onSearchChange, autocomplete }) => {
     getSearchData(search);
   };
 
+  // Debounce fast typing to hinder API-calls.
   useEffect(() => {
-    // Debounce fast typing
     const timeoutID = setTimeout(() => {
       onSearchChange(search);
     }, 1000);
@@ -39,7 +39,8 @@ export const Search = ({ getSearchData, onSearchChange, autocomplete }) => {
           autoComplete="off"
           // onFocus={closeAutocomplete}
         />
-        {search && autocomplete}
+        {/* {search && autocomplete} */}
+        {autocomplete}
       </div>
       <button onClick={handleOnClick}>Search</button>
     </div>

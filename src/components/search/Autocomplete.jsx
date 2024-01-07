@@ -20,29 +20,31 @@ export const Autocomplete = ({
   //   });
   // }
 
-  const autocomplete = searchResult.map((result, key) => {
-    return (
-      <li
-        className="autocomplete-list-item"
-        key={key}
-        onClick={(e) => {
-          e.preventDefault();
-          setPosition({
-            latitude: result.latitude,
-            longitude: result.longitude,
-          });
-          // setSearchResult({});
-          toggle();
-          document.getElementById("search-input").value = null;
-        }}
-      >
-        {result.name}, {result.countryCode}
-      </li>
-    );
-  });
+  // const autocomplete = searchResult.map((result, key) => {
+  //   return (
+  //     <li
+  //       className="autocomplete-list-item"
+  //       key={key}
+  //       onClick={(e) => {
+  //         e.preventDefault();
+  //         setPosition({
+  //           latitude: result.latitude,
+  //           longitude: result.longitude,
+  //         });
+  //         // setSearchResult({});
+  //         toggle();
+  //         document.getElementById("search-input").value = null;
+  //       }}
+  //     >
+  //       {result.name}, {result.countryCode}
+  //     </li>
+  //   );
+  // });
+
   return (
     <div className="autocomplete-container">
-      <ul className="autocomplete-list">{autocomplete}</ul>
+      {/* <ul className="autocomplete-list">{autocomplete}</ul> */}
+      <p>autocomplete</p>
     </div>
   );
 };
