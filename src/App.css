@@ -44,14 +44,16 @@
   /* display: inline-block; */
   width: 100%;
 }
-.autocomplete-container {
-  /* display: none; */
+.autocomplete-container.closed {
+  display: none;
+  /* position: absolute;
+  width: 100%; */
+}
+.autocomplete-container.open {
+  display: block;
   position: absolute;
   width: 100%;
 }
-/* .autocomplete-container.open {
-  display: block;
-} */
 
 
 /* .autocomplete-list {

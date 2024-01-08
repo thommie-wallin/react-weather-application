@@ -25,6 +25,8 @@ function App() {
   const [forecast, setforecast] = useState({});
   const [isTempUnit, setIsTempUnit] = useState(true);
   const [searchResult, setSearchResult] = useState({});
+  const [autocompleteOpen, setAutocompleteOpen] = useState(false);
+  let autocompleteRef = useRef();
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
@@ -43,7 +45,8 @@ function App() {
     if (searchData !== null) {
       const data = await getSearchLocation(searchData);
       setSearchResult(data);
-      toggleAutocomplete();
+      setAutocompleteOpen(true);
+      // toggleAutocomplete();
     }
   }
 
@@ -73,31 +76,36 @@ function App() {
     }
   }, [position]);
 
-  const [autocompleteOpen, setAutocompleteOpen] = useState(false);
-  let autocompleteRef = forwardRef();
-
-  function toggleAutocomplete() {
-    const autocomplete = document.querySelector(".autocomplete-container");
-    autocomplete.classList.toggle("open");
-  }
+  // function toggleAutocomplete() {
+  //   const autocomplete = document.querySelector(".autocomplete-container");
+  //   autocomplete.classList.toggle("open");
+  // }
 
   useEffect(() => {
     let handler = (e) => {
-      // if (autocompleteRef.current.contains(e.target)) {
-      //   setAutocompleteOpen(false);
-      //   console.log(autocompleteRef.current);
-      // }
+      // console.log(e.target);
+      // console.log(autocompleteRef.current);
+      if (
+        !autocompleteRef.current?.contains(e.target) &&
+        e.target.id !== "search-input"
+      ) {
+        setAutocompleteOpen(false);
+        // console.log(autocompleteRef.current);
+        // console.log(e);
+      }
 
       // setAutocompleteOpen(false);
       // toggleAutocomplete();
-      console.log(autocompleteRef);
+      // console.log(autocompleteOpen);
     };
 
-    document.addEventListener("mousedown", handler);
+    // document.addEventListener("mousedown", handler);
+    document.addEventListener("click", handler);
     return () => {
-      document.removeEventListener("mousedown", handler);
+      // document.removeEventListener("mousedown", handler);
+      document.removeEventListener("click", handler);
     };
-  });
+  }, []);
 
   // const autocomplete = document.querySelector(".body");
 
@@ -117,16 +125,17 @@ function App() {
             <Search
               getSearchData={handleSearch}
               onSearchChange={handleOnSearchChange}
+              setAutocompleteOpen={setAutocompleteOpen}
               autocomplete={
-                // Object.keys(searchResult).length > 0 && (
-                <Autocomplete
-                  searchResult={searchResult}
-                  setSearchResult={setSearchResult}
-                  setPosition={setPosition}
-                  toggle={toggleAutocomplete}
-                  ref={autocompleteRef}
-                />
-                // )
+                Object.keys(searchResult).length > 0 && (
+                  <Autocomplete
+                    searchResult={searchResult}
+                    setSearchResult={setSearchResult}
+                    setPosition={setPosition}
+                    autocompleteOpen={autocompleteOpen}
+                    ref={autocompleteRef}
+                  />
+                )
               }
             />
           }
