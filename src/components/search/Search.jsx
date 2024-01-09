@@ -26,6 +26,7 @@ export const Search = ({
     setSearch(null);
   };
 
+  // Show autocomplete if search field isn't empty after outside click.
   const showAutocomplete = () => {
     if (search !== null) {
       setAutocompleteOpen(true);

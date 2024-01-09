@@ -24,6 +24,8 @@ const Autocomplete = forwardRef(function Autocomplete(
     );
   });
 
+  //! Ska jag använda "Object.keys(searchResult).length > 0 &&" för att hantera om "user canccelled request" hindrar searchResult från att skickas ned tom vid abortcontroller().signal abort.
+
   return (
     <div
       className={`autocomplete-container ${
@@ -31,13 +33,16 @@ const Autocomplete = forwardRef(function Autocomplete(
       }`}
       ref={ref}
     >
+      {/* Object.keys(searchResult).length > 0 && ( */}
       <ul className="autocomplete-list">
         {searchResult.data?.length > 0 ? (
           autocomplete
         ) : (
+          // <p>autocomplete</p>
           <li className="list-item-not-found">No result found</li>
         )}
       </ul>
+      {/* ) */}
     </div>
   );
 });

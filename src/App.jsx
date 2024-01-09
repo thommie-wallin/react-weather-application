@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useLayoutEffect,
-  useRef,
-  forwardRef,
-} from "react";
+import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { getWeatherData, getSearchResult } from "./api/api.jsx";
@@ -17,7 +11,6 @@ import { Header } from "./components/Header.jsx";
 import { Search } from "./components/search/Search.jsx";
 import Autocomplete from "./components/search/Autocomplete.jsx";
 import { getSearchLocation } from "./api/geoDB.jsx";
-import data from "../json_server/searchGeoDB.json";
 
 function App() {
   const [position, setPosition] = useState(null);
@@ -26,13 +19,16 @@ function App() {
   const [isTempUnit, setIsTempUnit] = useState(true);
   const [searchResult, setSearchResult] = useState({});
   const [autocompleteOpen, setAutocompleteOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(null);
   let autocompleteRef = useRef();
+  const controllerRef = useRef();
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
     setIsTempUnit(tempUnit);
   };
 
+  // Get weather for searched location (Geocoded API OpenWeatherMap).
   async function handleSearch(searchData) {
     const data = await getSearchResult(searchData);
     setPosition({
@@ -41,16 +37,24 @@ function App() {
     });
   }
 
+  // Get search suggestions for autocomplete component (GeoDB-cities API).
   async function handleOnSearchChange(searchData) {
     if (searchData !== null) {
-      const data = await getSearchLocation(searchData);
+      // Abort unfinished api request.
+      if (controllerRef.current) {
+        controllerRef.current.abort();
+      }
+      // Create new abortController() for new request.
+      controllerRef.current = new AbortController();
+      const signal = controllerRef.current.signal;
+
+      const data = await getSearchLocation(searchData, signal);
       setSearchResult(data);
       setAutocompleteOpen(true);
-      // console.log(data);
-      // toggleAutocomplete();
     }
   }
 
+  // Get weather data from updated position (OpenWeatherMap API).
   async function handlePositionChange(position) {
     const data = await getWeatherData(position);
     setCurrentWeather(data[0]);
@@ -70,13 +74,7 @@ function App() {
     });
   }, []);
 
-  // Get new longitude and latitude when position updates.
-  useEffect(() => {
-    if (position !== null) {
-      handlePositionChange(position);
-    }
-  }, [position]);
-
+  // Close autocomplete when click outside of search component.
   useEffect(() => {
     let handler = (e) => {
       if (
@@ -86,7 +84,6 @@ function App() {
         setAutocompleteOpen(false);
       }
     };
-
     // document.addEventListener("mousedown", handler);
     document.addEventListener("click", handler);
     return () => {
@@ -94,6 +91,13 @@ function App() {
       document.removeEventListener("click", handler);
     };
   }, []);
+
+  // Get new forecast when position updates.
+  useEffect(() => {
+    if (position !== null) {
+      handlePositionChange(position);
+    }
+  }, [position]);
 
   return (
     <div className="content">
@@ -106,6 +110,7 @@ function App() {
               getSearchData={handleSearch}
               onSearchChange={handleOnSearchChange}
               setAutocompleteOpen={setAutocompleteOpen}
+              setSearchTerm={setSearchTerm}
               autocomplete={
                 // Object.keys(searchResult).length > 0 && (
                 <Autocomplete
