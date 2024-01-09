@@ -32,10 +32,9 @@ export const Search = ({
     }
   };
 
-  // Debounce fast typing to hinder API-calls.
+  // Debounce fast typing to hinder quick API-calls.
   useEffect(() => {
     const timeoutID = setTimeout(() => {
-      // console.log(search);
       onSearchChange(search);
     }, 1000);
     return () => {
@@ -50,6 +49,7 @@ export const Search = ({
           type="search"
           name="q"
           id="search-input"
+          title=""
           placeholder="Search for a city"
           size="30"
           maxLength="30"

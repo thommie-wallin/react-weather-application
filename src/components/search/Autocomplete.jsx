@@ -4,9 +4,7 @@ const Autocomplete = forwardRef(function Autocomplete(
   { searchResult, setSearchResult, setPosition, autocompleteOpen },
   ref,
 ) {
-  // console.log(searchResult);
   const autocomplete = searchResult.data?.map((result, key) => {
-    // console.log(result);
     return (
       <li
         className="autocomplete-list-item"
@@ -34,10 +32,11 @@ const Autocomplete = forwardRef(function Autocomplete(
       ref={ref}
     >
       <ul className="autocomplete-list">
-        {searchResult.data?.length === 0 && (
-          <li className="list-item-not-found">Not found</li>
+        {searchResult.data?.length > 0 ? (
+          autocomplete
+        ) : (
+          <li className="list-item-not-found">No result found</li>
         )}
-        {autocomplete}
       </ul>
     </div>
   );

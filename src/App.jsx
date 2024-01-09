@@ -77,27 +77,14 @@ function App() {
     }
   }, [position]);
 
-  // function toggleAutocomplete() {
-  //   const autocomplete = document.querySelector(".autocomplete-container");
-  //   autocomplete.classList.toggle("open");
-  // }
-
   useEffect(() => {
     let handler = (e) => {
-      // console.log(e.target);
-      // console.log(autocompleteRef.current);
       if (
         !autocompleteRef.current?.contains(e.target) &&
         e.target.id !== "search-input"
       ) {
         setAutocompleteOpen(false);
-        // console.log(autocompleteRef.current);
-        // console.log(e);
       }
-
-      // setAutocompleteOpen(false);
-      // toggleAutocomplete();
-      // console.log(autocompleteOpen);
     };
 
     // document.addEventListener("mousedown", handler);
@@ -107,14 +94,6 @@ function App() {
       document.removeEventListener("click", handler);
     };
   }, []);
-
-  // const autocomplete = document.querySelector(".body");
-
-  // autocomplete.addEventListener("click", function (event) {
-  //   // console.log(event);
-  //   // console.log(event.target);
-  //   // console.log(event.currentTarget);
-  // });
 
   return (
     <div className="content">
