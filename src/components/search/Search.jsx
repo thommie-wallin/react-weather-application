@@ -52,14 +52,15 @@ export const Search = ({
           id="search-input"
           placeholder="Search for a city"
           size="30"
+          maxLength="30"
           pattern="[A-z]"
           aria-label="Search for forecast in specific city"
           onChange={handleOnChange}
           autoComplete="off"
           onFocus={showAutocomplete}
-          onBlur={(e) => {
-            // console.log(search);
-          }}
+          // onBlur={(e) => {
+          //   // console.log(search);
+          // }}
           ref={inputRef}
         />
         {search && autocomplete}

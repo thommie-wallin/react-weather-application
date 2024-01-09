@@ -4,7 +4,9 @@ const Autocomplete = forwardRef(function Autocomplete(
   { searchResult, setSearchResult, setPosition, autocompleteOpen },
   ref,
 ) {
-  const autocomplete = searchResult.map((result, key) => {
+  // console.log(searchResult);
+  const autocomplete = searchResult.data?.map((result, key) => {
+    // console.log(result);
     return (
       <li
         className="autocomplete-list-item"
@@ -23,6 +25,7 @@ const Autocomplete = forwardRef(function Autocomplete(
       </li>
     );
   });
+
   return (
     <div
       className={`autocomplete-container ${
@@ -30,8 +33,12 @@ const Autocomplete = forwardRef(function Autocomplete(
       }`}
       ref={ref}
     >
-      <ul className="autocomplete-list">{autocomplete}</ul>
-      {/* <p>autocomplete</p> */}
+      <ul className="autocomplete-list">
+        {searchResult.data?.length === 0 && (
+          <li className="list-item-not-found">Not found</li>
+        )}
+        {autocomplete}
+      </ul>
     </div>
   );
 });

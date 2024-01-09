@@ -67,6 +67,12 @@
 }
 .autocomplete-list-item:hover {
   background-color: #8B65AD;
+  /* color: black; */
+}
+.list-item-not-found {
+  list-style: none;
+  cursor: default;
+  background-color: whitesmoke;
   color: black;
 }
 

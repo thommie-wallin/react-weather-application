@@ -15,7 +15,7 @@ import WeekForecast from "./components/forecasts/WeekForecast.jsx";
 import { getGeolocationPos } from "./api/geolocation.jsx";
 import { Header } from "./components/Header.jsx";
 import { Search } from "./components/search/Search.jsx";
-import { Autocomplete } from "./components/search/Autocomplete.jsx";
+import Autocomplete from "./components/search/Autocomplete.jsx";
 import { getSearchLocation } from "./api/geoDB.jsx";
 import data from "../json_server/searchGeoDB.json";
 
@@ -46,6 +46,7 @@ function App() {
       const data = await getSearchLocation(searchData);
       setSearchResult(data);
       setAutocompleteOpen(true);
+      // console.log(data);
       // toggleAutocomplete();
     }
   }
@@ -127,15 +128,15 @@ function App() {
               onSearchChange={handleOnSearchChange}
               setAutocompleteOpen={setAutocompleteOpen}
               autocomplete={
-                Object.keys(searchResult).length > 0 && (
-                  <Autocomplete
-                    searchResult={searchResult}
-                    setSearchResult={setSearchResult}
-                    setPosition={setPosition}
-                    autocompleteOpen={autocompleteOpen}
-                    ref={autocompleteRef}
-                  />
-                )
+                // Object.keys(searchResult).length > 0 && (
+                <Autocomplete
+                  searchResult={searchResult}
+                  setSearchResult={setSearchResult}
+                  setPosition={setPosition}
+                  autocompleteOpen={autocompleteOpen}
+                  ref={autocompleteRef}
+                />
+                // )
               }
             />
           }
