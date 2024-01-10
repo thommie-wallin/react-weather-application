@@ -15,7 +15,9 @@ export const Search = ({
     // Check if search term matches input pattern and value not empty.
     if (inputRef.current.reportValidity() && e.target.value.length !== 0) {
       setSearch(e.target.value);
+      setAutocompleteOpen(true);
     } else {
+      // Reset search when input value empty
       setSearch(null);
       setAutocompleteOpen(false);
     }

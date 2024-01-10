@@ -22,6 +22,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(null);
   let autocompleteRef = useRef();
   const abortControllerRef = useRef();
+  // const searchTermCache = useRef();
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
@@ -40,6 +41,15 @@ function App() {
   // Get search suggestions for autocomplete component (GeoDB-cities API).
   async function handleOnSearchChange(searchData) {
     if (searchData !== null) {
+      // Check if searchdata existed before correcting validation invalid.
+      if (searchData === searchTerm) {
+        setAutocompleteOpen(true);
+        return;
+      }
+
+      // Cache search term in state
+      setSearchTerm(searchData);
+
       // Abort unfinished api request.
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
@@ -110,7 +120,6 @@ function App() {
               getSearchData={handleSearch}
               onSearchChange={handleOnSearchChange}
               setAutocompleteOpen={setAutocompleteOpen}
-              setSearchTerm={setSearchTerm}
               autocomplete={
                 // Object.keys(searchResult).length > 0 && (
                 <Autocomplete
