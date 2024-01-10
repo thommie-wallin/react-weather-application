@@ -49,6 +49,13 @@
   width: 100%;
 }
 
+/* #search-input:valid {
+  border: 2px solid black;
+} */
+#search-input:invalid {
+  border: red solid 2px;
+}
+
 .autocomplete-container.closed {
   display: none;
 }

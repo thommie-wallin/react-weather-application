@@ -21,7 +21,7 @@ function App() {
   const [autocompleteOpen, setAutocompleteOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(null);
   let autocompleteRef = useRef();
-  const controllerRef = useRef();
+  const abortControllerRef = useRef();
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
@@ -41,12 +41,12 @@ function App() {
   async function handleOnSearchChange(searchData) {
     if (searchData !== null) {
       // Abort unfinished api request.
-      if (controllerRef.current) {
-        controllerRef.current.abort();
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
       }
       // Create new abortController() for new request.
-      controllerRef.current = new AbortController();
-      const signal = controllerRef.current.signal;
+      abortControllerRef.current = new AbortController();
+      const signal = abortControllerRef.current.signal;
 
       const data = await getSearchLocation(searchData, signal);
       setSearchResult(data);
