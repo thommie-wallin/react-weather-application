@@ -14,7 +14,7 @@ export const Search = ({
 
     // Check if search term matches input pattern and value not empty.
     if (inputRef.current.reportValidity() && e.target.value.length !== 0) {
-      setSearch(e.target.value);
+      setSearch(e.target.value.trim());
     } else {
       // Reset search when input-elements value is empty.
       setSearch(null);
@@ -25,7 +25,7 @@ export const Search = ({
   const handleOnClick = () => {
     // Check if search term matches input pattern.
     if (inputRef.current.checkValidity()) {
-      getSearchData(search);
+      getSearchData(search.trim());
       inputRef.current.value = null;
       setAutocompleteOpen(false);
       setSearch(null);
@@ -41,12 +41,14 @@ export const Search = ({
 
   // Debounce fast typing to hinder quick API-calls.
   useEffect(() => {
-    const timeoutID = setTimeout(() => {
-      onSearchChange(search);
-    }, 1000);
-    return () => {
-      clearTimeout(timeoutID);
-    };
+    if (search !== null && search.length !== 0) {
+      const timeoutID = setTimeout(() => {
+        onSearchChange(search);
+      }, 1000);
+      return () => {
+        clearTimeout(timeoutID);
+      };
+    }
   }, [search]);
 
   return (
@@ -60,7 +62,8 @@ export const Search = ({
             placeholder="Search city name using only letters"
             size="30"
             maxLength="30"
-            pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$"
+            // pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$"
+            pattern="^[A-Za-z\s]*$"
             aria-label="Search for forecast in specific city"
             onChange={handleOnChange}
             autoComplete="off"
@@ -70,8 +73,8 @@ export const Search = ({
             // }}
             ref={inputRef}
           />
-          {/* {search && autocomplete} */}
-          {autocomplete}
+          {search && autocomplete}
+          {/* {autocomplete} */}
         </div>
         <button onClick={handleOnClick}>Search</button>
       </form>
