@@ -21,10 +21,11 @@ function App() {
   const [autocompleteOpen, setAutocompleteOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(null);
   let autocompleteRef = useRef();
-  const abortControllerRef = useRef();
+  const autocompleteAbortControllerRef = useRef();
+  const weatherAbortControllerRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
-  const [error, seterror] = useState();
+  const [error, setError] = useState();
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
@@ -33,13 +34,28 @@ function App() {
 
   // Get weather for searched location (Geocoded API OpenWeatherMap).
   async function handleSearch(searchData) {
+    // Abort previous api call
+    weatherAbortControllerRef.current?.abort();
+    // Create new abortcontroller for new api call
+    weatherAbortControllerRef.current = new AbortController();
+    const signal = weatherAbortControllerRef.current?.signal;
+
     setIsLoading(true);
-    const data = await getSearchResult(searchData);
-    setPosition({
-      latitude: data[0].lat,
-      longitude: data[0].lon,
-    });
-    setIsLoading(false);
+    try {
+      const data = await getSearchResult(searchData, { signal });
+      setPosition({
+        latitude: data[0].lat,
+        longitude: data[0].lon,
+      });
+    } catch (error) {
+      if (error.name === "AbortError") {
+        console.error(error);
+        return;
+      }
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   // Get search suggestions for autocomplete component (GeoDB-cities API).
@@ -55,28 +71,52 @@ function App() {
       setSearchTerm(searchData);
 
       // Abort unfinished api request.
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
+      if (autocompleteAbortControllerRef.current) {
+        autocompleteAbortControllerRef.current.abort();
       }
       // Create new abortController() for new request.
-      abortControllerRef.current = new AbortController();
-      const signal = abortControllerRef.current.signal;
+      autocompleteAbortControllerRef.current = new AbortController();
+      const signal = autocompleteAbortControllerRef.current.signal;
 
       setAutocompleteIsLoading(true);
       setAutocompleteOpen(true);
-      const data = await getSearchLocation(searchData, signal);
-      setSearchResult(data);
-      setAutocompleteIsLoading(false);
+      try {
+        const data = await getSearchLocation(searchData, signal);
+        setSearchResult(data);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.error(error);
+          return;
+        }
+        setError(error);
+      } finally {
+        setAutocompleteIsLoading(false);
+      }
     }
   }
 
   // Get weather data from updated position (OpenWeatherMap API).
   async function handlePositionChange(position) {
+    // Abort previous api call
+    weatherAbortControllerRef.current?.abort();
+    // Create new abortcontroller for new api call
+    weatherAbortControllerRef.current = new AbortController();
+    const signal = weatherAbortControllerRef.current?.signal;
+
     setIsLoading(true);
-    const data = await getWeatherData(position);
-    setCurrentWeather(data[0]);
-    setforecast(data[1]);
-    setIsLoading(false);
+    try {
+      const data = await getWeatherData(position, { signal });
+      setCurrentWeather(data[0]);
+      setforecast(data[1]);
+    } catch (error) {
+      if (error.name === "AbortError") {
+        console.error(error);
+        return;
+      }
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   // If allowed, get user position from Geolocation API before first render.
@@ -84,23 +124,24 @@ function App() {
     navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
       setIsLoading(true);
       if (res.state === "granted") {
-        const posObj = await getGeolocationPos();
-        setPosition({
-          latitude: posObj.coords.latitude,
-          longitude: posObj.coords.longitude,
-        });
-        setIsLoading(false);
+        try {
+          const posObj = await getGeolocationPos();
+          setPosition({
+            latitude: posObj.coords.latitude,
+            longitude: posObj.coords.longitude,
+          });
+        } catch (error) {
+          setError(error);
+        } finally {
+          setIsLoading(false);
+        }
       }
     });
   }, []);
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
   // Close autocomplete when click outside of search component.
   useEffect(() => {
-    let handler = (e) => {
+    let clickOutsideHandler = (e) => {
       if (
         !autocompleteRef.current?.contains(e.target) &&
         e.target.id !== "search-input"
@@ -108,11 +149,9 @@ function App() {
         setAutocompleteOpen(false);
       }
     };
-    // document.addEventListener("mousedown", handler);
-    document.addEventListener("click", handler);
+    document.addEventListener("click", clickOutsideHandler);
     return () => {
-      // document.removeEventListener("mousedown", handler);
-      document.removeEventListener("click", handler);
+      document.removeEventListener("click", clickOutsideHandler);
     };
   }, []);
 
@@ -149,9 +188,17 @@ function App() {
             />
           }
         />
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : (
+        {error && (
+          <div className="router-content">
+            <p>Something went wrong! Please try again. Error:{error}</p>
+          </div>
+        )}
+        {isLoading && (
+          <div className="router-content">
+            <p>Loading...</p>
+          </div>
+        )}
+        {currentWeather && forecast && (
           <div className="router-content">
             <Switch>
               <Route exact path="/">
@@ -181,6 +228,45 @@ function App() {
             </Switch>
           </div>
         )}
+
+        {/* {isLoading ? (
+          <div className="router-content">
+            {error ? (
+              <p>Something went wrong! Please try again. Error: {error}</p>
+            ) : (
+              <p>Loading...</p>
+            )}
+          </div>
+        ) : (
+          <div className="router-content">
+            <Switch>
+              <Route exact path="/">
+                {Object.keys(currentWeather).length > 0 && (
+                  <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
+                )}
+                {Object.keys(forecast).length > 0 && (
+                  <WeekOverview
+                    weatherData={forecast}
+                    isTempUnit={isTempUnit}
+                  />
+                )}
+              </Route>
+              <Route path="/hourly">
+                {Object.keys(forecast).length > 0 && (
+                  <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
+                )}
+              </Route>
+              <Route path="/fiveday">
+                {Object.keys(forecast).length > 0 && (
+                  <WeekForecast
+                    weatherData={forecast}
+                    isTempUnit={isTempUnit}
+                  />
+                )}
+              </Route>
+            </Switch>
+          </div>
+        )} */}
       </Router>
     </div>
   );

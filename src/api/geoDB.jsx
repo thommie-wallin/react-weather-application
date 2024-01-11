@@ -40,7 +40,8 @@ export const getSearchLocation = async (inputValue, signal) => {
     //? Hantera om api inte fungerar, ex if (error.name === "AbortError") {
     //?   results.push("API failure");
     //? }
-    console.error(error);
+    // console.error(error);
+    return error;
   }
 
   // const response = makeAPICall(`http://localhost:9000/data`);

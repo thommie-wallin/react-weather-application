@@ -6,41 +6,50 @@ import {
   GEOCODING_API_URL,
 } from "../utils/constants";
 
-export async function makeAPICall(endpoint) {
-  const res = await fetch(endpoint);
-  if (res.status !== 200) {
-    throw new Error("Unable to send weather data");
+export async function makeAPICall(endpoint, signal) {
+  try {
+    const res = await fetch(endpoint, signal);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return error;
   }
-  const data = await res.json();
-  return data;
+
+  // if (res.status !== 200) {
+  //   throw new Error("Unable to send weather data");
+  // }
 }
 
-export async function makeMultipleAPICalls(endpoints) {
-  const promises = endpoints.map(makeAPICall);
+export async function makeMultipleAPICalls(endpoints, signal) {
+  const promises = endpoints.map((endpoint) => makeAPICall(endpoint, signal));
   const responses = await Promise.all(promises);
   return responses;
 }
 
-export const getWeatherData = (position) => {
-  // const { latitude, longitude } = position;
-  // const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-  // const responses = makeMultipleAPICalls([
-  //   `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
-  //   `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
-  // ]);
-  // return responses;
+export const getWeatherData = (position, signal) => {
+  const { latitude, longitude } = position;
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+  const responses = makeMultipleAPICalls(
+    [
+      `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+      `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+    ],
+    signal,
+  );
+  return responses;
 
   // JSON Server
-  const response = makeAPICall(`http://localhost:8000/data`);
-  // console.log(response);
-  return response;
+  // const response = makeAPICall(`http://localhost:8000/data`);
+  // // console.log(response);
+  // return response;
 };
 
 // Geocoding API (Direct geocoding)(Limit(optional): number of search results).
-export const getSearchResult = (searchTerm) => {
+export const getSearchResult = (searchTerm, signal) => {
   const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
   const response = makeAPICall(
     `${GEOCODING_API_URL}/direct?q=${searchTerm}&limit=${5}&appid=${apiKey}`,
+    signal,
     // `${GEOCODING_API_URL}/direct?q=${searchTerm}&appid=${apiKey}`
   );
   return response;
