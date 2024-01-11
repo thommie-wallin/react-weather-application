@@ -22,7 +22,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(null);
   let autocompleteRef = useRef();
   const abortControllerRef = useRef();
-  // const searchTermCache = useRef();
+  const [isLoading, setIsLoading] = useState(false);
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
@@ -31,11 +31,13 @@ function App() {
 
   // Get weather for searched location (Geocoded API OpenWeatherMap).
   async function handleSearch(searchData) {
+    setIsLoading(true);
     const data = await getSearchResult(searchData);
     setPosition({
       latitude: data[0].lat,
       longitude: data[0].lon,
     });
+    setIsLoading(false);
   }
 
   // Get search suggestions for autocomplete component (GeoDB-cities API).
@@ -66,23 +68,31 @@ function App() {
 
   // Get weather data from updated position (OpenWeatherMap API).
   async function handlePositionChange(position) {
+    setIsLoading(true);
     const data = await getWeatherData(position);
     setCurrentWeather(data[0]);
     setforecast(data[1]);
+    setIsLoading(false);
   }
 
   // If allowed, get user position from Geolocation API before first render.
   useLayoutEffect(() => {
     navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
+      setIsLoading(true);
       if (res.state === "granted") {
         const posObj = await getGeolocationPos();
         setPosition({
           latitude: posObj.coords.latitude,
           longitude: posObj.coords.longitude,
         });
+        setIsLoading(false);
       }
     });
   }, []);
+
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   // Close autocomplete when click outside of search component.
   useEffect(() => {
@@ -134,28 +144,38 @@ function App() {
             />
           }
         />
-        <div className="router-content">
-          <Switch>
-            <Route exact path="/">
-              {Object.keys(currentWeather).length > 0 && (
-                <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
-              )}
-              {Object.keys(forecast).length > 0 && (
-                <WeekOverview weatherData={forecast} isTempUnit={isTempUnit} />
-              )}
-            </Route>
-            <Route path="/hourly">
-              {Object.keys(forecast).length > 0 && (
-                <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
-              )}
-            </Route>
-            <Route path="/fiveday">
-              {Object.keys(forecast).length > 0 && (
-                <WeekForecast weatherData={forecast} isTempUnit={isTempUnit} />
-              )}
-            </Route>
-          </Switch>
-        </div>
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <div className="router-content">
+            <Switch>
+              <Route exact path="/">
+                {Object.keys(currentWeather).length > 0 && (
+                  <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
+                )}
+                {Object.keys(forecast).length > 0 && (
+                  <WeekOverview
+                    weatherData={forecast}
+                    isTempUnit={isTempUnit}
+                  />
+                )}
+              </Route>
+              <Route path="/hourly">
+                {Object.keys(forecast).length > 0 && (
+                  <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
+                )}
+              </Route>
+              <Route path="/fiveday">
+                {Object.keys(forecast).length > 0 && (
+                  <WeekForecast
+                    weatherData={forecast}
+                    isTempUnit={isTempUnit}
+                  />
+                )}
+              </Route>
+            </Switch>
+          </div>
+        )}
       </Router>
     </div>
   );
