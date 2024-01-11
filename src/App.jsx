@@ -23,6 +23,8 @@ function App() {
   let autocompleteRef = useRef();
   const abortControllerRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
+  const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
+  const [error, seterror] = useState();
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
@@ -60,9 +62,11 @@ function App() {
       abortControllerRef.current = new AbortController();
       const signal = abortControllerRef.current.signal;
 
+      setAutocompleteIsLoading(true);
+      setAutocompleteOpen(true);
       const data = await getSearchLocation(searchData, signal);
       setSearchResult(data);
-      setAutocompleteOpen(true);
+      setAutocompleteIsLoading(false);
     }
   }
 
@@ -138,6 +142,7 @@ function App() {
                   setPosition={setPosition}
                   autocompleteOpen={autocompleteOpen}
                   ref={autocompleteRef}
+                  autocompleteIsLoading={autocompleteIsLoading}
                 />
                 // )
               }

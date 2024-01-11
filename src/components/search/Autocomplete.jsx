@@ -1,7 +1,13 @@
 import React, { forwardRef } from "react";
 
 const Autocomplete = forwardRef(function Autocomplete(
-  { searchResult, setSearchResult, setPosition, autocompleteOpen },
+  {
+    searchResult,
+    setSearchResult,
+    setPosition,
+    autocompleteOpen,
+    autocompleteIsLoading,
+  },
   ref,
 ) {
   const autocomplete = searchResult.data?.map((result, key) => {
@@ -33,16 +39,19 @@ const Autocomplete = forwardRef(function Autocomplete(
       }`}
       ref={ref}
     >
-      {/* Object.keys(searchResult).length > 0 && ( */}
-      <ul className="autocomplete-list">
-        {searchResult.data?.length > 0 ? (
-          autocomplete
-        ) : (
-          // <p>autocomplete</p>
-          <li className="list-item-not-found">No result found</li>
-        )}
-      </ul>
-      {/* ) */}
+      {autocompleteIsLoading ? (
+        <ul className="autocomplete-list">
+          <li className="list-item-not-found">Loading...</li>
+        </ul>
+      ) : (
+        <ul className="autocomplete-list">
+          {searchResult.data?.length > 0 ? (
+            autocomplete
+          ) : (
+            <li className="list-item-not-found">No result found</li>
+          )}
+        </ul>
+      )}
     </div>
   );
 });

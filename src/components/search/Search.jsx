@@ -15,9 +15,8 @@ export const Search = ({
     // Check if search term matches input pattern and value not empty.
     if (inputRef.current.reportValidity() && e.target.value.length !== 0) {
       setSearch(e.target.value);
-      setAutocompleteOpen(true);
     } else {
-      // Reset search when input value empty
+      // Reset search when input-elements value is empty.
       setSearch(null);
       setAutocompleteOpen(false);
     }
@@ -71,7 +70,8 @@ export const Search = ({
             // }}
             ref={inputRef}
           />
-          {search && autocomplete}
+          {/* {search && autocomplete} */}
+          {autocomplete}
         </div>
         <button onClick={handleOnClick}>Search</button>
       </form>
