@@ -23,6 +23,7 @@ function App() {
   let autocompleteRef = useRef();
   const autocompleteAbortControllerRef = useRef();
   const weatherAbortControllerRef = useRef(null);
+  const searchAbortControllerRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -35,10 +36,10 @@ function App() {
   // Get weather for searched location (Geocoded API OpenWeatherMap).
   async function handleSearch(searchData) {
     // Abort previous api call
-    weatherAbortControllerRef.current?.abort();
+    searchAbortControllerRef.current?.abort();
     // Create new abortcontroller for new api call
-    weatherAbortControllerRef.current = new AbortController();
-    const signal = weatherAbortControllerRef.current?.signal;
+    searchAbortControllerRef.current = new AbortController();
+    const signal = searchAbortControllerRef.current?.signal;
 
     setIsLoading(true);
     try {
@@ -144,7 +145,7 @@ function App() {
     let clickOutsideHandler = (e) => {
       if (
         !autocompleteRef.current?.contains(e.target) &&
-        e.target.id !== "search-input"
+        e.target.id !== "search"
       ) {
         setAutocompleteOpen(false);
       }
@@ -174,7 +175,6 @@ function App() {
               onSearchChange={handleOnSearchChange}
               setAutocompleteOpen={setAutocompleteOpen}
               autocomplete={
-                // Object.keys(searchResult).length > 0 && (
                 <Autocomplete
                   searchResult={searchResult}
                   setSearchResult={setSearchResult}
@@ -183,7 +183,6 @@ function App() {
                   ref={autocompleteRef}
                   autocompleteIsLoading={autocompleteIsLoading}
                 />
-                // )
               }
             />
           }

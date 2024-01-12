@@ -22,15 +22,13 @@ const Autocomplete = forwardRef(function Autocomplete(
             longitude: result.longitude,
           });
           setSearchResult({});
-          document.getElementById("search-input").value = null;
+          document.getElementById("search").value = null;
         }}
       >
         {result.name}, {result.countryCode}
       </li>
     );
   });
-
-  //! Ska jag använda "Object.keys(searchResult).length > 0 &&" för att hantera om "user canccelled request" hindrar searchResult från att skickas ned tom vid abortcontroller().signal abort.
 
   return (
     <div

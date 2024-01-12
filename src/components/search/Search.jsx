@@ -22,7 +22,8 @@ export const Search = ({
     }
   };
 
-  const handleOnClick = () => {
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
     // Check if search term matches input pattern.
     if (inputRef.current.checkValidity()) {
       getSearchData(search.trim());
@@ -32,7 +33,7 @@ export const Search = ({
     }
   };
 
-  // Show autocomplete if search field isn't empty after outside click.
+  // Show autocomplete if search field isn't empty after click outside.
   const showAutocomplete = () => {
     if (search !== null) {
       setAutocompleteOpen(true);
@@ -53,12 +54,12 @@ export const Search = ({
 
   return (
     <div>
-      <form className="search-component">
+      <form className="search-component" onSubmit={handleOnSubmit}>
         <div className="searchBar">
           <input
             type="search"
             name="q"
-            id="search-input"
+            id="search"
             placeholder="Search city name using only letters"
             size="30"
             maxLength="30"
@@ -68,15 +69,11 @@ export const Search = ({
             onChange={handleOnChange}
             autoComplete="off"
             onFocus={showAutocomplete}
-            // onBlur={(e) => {
-            //   // console.log(search);
-            // }}
             ref={inputRef}
           />
           {search && autocomplete}
-          {/* {autocomplete} */}
         </div>
-        <button onClick={handleOnClick}>Search</button>
+        <button type="submit">Search</button>
       </form>
     </div>
   );

@@ -27,37 +27,38 @@ export async function makeMultipleAPICalls(endpoints, signal) {
 }
 
 export const getWeatherData = (position, signal) => {
-  const { latitude, longitude } = position;
-  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-  const responses = makeMultipleAPICalls(
-    [
-      `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
-      `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
-    ],
-    signal,
-  );
-  return responses;
+  // const { latitude, longitude } = position;
+  // const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+  // const responses = makeMultipleAPICalls(
+  //   [
+  //     `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+  //     `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`,
+  //   ],
+  //   signal,
+  // );
+  // return responses;
 
   // JSON Server
-  // const response = makeAPICall(`http://localhost:8000/data`);
-  // // console.log(response);
-  // return response;
+  const response = makeAPICall(`http://localhost:8000/data`);
+  // console.log(response);
+  return response;
 };
 
 // Geocoding API (Direct geocoding)(Limit(optional): number of search results).
 export const getSearchResult = (searchTerm, signal) => {
-  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-  const response = makeAPICall(
-    `${GEOCODING_API_URL}/direct?q=${searchTerm}&limit=${5}&appid=${apiKey}`,
-    signal,
-    // `${GEOCODING_API_URL}/direct?q=${searchTerm}&appid=${apiKey}`
-  );
-  return response;
-
-  // JSON Server
-  // const response = makeAPICall(`http://localhost:9000/data`);
+  // const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+  // const response = makeAPICall(
+  //   `${GEOCODING_API_URL}/direct?q=${searchTerm}&limit=${5}&appid=${apiKey}`,
+  //   signal,
+  //   // `${GEOCODING_API_URL}/direct?q=${searchTerm}&appid=${apiKey}`
+  // );
   // // console.log(response);
   // return response;
+
+  // JSON Server
+  const response = makeAPICall(`http://localhost:9000/data`);
+  // console.log(response);
+  return response;
 };
 
 // Multiple endpoints

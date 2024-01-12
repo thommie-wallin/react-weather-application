@@ -49,10 +49,10 @@
   width: 100%;
 }
 
-/* #search-input:valid {
+/* #search:valid {
   border: 2px solid black;
 } */
-#search-input:invalid {
+#search:invalid {
   border: red solid 2px;
 }
 
