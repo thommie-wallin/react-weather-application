@@ -25,7 +25,7 @@ export const Search = ({
   const handleOnSubmit = (e) => {
     e.preventDefault();
     // Check if search term matches input pattern.
-    if (inputRef.current.checkValidity()) {
+    if (inputRef.current.checkValidity() && search !== null) {
       getSearchData(search.trim());
       inputRef.current.value = null;
       setAutocompleteOpen(false);

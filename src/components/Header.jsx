@@ -6,7 +6,7 @@ export const Header = ({ toggleTempUnit, locationName, search }) => {
 
   // Toggle temperature unit and send to parent
   const sendData = () => {
-    setIsTempUnit(isTempUnit ? false : true)
+    setIsTempUnit(isTempUnit ? false : true);
     toggleTempUnit(isTempUnit);
   };
 
@@ -15,15 +15,11 @@ export const Header = ({ toggleTempUnit, locationName, search }) => {
       <div className="header">
         <div className="title">
           <h1>Weather App</h1>
-          <button onClick={sendData}>
-            Change to {isTempUnit ? "℃" : "℉"}
-          </button>
+          <button onClick={sendData}>Change to {isTempUnit ? "℃" : "℉"}</button>
         </div>
-        <div className="search">
-          {search}
-        </div>
+        <div className="search">{search}</div>
         <div className="location">
-          <h3>{locationName}</h3>
+          <h3>{locationName ? locationName : "Welcome"}</h3>
         </div>
       </div>
       <nav className="navbar">

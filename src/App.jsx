@@ -187,18 +187,12 @@ function App() {
             />
           }
         />
-        {error && (
-          <div className="router-content">
+        <div className="router-content">
+          {error && (
             <p>Something went wrong! Please try again. Error:{error}</p>
-          </div>
-        )}
-        {isLoading && (
-          <div className="router-content">
-            <p>Loading...</p>
-          </div>
-        )}
-        {currentWeather && forecast && (
-          <div className="router-content">
+          )}
+          {isLoading && position !== null && <p>Loading...</p>}
+          {currentWeather && forecast && (
             <Switch>
               <Route exact path="/">
                 {Object.keys(currentWeather).length > 0 && (
@@ -225,10 +219,9 @@ function App() {
                 )}
               </Route>
             </Switch>
-          </div>
-        )}
+          )}
 
-        {/* {isLoading ? (
+          {/* {isLoading ? (
           <div className="router-content">
             {error ? (
               <p>Something went wrong! Please try again. Error: {error}</p>
@@ -266,6 +259,7 @@ function App() {
             </Switch>
           </div>
         )} */}
+        </div>
       </Router>
     </div>
   );
