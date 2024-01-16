@@ -1,29 +1,39 @@
 import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import { getWeatherData, getSearchResult } from "./api/api.jsx";
+// import { getWeatherData, getSearchResult } from "./api/api.jsx";
 import Today from "./components/forecasts/Today.jsx";
 import WeekOverview from "./components/forecasts/WeekOverview.jsx";
 import Hourly from "./components/forecasts/Hourly.jsx";
 import WeekForecast from "./components/forecasts/WeekForecast.jsx";
-import { getGeolocationPos } from "./api/geolocation.jsx";
+// import { getGeolocationPos } from "./api/geolocation.jsx";
 import { Header } from "./components/Header.jsx";
 import { Search } from "./components/search/Search.jsx";
 import Autocomplete from "./components/search/Autocomplete.jsx";
-import { getSearchLocation } from "./api/geoDB.jsx";
+// import { getSearchLocation } from "./api/geoDB.jsx";
+
+import { getGeolocationPosition } from "./services/geolocation.jsx";
+import { getForecast } from "./services/forecast.jsx";
+import { getPosition } from "./services/position.jsx";
+import { getAutocompleteItems } from "./services/autocomplete-list.jsx";
 
 function App() {
   const [position, setPosition] = useState(null);
   const [currentWeather, setCurrentWeather] = useState({});
   const [forecast, setforecast] = useState({});
+
   const [isTempUnit, setIsTempUnit] = useState(true);
+
   const [searchResult, setSearchResult] = useState({});
   const [autocompleteOpen, setAutocompleteOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(null);
   let autocompleteRef = useRef();
+
+  // Using useRef() to handle each API call in case of user aborting the request without a rerendering of app.
   const autocompleteAbortControllerRef = useRef();
   const weatherAbortControllerRef = useRef(null);
   const searchAbortControllerRef = useRef(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -43,7 +53,7 @@ function App() {
 
     setIsLoading(true);
     try {
-      const data = await getSearchResult(searchData, { signal });
+      const data = await getPosition(searchData, { signal });
       setPosition({
         latitude: data[0].lat,
         longitude: data[0].lon,
@@ -82,7 +92,7 @@ function App() {
       setAutocompleteIsLoading(true);
       setAutocompleteOpen(true);
       try {
-        const data = await getSearchLocation(searchData, signal);
+        const data = await getAutocompleteItems(searchData, signal);
         setSearchResult(data);
       } catch (error) {
         if (error.name === "AbortError") {
@@ -106,7 +116,7 @@ function App() {
 
     setIsLoading(true);
     try {
-      const data = await getWeatherData(position, { signal });
+      const data = await getForecast(position, { signal });
       setCurrentWeather(data[0]);
       setforecast(data[1]);
     } catch (error) {
@@ -121,12 +131,12 @@ function App() {
   }
 
   // If allowed, get user position from Geolocation API before first render.
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
       setIsLoading(true);
       if (res.state === "granted") {
         try {
-          const posObj = await getGeolocationPos();
+          const posObj = await getGeolocationPosition();
           setPosition({
             latitude: posObj.coords.latitude,
             longitude: posObj.coords.longitude,
