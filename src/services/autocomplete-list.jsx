@@ -1,5 +1,5 @@
 import { GEODB_API_URL } from "../utils/constants";
-import { makeAPICall, makeMultipleAPICalls } from "../api/api";
+import { makeAPICall, makeMultipleAPICalls } from "../adapters/api";
 
 const geoApiOptions = {
   method: "GET",
