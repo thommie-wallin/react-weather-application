@@ -6,25 +6,25 @@ import {
   GEOCODING_API_URL,
 } from "../utils/constants";
 
-export async function makeAPICall(endpoint, signal) {
-  try {
-    const res = await fetch(endpoint, signal);
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    return error;
-  }
+// export async function makeAPICall(endpoint, signal) {
+//   try {
+//     const res = await fetch(endpoint, signal);
+//     const data = await res.json();
+//     return data;
+//   } catch (error) {
+//     return error;
+//   }
 
-  // if (res.status !== 200) {
-  //   throw new Error("Unable to send weather data");
-  // }
-}
+//   // if (res.status !== 200) {
+//   //   throw new Error("Unable to send weather data");
+//   // }
+// }
 
-export async function makeMultipleAPICalls(endpoints, signal) {
-  const promises = endpoints.map((endpoint) => makeAPICall(endpoint, signal));
-  const responses = await Promise.all(promises);
-  return responses;
-}
+// export async function makeMultipleAPICalls(endpoints, signal) {
+//   const promises = endpoints.map((endpoint) => makeAPICall(endpoint, signal));
+//   const responses = await Promise.all(promises);
+//   return responses;
+// }
 
 // export const getWeatherData = (position, signal) => {
 //   // const { latitude, longitude } = position;

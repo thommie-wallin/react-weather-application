@@ -16,11 +16,30 @@ import { getGeolocationPosition } from "./services/geolocation.jsx";
 import { getForecast } from "./services/forecast.jsx";
 import { getPosition } from "./services/position.jsx";
 import { getAutocompleteItems } from "./services/autocomplete-list.jsx";
+import { useGetForecast } from "./hooks/useGetForecast.jsx";
+import useGetGeolocationPosition from "./hooks/useGetGeolocationPosition.jsx";
 
 function App() {
-  const [position, setPosition] = useState(null);
-  const [currentWeather, setCurrentWeather] = useState({});
-  const [forecast, setforecast] = useState({});
+  const {
+    position,
+    isLoading: isFetchingPosition,
+    error: errorPosition,
+  } = useGetGeolocationPosition();
+  const {
+    currentWeather,
+    forecast,
+    isLoading: isFetchingForecast,
+    error: errorForecast,
+  } = useGetForecast(position);
+
+  // Read each loading state and convert them to a component-level value
+  const isLoading = isFetchingForecast || isFetchingPosition;
+
+  const error = errorForecast || errorPosition;
+
+  // const [position, setPosition] = useState();
+  // const [currentWeather, setCurrentWeather] = useState({});
+  // const [forecast, setforecast] = useState({});
 
   const [isTempUnit, setIsTempUnit] = useState(true);
 
@@ -34,9 +53,9 @@ function App() {
   const weatherAbortControllerRef = useRef(null);
   const searchAbortControllerRef = useRef(null);
 
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
-  const [error, setError] = useState();
+  // const [error, setError] = useState();
 
   // Callback to toggle isTempUnit from header component
   const handleTempUnit = (tempUnit) => {
@@ -44,111 +63,111 @@ function App() {
   };
 
   // Get weather for searched location (Geocoded API OpenWeatherMap).
-  async function handleSearch(searchData) {
-    // Abort previous api call
-    searchAbortControllerRef.current?.abort();
-    // Create new abortcontroller for new api call
-    searchAbortControllerRef.current = new AbortController();
-    const signal = searchAbortControllerRef.current?.signal;
+  // async function handleSearch(searchData) {
+  //   // Abort previous api call
+  //   searchAbortControllerRef.current?.abort();
+  //   // Create new abortcontroller for new api call
+  //   searchAbortControllerRef.current = new AbortController();
+  //   const signal = searchAbortControllerRef.current?.signal;
 
-    setIsLoading(true);
-    try {
-      const data = await getPosition(searchData, { signal });
-      setPosition({
-        latitude: data[0].lat,
-        longitude: data[0].lon,
-      });
-    } catch (error) {
-      if (error.name === "AbortError") {
-        console.error(error);
-        return;
-      }
-      setError(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  //   setIsLoading(true);
+  //   try {
+  //     const data = await getPosition(searchData, { signal });
+  //     setPosition({
+  //       latitude: data[0].lat,
+  //       longitude: data[0].lon,
+  //     });
+  //   } catch (error) {
+  //     if (error.name === "AbortError") {
+  //       console.error(error);
+  //       return;
+  //     }
+  //     setError(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
 
   // Get search suggestions for autocomplete component (GeoDB-cities API).
-  async function handleOnSearchChange(searchData) {
-    if (searchData !== null) {
-      // Check if searchdata existed before correcting validation invalid.
-      if (searchData === searchTerm) {
-        setAutocompleteOpen(true);
-        return;
-      }
+  // async function handleOnSearchChange(searchData) {
+  //   if (searchData !== null) {
+  //     // Check if searchdata existed before correcting validation invalid.
+  //     if (searchData === searchTerm) {
+  //       setAutocompleteOpen(true);
+  //       return;
+  //     }
 
-      // Cache search term in state
-      setSearchTerm(searchData);
+  //     // Cache search term in state
+  //     setSearchTerm(searchData);
 
-      // Abort unfinished api request.
-      if (autocompleteAbortControllerRef.current) {
-        autocompleteAbortControllerRef.current.abort();
-      }
-      // Create new abortController() for new request.
-      autocompleteAbortControllerRef.current = new AbortController();
-      const signal = autocompleteAbortControllerRef.current.signal;
+  //     // Abort unfinished api request.
+  //     if (autocompleteAbortControllerRef.current) {
+  //       autocompleteAbortControllerRef.current.abort();
+  //     }
+  //     // Create new abortController() for new request.
+  //     autocompleteAbortControllerRef.current = new AbortController();
+  //     const signal = autocompleteAbortControllerRef.current.signal;
 
-      setAutocompleteIsLoading(true);
-      setAutocompleteOpen(true);
-      try {
-        const data = await getAutocompleteItems(searchData, signal);
-        setSearchResult(data);
-      } catch (error) {
-        if (error.name === "AbortError") {
-          console.error(error);
-          return;
-        }
-        setError(error);
-      } finally {
-        setAutocompleteIsLoading(false);
-      }
-    }
-  }
+  //     setAutocompleteIsLoading(true);
+  //     setAutocompleteOpen(true);
+  //     try {
+  //       const data = await getAutocompleteItems(searchData, signal);
+  //       setSearchResult(data);
+  //     } catch (error) {
+  //       if (error.name === "AbortError") {
+  //         console.error(error);
+  //         return;
+  //       }
+  //       setError(error);
+  //     } finally {
+  //       setAutocompleteIsLoading(false);
+  //     }
+  //   }
+  // }
 
   // Get weather data from updated position (OpenWeatherMap API).
-  async function handlePositionChange(position) {
-    // Abort previous api call
-    weatherAbortControllerRef.current?.abort();
-    // Create new abortcontroller for new api call
-    weatherAbortControllerRef.current = new AbortController();
-    const signal = weatherAbortControllerRef.current?.signal;
+  // async function handlePositionChange(position) {
+  //   // Abort previous api call
+  //   weatherAbortControllerRef.current?.abort();
+  //   // Create new abortcontroller for new api call
+  //   weatherAbortControllerRef.current = new AbortController();
+  //   const signal = weatherAbortControllerRef.current?.signal;
 
-    setIsLoading(true);
-    try {
-      const data = await getForecast(position, { signal });
-      setCurrentWeather(data[0]);
-      setforecast(data[1]);
-    } catch (error) {
-      if (error.name === "AbortError") {
-        console.error(error);
-        return;
-      }
-      setError(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  //   setIsLoading(true);
+  //   try {
+  //     const data = await getForecast(position, { signal });
+  //     setCurrentWeather(data[0]);
+  //     setforecast(data[1]);
+  //   } catch (error) {
+  //     if (error.name === "AbortError") {
+  //       console.error(error);
+  //       return;
+  //     }
+  //     setError(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
 
   // If allowed, get user position from Geolocation API before first render.
-  useEffect(() => {
-    navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
-      setIsLoading(true);
-      if (res.state === "granted") {
-        try {
-          const posObj = await getGeolocationPosition();
-          setPosition({
-            latitude: posObj.coords.latitude,
-            longitude: posObj.coords.longitude,
-          });
-        } catch (error) {
-          setError(error);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
+  //     setIsLoading(true);
+  //     if (res.state === "granted") {
+  //       try {
+  //         const posObj = await getGeolocationPosition();
+  //         setPosition({
+  //           latitude: posObj.coords.latitude,
+  //           longitude: posObj.coords.longitude,
+  //         });
+  //       } catch (error) {
+  //         setError(error);
+  //       } finally {
+  //         setIsLoading(false);
+  //       }
+  //     }
+  //   });
+  // }, []);
 
   // Close autocomplete when click outside of search component.
   useEffect(() => {
@@ -167,11 +186,14 @@ function App() {
   }, []);
 
   // Get new forecast when position updates.
-  useEffect(() => {
-    if (position !== null) {
-      handlePositionChange(position);
-    }
-  }, [position]);
+  // useEffect(() => {
+  //   if (position !== null) {
+  //     // handlePositionChange(position);
+  //     // console.log(useGetForecast(position));
+  //     // const { currentWeather, forecast, isLoading, error } =
+  //     //   useGetForecast(position);
+  //   }
+  // }, [position]);
 
   return (
     <div className="content">
@@ -181,14 +203,14 @@ function App() {
           locationName={currentWeather.name}
           search={
             <Search
-              getSearchData={handleSearch}
-              onSearchChange={handleOnSearchChange}
+              // getSearchData={handleSearch}
+              // onSearchChange={handleOnSearchChange}
               setAutocompleteOpen={setAutocompleteOpen}
               autocomplete={
                 <Autocomplete
                   searchResult={searchResult}
                   setSearchResult={setSearchResult}
-                  setPosition={setPosition}
+                  // setPosition={setPosition}
                   autocompleteOpen={autocompleteOpen}
                   ref={autocompleteRef}
                   autocompleteIsLoading={autocompleteIsLoading}
