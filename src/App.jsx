@@ -18,28 +18,34 @@ import { getPosition } from "./services/position.jsx";
 import { getAutocompleteItems } from "./services/autocomplete-list.jsx";
 import { useGetForecast } from "./hooks/useGetForecast.jsx";
 import useGetGeolocationPosition from "./hooks/useGetGeolocationPosition.jsx";
+import { ForecastProvider } from "./contexts/forecast-context.jsx";
 
 function App() {
-  const {
-    position,
-    isLoading: isFetchingPosition,
-    error: errorPosition,
-  } = useGetGeolocationPosition();
-  const {
-    currentWeather,
-    forecast,
-    isLoading: isFetchingForecast,
-    error: errorForecast,
-  } = useGetForecast(position);
+  // const {
+  //   // position,
+  //   isLoading: isFetchingPosition,
+  //   error: errorPosition,
+  // } =
+  useGetGeolocationPosition();
+
+  // const {
+  //   currentWeather,
+  //   forecast,
+  //   isLoading: isFetchingForecast,
+  //   error: errorForecast,
+  // } = useGetForecast(position);
 
   // Read each loading state and convert them to a component-level value
-  const isLoading = isFetchingForecast || isFetchingPosition;
+  // const isLoading = isFetchingForecast || isFetchingPosition;
 
-  const error = errorForecast || errorPosition;
+  // const error = errorForecast || errorPosition;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   // const [position, setPosition] = useState();
-  // const [currentWeather, setCurrentWeather] = useState({});
-  // const [forecast, setforecast] = useState({});
+  const [currentWeather, setCurrentWeather] = useState({});
+  const [forecast, setforecast] = useState({});
 
   const [isTempUnit, setIsTempUnit] = useState(true);
 
@@ -149,7 +155,8 @@ function App() {
   //   }
   // }
 
-  // If allowed, get user position from Geolocation API before first render.
+  // const { setPosition } = useGetForecast();
+  // // If allowed, get user position from Geolocation API before first render.
   // useEffect(() => {
   //   navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
   //     setIsLoading(true);
@@ -196,104 +203,110 @@ function App() {
   // }, [position]);
 
   return (
-    <div className="content">
-      <Router>
-        <Header
-          toggleTempUnit={handleTempUnit}
-          locationName={currentWeather.name}
-          search={
-            <Search
-              // getSearchData={handleSearch}
-              // onSearchChange={handleOnSearchChange}
-              setAutocompleteOpen={setAutocompleteOpen}
-              autocomplete={
-                <Autocomplete
-                  searchResult={searchResult}
-                  setSearchResult={setSearchResult}
-                  // setPosition={setPosition}
-                  autocompleteOpen={autocompleteOpen}
-                  ref={autocompleteRef}
-                  autocompleteIsLoading={autocompleteIsLoading}
-                />
-              }
-            />
-          }
-        />
-        <div className="router-content">
-          {error && (
-            <p>Something went wrong! Please try again. Error:{error}</p>
-          )}
-          {isLoading && position !== null && <p>Loading...</p>}
-          {currentWeather && forecast && (
-            <Switch>
-              <Route exact path="/">
-                {Object.keys(currentWeather).length > 0 && (
-                  <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
-                )}
-                {Object.keys(forecast).length > 0 && (
-                  <WeekOverview
-                    weatherData={forecast}
-                    isTempUnit={isTempUnit}
+    <ForecastProvider>
+      <div className="content">
+        <Router>
+          <Header
+            toggleTempUnit={handleTempUnit}
+            // locationName={currentWeather.name}
+            search={
+              <Search
+                // getSearchData={handleSearch}
+                // onSearchChange={handleOnSearchChange}
+                setAutocompleteOpen={setAutocompleteOpen}
+                autocomplete={
+                  <Autocomplete
+                    searchResult={searchResult}
+                    setSearchResult={setSearchResult}
+                    // setPosition={setPosition}
+                    autocompleteOpen={autocompleteOpen}
+                    ref={autocompleteRef}
+                    autocompleteIsLoading={autocompleteIsLoading}
                   />
-                )}
-              </Route>
-              <Route path="/hourly">
-                {Object.keys(forecast).length > 0 && (
-                  <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
-                )}
-              </Route>
-              <Route path="/fiveday">
-                {Object.keys(forecast).length > 0 && (
-                  <WeekForecast
-                    weatherData={forecast}
-                    isTempUnit={isTempUnit}
-                  />
-                )}
-              </Route>
-            </Switch>
-          )}
+                }
+              />
+            }
+          />
 
-          {/* {isLoading ? (
           <div className="router-content">
-            {error ? (
-              <p>Something went wrong! Please try again. Error: {error}</p>
-            ) : (
-              <p>Loading...</p>
+            {error && (
+              <p>Something went wrong! Please try again. Error:{error}</p>
             )}
+            {/* {isLoading && position !== null && <p>Loading...</p>} */}
+            {currentWeather && forecast && (
+              <Switch>
+                <Route exact path="/">
+                  {Object.keys(currentWeather).length > 0 && (
+                    <Today
+                      weatherData={currentWeather}
+                      isTempUnit={isTempUnit}
+                    />
+                  )}
+                  {Object.keys(forecast).length > 0 && (
+                    <WeekOverview
+                      weatherData={forecast}
+                      isTempUnit={isTempUnit}
+                    />
+                  )}
+                </Route>
+                <Route path="/hourly">
+                  {Object.keys(forecast).length > 0 && (
+                    <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
+                  )}
+                </Route>
+                <Route path="/fiveday">
+                  {Object.keys(forecast).length > 0 && (
+                    <WeekForecast
+                      weatherData={forecast}
+                      isTempUnit={isTempUnit}
+                    />
+                  )}
+                </Route>
+              </Switch>
+            )}
+
+            {/* {isLoading ? (
+            <div className="router-content">
+              {error ? (
+                <p>Something went wrong! Please try again. Error: {error}</p>
+              ) : (
+                <p>Loading...</p>
+              )}
+            </div>
+          ) : (
+            <div className="router-content">
+              <Switch>
+                <Route exact path="/">
+                  {Object.keys(currentWeather).length > 0 && (
+                    <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
+                  )}
+                  {Object.keys(forecast).length > 0 && (
+                    <WeekOverview
+                      weatherData={forecast}
+                      isTempUnit={isTempUnit}
+                    />
+                  )}
+                </Route>
+                <Route path="/hourly">
+                  {Object.keys(forecast).length > 0 && (
+                    <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
+                  )}
+                </Route>
+                <Route path="/fiveday">
+                  {Object.keys(forecast).length > 0 && (
+                    <WeekForecast
+                      weatherData={forecast}
+                      isTempUnit={isTempUnit}
+                    />
+                  )}
+                </Route>
+              </Switch>
+            </div>
+          )} */}
           </div>
-        ) : (
-          <div className="router-content">
-            <Switch>
-              <Route exact path="/">
-                {Object.keys(currentWeather).length > 0 && (
-                  <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
-                )}
-                {Object.keys(forecast).length > 0 && (
-                  <WeekOverview
-                    weatherData={forecast}
-                    isTempUnit={isTempUnit}
-                  />
-                )}
-              </Route>
-              <Route path="/hourly">
-                {Object.keys(forecast).length > 0 && (
-                  <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
-                )}
-              </Route>
-              <Route path="/fiveday">
-                {Object.keys(forecast).length > 0 && (
-                  <WeekForecast
-                    weatherData={forecast}
-                    isTempUnit={isTempUnit}
-                  />
-                )}
-              </Route>
-            </Switch>
-          </div>
-        )} */}
-        </div>
-      </Router>
-    </div>
+        </Router>
+      </div>
+    </ForecastProvider>
   );
 }
 

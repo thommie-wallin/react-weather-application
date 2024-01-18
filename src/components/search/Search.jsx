@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useForecast } from "../../contexts/forecast-context";
 
 export const Search = ({
   getSearchData,
@@ -6,6 +7,9 @@ export const Search = ({
   setAutocompleteOpen,
   autocomplete,
 }) => {
+  const { currentWeather } = useForecast();
+  // console.log(currentWeather);
+
   const [search, setSearch] = useState(null);
   const inputRef = useRef();
 
@@ -17,7 +21,7 @@ export const Search = ({
       setSearch(e.target.value.trim());
     } else {
       // Reset search when input-elements value is empty.
-      setSearch(null);
+      // setSearch(null);
       setAutocompleteOpen(false);
     }
   };
@@ -29,7 +33,7 @@ export const Search = ({
       getSearchData(search.trim());
       inputRef.current.value = null;
       setAutocompleteOpen(false);
-      setSearch(null);
+      // setSearch(null);
     }
   };
 
@@ -41,16 +45,16 @@ export const Search = ({
   };
 
   // Debounce fast typing to hinder quick API-calls.
-  useEffect(() => {
-    if (search !== null && search.length !== 0) {
-      const timeoutID = setTimeout(() => {
-        onSearchChange(search);
-      }, 1000);
-      return () => {
-        clearTimeout(timeoutID);
-      };
-    }
-  }, [search]);
+  // useEffect(() => {
+  //   if (search !== null && search.length !== 0) {
+  //     const timeoutID = setTimeout(() => {
+  //       onSearchChange(search);
+  //     }, 1000);
+  //     return () => {
+  //       clearTimeout(timeoutID);
+  //     };
+  //   }
+  // }, [search]);
 
   return (
     <div>
@@ -70,6 +74,7 @@ export const Search = ({
             autoComplete="off"
             onFocus={showAutocomplete}
             ref={inputRef}
+            // value={search}
           />
           {search && autocomplete}
         </div>

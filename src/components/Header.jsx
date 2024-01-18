@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useForecast } from "../contexts/forecast-context";
+import { useGetForecast } from "../hooks/useGetForecast";
 
-export const Header = ({ toggleTempUnit, locationName, search }) => {
+export const Header = ({ toggleTempUnit, search }) => {
   const [isTempUnit, setIsTempUnit] = useState(false);
+  const { locationName } = useForecast();
+  // console.log(useForecast());
 
   // Toggle temperature unit and send to parent
   const sendData = () => {
