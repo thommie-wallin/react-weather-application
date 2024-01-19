@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { getGeolocationPosition } from "../services/geolocation";
-import { useForecast } from "../contexts/forecast-context";
+// import { useForecast } from "../contexts/forecast-context";
 import { useGetForecast } from "./useGetForecast";
 
-const useGetGeolocationPosition = () => {
-  const { setPosition } = useGetForecast();
-  // console.log(useGetForecast());
-
+const useGetGeolocationPosition = (setPosition, setIsLoading, setError) => {
   // const [position, setPosition] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState();
 
   // If allowed, get user position from Geolocation API after first render.
   useEffect(() => {
@@ -34,6 +31,7 @@ const useGetGeolocationPosition = () => {
   // console.log(position);
 
   // return { position, isLoading, error };
+  // return { position };
   // return { isLoading, error };
 };
 
