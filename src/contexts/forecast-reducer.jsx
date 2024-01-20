@@ -1,11 +1,14 @@
 export const initialState = {
-  locationName: "",
-  currentWeather: {},
-  forecast: {},
-  position: null,
-  isLoading: false,
-  error: null,
-  setPosition: () => {},
+  user: null,
+  setuser: null,
+  // locationName: "",
+  // currentWeather: {},
+  // forecast: {},
+  // position: null,
+  // isLoading: false,
+  // error: null,
+  // setForecast: null,
+  // setCurrentWeather: null,
 };
 
 export const forecastReducer = (state, action) => {

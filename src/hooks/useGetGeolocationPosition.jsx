@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getGeolocationPosition } from "../services/geolocation";
 // import { useForecast } from "../contexts/forecast-context";
-import { useGetForecast } from "./useGetForecast";
 
 const useGetGeolocationPosition = (setPosition, setIsLoading, setError) => {
   // const [position, setPosition] = useState(null);

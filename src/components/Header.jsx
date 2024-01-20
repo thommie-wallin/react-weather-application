@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 // import { useForecast } from "../App.jsx";
 import { useGetForecast } from "../hooks/useGetForecast";
+import { ForecastContext } from "../contexts/forecast-context";
 
 export const Header = ({ toggleTempUnit, locationName, search }) => {
+  // const { user, setuser } = useContext(ForecastContext);
   // const context = useForecast();
-  // console.log(context);
+  // console.log(user);
 
   const [isTempUnit, setIsTempUnit] = useState(false);
 
@@ -25,6 +27,7 @@ export const Header = ({ toggleTempUnit, locationName, search }) => {
         <div className="search">{search}</div>
         <div className="location">
           <h3>{locationName ? locationName : "Welcome"}</h3>
+          {/* <h3>{user ? user : "Welcome"}</h3> */}
         </div>
       </div>
       <nav className="navbar">

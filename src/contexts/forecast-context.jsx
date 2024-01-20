@@ -1,4 +1,5 @@
 import React, {
+  useState,
   createContext,
   useContext,
   useMemo,
@@ -10,7 +11,8 @@ import { initialState, forecastReducer } from "./forecast-reducer";
 import useGetGeolocationPosition from "../hooks/useGetGeolocationPosition";
 import getGeolocationPosition from "../hooks/useGetGeolocationPosition";
 
-const ForecastContext = createContext(initialState);
+export const ForecastContext = createContext(initialState);
+// export const ForecastContext = createContext();
 
 // export function useForecast() {
 //   const context = useContext(ForecastContext);
@@ -23,32 +25,37 @@ const ForecastContext = createContext(initialState);
 // }
 
 export function ForecastProvider({ children }) {
-  const [state, dispatch] = useReducer(forecastReducer, initialState);
+  const [user, setuser] = useState(null);
 
-  const setPosition = (position) => {
-    // setForecast(position);
+  // const [currentWeather, setCurrentWeather] = useState({});
+  // const [forecast, setforecast] = useState({});
 
-    dispatch({
-      type: "SET_POSITION",
-      payload: position,
-    });
-  };
+  // const [state, dispatch] = useReducer(forecastReducer, initialState);
 
-  const setForecast = (position) => {
-    const { locationName, currentWeather, forecast, isLoading, error } =
-      useGetForecast(position);
+  // const setPosition = (position) => {
+  //   // setForecast(position);
 
-    dispatch({
-      type: "SET_FORECAST",
-      payload: {
-        locationName,
-        currentWeather,
-        forecast,
-        isLoading,
-        error,
-      },
-    });
-  };
+  //   dispatch({
+  //     type: "SET_POSITION",
+  //     payload: position,
+  //   });
+  // };
+
+  // const setForecast = (position) => {
+  //   const { locationName, currentWeather, forecast, isLoading, error } =
+  //     useGetForecast(position);
+
+  //   dispatch({
+  //     type: "SET_FORECAST",
+  //     payload: {
+  //       locationName,
+  //       currentWeather,
+  //       forecast,
+  //       isLoading,
+  //       error,
+  //     },
+  //   });
+  // };
 
   // useGetGeolocationPosition();
 
@@ -85,14 +92,20 @@ export function ForecastProvider({ children }) {
   // }, [state.position]);
 
   const value = {
-    locationName: state.locationName,
-    currentWeather: state.currentWeather,
-    forecast: state.forecast,
+    user,
+    setuser,
+    // currentWeather,
+    // setCurrentWeather,
+    // forecast,
+    // setforecast,
+    // locationName: state.locationName,
+    // currentWeather: state.currentWeather,
+    // forecast: state.forecast,
     // position: state.position,
-    isLoading: state.isLoading,
-    error: state.error,
-    setForecast,
-    setPosition,
+    // isLoading: state.isLoading,
+    // error: state.error,
+    // setForecast,
+    // setPosition,
   };
 
   return (
