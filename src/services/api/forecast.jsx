@@ -1,5 +1,5 @@
-import { makeAPICall, makeMultipleAPICalls } from "../adapters/api";
-import { WEATHER_API_URL } from "../utils/constants";
+import { makeAPICall, makeMultipleAPICalls } from "../../adapters/api";
+import { WEATHER_API_URL } from "../../utils/constants";
 
 export const getForecast = (position, signal) => {
   // const { latitude, longitude } = position;

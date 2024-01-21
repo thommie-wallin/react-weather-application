@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { ForecastContext } from "../../contexts/forecast-context";
+import { ForecastContext } from "../../services/contexts/forecast-context";
 // import { useForecast } from "../../contexts/forecast-context";
 
 export const Search = ({

@@ -19,12 +19,12 @@ import Autocomplete from "./components/search/Autocomplete.jsx";
 import { getGeolocationPosition } from "./services/geolocation.jsx";
 import useGetGeolocationPosition from "./hooks/useGetGeolocationPosition.jsx";
 import { useGetForecast } from "./hooks/useGetForecast.jsx";
-import { getForecast } from "./services/forecast.jsx";
-import { getPosition } from "./services/position.jsx";
-import { getAutocompleteItems } from "./services/autocomplete-list.jsx";
-import { ForecastContext } from "./contexts/forecast-context.jsx";
+import { getForecast } from "./services/api/forecast.jsx";
+import { getPosition } from "./services/api/position.jsx";
+import { getAutocompleteItems } from "./services/api/autocomplete-list.jsx";
+import { ForecastContext } from "./services/contexts/forecast-context.jsx";
 // import { useForecast } from "./contexts/forecast-context.jsx";
-import { ForecastProvider } from "./contexts/forecast-context.jsx";
+import { ForecastProvider } from "./services/contexts/forecast-context.jsx";
 
 // const WeatherContext = createContext({
 //   cityList: [],

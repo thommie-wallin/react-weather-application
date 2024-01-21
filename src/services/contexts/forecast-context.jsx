@@ -6,10 +6,10 @@ import React, {
   useReducer,
   useEffect,
 } from "react";
-import { useGetForecast } from "../hooks/useGetForecast";
+import { useGetForecast } from "../../hooks/useGetForecast";
 import { initialState, forecastReducer } from "./forecast-reducer";
-import useGetGeolocationPosition from "../hooks/useGetGeolocationPosition";
-import getGeolocationPosition from "../hooks/useGetGeolocationPosition";
+import useGetGeolocationPosition from "../../hooks/useGetGeolocationPosition";
+import getGeolocationPosition from "../../hooks/useGetGeolocationPosition";
 
 export const ForecastContext = createContext(initialState);
 // export const ForecastContext = createContext();

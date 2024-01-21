@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 // import { useForecast } from "../App.jsx";
 import { useGetForecast } from "../hooks/useGetForecast";
-import { ForecastContext } from "../contexts/forecast-context";
+import { ForecastContext } from "../services/contexts/forecast-context";
 
 export const Header = ({ toggleTempUnit, locationName, search }) => {
   // const { user, setuser } = useContext(ForecastContext);

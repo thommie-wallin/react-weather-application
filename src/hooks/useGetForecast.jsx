@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { getForecast } from "../services/forecast";
+import { getForecast } from "../services/api/forecast";
 import useGetGeolocationPosition from "./useGetGeolocationPosition";
 
 export const useGetForecast = (position) => {
