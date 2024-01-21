@@ -33,13 +33,13 @@ export const Header = ({ toggleTempUnit, locationName, search }) => {
       <nav className="navbar">
         <ul className="navList">
           <li>
-            <Link to="/">Today</Link>
+            <Link to="/today">Today</Link>
           </li>
           <li>
             <Link to="/hourly">Hourly</Link>
           </li>
           <li>
-            <Link to="/fiveday">5 day</Link>
+            <Link to="/fivedays">5 day</Link>
           </li>
         </ul>
       </nav>

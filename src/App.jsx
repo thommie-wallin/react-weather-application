@@ -260,7 +260,7 @@ function App() {
             {isLoading && position !== null && <p>Loading...</p>}
             {currentWeather && forecast && (
               <Switch>
-                <Route exact path="/">
+                <Route path="/today">
                   {Object.keys(currentWeather).length > 0 && (
                     <Today
                       weatherData={currentWeather}
@@ -279,7 +279,7 @@ function App() {
                     <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
                   )}
                 </Route>
-                <Route path="/fiveday">
+                <Route path="/fivedays">
                   {Object.keys(forecast).length > 0 && (
                     <WeekForecast
                       weatherData={forecast}
