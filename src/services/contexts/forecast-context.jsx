@@ -54,6 +54,12 @@ export function ForecastProvider({ children }) {
     });
   };
 
+  const toggleTempUnit = () => {
+    dispatch({
+      type: "SET_TEMPUNIT",
+    });
+  };
+
   // useGetGeolocationPosition();
 
   // useEffect(() => {
@@ -101,7 +107,9 @@ export function ForecastProvider({ children }) {
     // position: state.position,
     // isLoading: state.isLoading,
     // error: state.error,
+    isTempUnitC: state.isTempUnitC,
     setForecast,
+    toggleTempUnit,
     // setPosition,
   };
 

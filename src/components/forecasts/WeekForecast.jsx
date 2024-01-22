@@ -1,10 +1,13 @@
+import React from "react";
 import "./../../styles/WeekForecast.css";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { filterArr, tempUnitConverter } from "../../utils/numberUtils.jsx";
+import { useForecast } from "../../services/contexts/forecast-context.jsx";
 
-const WeekForecast = ({ weatherData, isTempUnit }) => {
+const WeekForecast = () => {
+  const { forecast, isTempUnitC } = useForecast();
   // Filter 5 day / 3 hour forecast-data (each day have 8 readings).
-  const dailyForecasts = filterArr(weatherData.list, 8);
+  const dailyForecasts = filterArr(forecast.list, 8);
 
   // Get data from every third hour from a day
   const dateData = dailyForecasts.map((d, i) => {
@@ -15,7 +18,7 @@ const WeekForecast = ({ weatherData, isTempUnit }) => {
     });
 
     // Check if user choose celsius or fahrenheit, temp rounded to one decimal and parsed into an integer.
-    const temperature = tempUnitConverter(isTempUnit, d.main.temp);
+    const temperature = tempUnitConverter(isTempUnitC, d.main.temp);
 
     const windSpeed = d.wind.speed;
     const humidity = d.main.humidity;
@@ -26,7 +29,7 @@ const WeekForecast = ({ weatherData, isTempUnit }) => {
     const element = (
       <li key={i}>
         {dates} {temperature}
-        {isTempUnit ? "℃" : "℉"} <img src={iconsURL} alt={d.weather[0].main} />{" "}
+        {isTempUnitC ? "℃" : "℉"} <img src={iconsURL} alt={d.weather[0].main} />{" "}
         {d.weather[0].description} {windSpeed}m/s {humidity}%
       </li>
     );

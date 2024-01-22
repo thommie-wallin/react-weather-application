@@ -2,13 +2,15 @@ import React from "react";
 import "../../styles/Hourly.css";
 import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
+import { useForecast } from "../../services/contexts/forecast-context.jsx";
 
-const Hourly = ({ weatherData, isTempUnit }) => {
+const Hourly = () => {
+  const { forecast, isTempUnitC } = useForecast();
   // Get todays date
-  const date = new Date(weatherData.list[0].dt * 1000).toDateString();
+  const date = new Date(forecast.list[0].dt * 1000).toDateString();
 
   // Get data from every third hour from a day
-  const hourlyData = weatherData.list.slice(0, 8).map((d, i) => {
+  const hourlyData = forecast.list.slice(0, 8).map((d, i) => {
     // Get the hour
     const hour = new Date(d.dt * 1000).toLocaleTimeString([], {
       hour: "2-digit",
@@ -16,7 +18,7 @@ const Hourly = ({ weatherData, isTempUnit }) => {
     });
 
     // Check if user choose celsius or fahrenheit, temp rounded to one decimal and parsed into an integer.
-    const temperature = tempUnitConverter(isTempUnit, d.main.temp);
+    const temperature = tempUnitConverter(isTempUnitC, d.main.temp);
 
     const windSpeed = d.wind.speed;
     const humidity = d.main.humidity;
@@ -27,7 +29,7 @@ const Hourly = ({ weatherData, isTempUnit }) => {
     const element = (
       <li key={i}>
         {hour} {temperature}
-        {isTempUnit ? "℃" : "℉"} <img src={iconsURL} alt={d.weather[0].main} />{" "}
+        {isTempUnitC ? "℃" : "℉"} <img src={iconsURL} alt={d.weather[0].main} />{" "}
         {d.weather[0].description} {windSpeed}m/s {humidity}%
       </li>
     );

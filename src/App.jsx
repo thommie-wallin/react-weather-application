@@ -33,7 +33,7 @@ import { ForecastProvider } from "./services/contexts/forecast-context.jsx";
 //   // addCityName: (name) => {},
 //   currentWeather: {},
 //   forecast: {},
-//   isTempUnit: true,
+//   isTempUnitC: true,
 //   handleTempUnit: (bool) => {},
 // });
 
@@ -65,7 +65,7 @@ function App() {
 
   // const [cityName, setCityName] = useState("");
 
-  const [isTempUnit, setIsTempUnit] = useState(true);
+  // const [isTempUnitC, setisTempUnitC] = useState(true);
 
   const [searchResult, setSearchResult] = useState({});
   const [autocompleteOpen, setAutocompleteOpen] = useState(false);
@@ -81,10 +81,10 @@ function App() {
   const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Callback to toggle isTempUnit from header component
-  const handleTempUnit = (tempUnit) => {
-    setIsTempUnit(tempUnit);
-  };
+  // Callback to toggle isTempUnitC from header component
+  // const handleTempUnit = (tempUnit) => {
+  //   setisTempUnitC(tempUnit);
+  // };
 
   // const addCityName = (name) => {
   //   // const context = useForecast();
@@ -244,7 +244,7 @@ function App() {
     <div className="content">
       <Router>
         <Header
-          toggleTempUnit={handleTempUnit}
+          // toggleTempUnit={handleTempUnit}
           locationName={currentWeather.name}
           search={
             <Search
@@ -270,27 +270,33 @@ function App() {
           {isLoading && position !== null && <p>Loading...</p>}
           {currentWeather && forecast && (
             <Switch>
-              <Route path="/today">
+              <Route exact path="/today">
                 {Object.keys(currentWeather).length > 0 && (
-                  <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
+                  <Today
+                  // weatherData={currentWeather}
+                  // isTempUnitC={isTempUnitC}
+                  />
                 )}
                 {Object.keys(forecast).length > 0 && (
                   <WeekOverview
-                    weatherData={forecast}
-                    isTempUnit={isTempUnit}
+                  // weatherData={forecast}
+                  // isTempUnitC={isTempUnitC}
                   />
                 )}
               </Route>
               <Route path="/hourly">
                 {Object.keys(forecast).length > 0 && (
-                  <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
+                  <Hourly
+                  // weatherData={forecast}
+                  // isTempUnitC={isTempUnitC}
+                  />
                 )}
               </Route>
               <Route path="/fivedays">
                 {Object.keys(forecast).length > 0 && (
                   <WeekForecast
-                    weatherData={forecast}
-                    isTempUnit={isTempUnit}
+                  // weatherData={forecast}
+                  // isTempUnitC={isTempUnitC}
                   />
                 )}
               </Route>
@@ -310,25 +316,25 @@ function App() {
                 <Switch>
                   <Route exact path="/">
                     {Object.keys(currentWeather).length > 0 && (
-                      <Today weatherData={currentWeather} isTempUnit={isTempUnit} />
+                      <Today weatherData={currentWeather} isTempUnitC={isTempUnitC} />
                     )}
                     {Object.keys(forecast).length > 0 && (
                       <WeekOverview
                         weatherData={forecast}
-                        isTempUnit={isTempUnit}
+                        isTempUnitC={isTempUnitC}
                       />
                     )}
                   </Route>
                   <Route path="/hourly">
                     {Object.keys(forecast).length > 0 && (
-                      <Hourly weatherData={forecast} isTempUnit={isTempUnit} />
+                      <Hourly weatherData={forecast} isTempUnitC={isTempUnitC} />
                     )}
                   </Route>
                   <Route path="/fiveday">
                     {Object.keys(forecast).length > 0 && (
                       <WeekForecast
                         weatherData={forecast}
-                        isTempUnit={isTempUnit}
+                        isTempUnitC={isTempUnitC}
                       />
                     )}
                   </Route>

@@ -3,26 +3,29 @@ import { Link } from "react-router-dom";
 // import { useForecast } from "../App.jsx";
 import { useGetForecast } from "../hooks/useGetForecast";
 import { ForecastContext } from "../services/contexts/forecast-context";
+import { useForecast } from "../services/contexts/forecast-context";
 
-export const Header = ({ toggleTempUnit, locationName, search }) => {
-  const { user, setuser } = useContext(ForecastContext);
-  // const context = useForecast();
-  // console.log(user);
+export const Header = ({ locationName, search }) => {
+  // const { user, setuser } = useContext(ForecastContext);
+  const { isTempUnitC, toggleTempUnit } = useForecast();
+  // console.log(isTempUnitC);
 
-  const [isTempUnit, setIsTempUnit] = useState(false);
+  // const [isTempUnitC, setisTempUnitC] = useState(false);
 
   // Toggle temperature unit and send to parent
-  const sendData = () => {
-    setIsTempUnit(isTempUnit ? false : true);
-    toggleTempUnit(isTempUnit);
-  };
+  // const sendData = () => {
+  //   setisTempUnitC(isTempUnitC ? false : true);
+  //   toggleTempUnit(isTempUnitC);
+  // };
 
   return (
     <header>
       <div className="header">
         <div className="title">
           <h1>Weather App</h1>
-          <button onClick={sendData}>Change to {isTempUnit ? "℃" : "℉"}</button>
+          <button onClick={toggleTempUnit}>
+            Change to {isTempUnitC ? "℉" : "℃"}
+          </button>
         </div>
         <div className="search">{search}</div>
         <div className="location">

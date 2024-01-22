@@ -3,10 +3,12 @@ import "../../styles/WeekOverview.css";
 import { filterArr, getFiveDays } from "../../utils/numberUtils.jsx";
 import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
+import { useForecast } from "../../services/contexts/forecast-context.jsx";
 
-const WeekOverview = ({ weatherData, isTempUnit }) => {
+const WeekOverview = () => {
+  const { forecast, isTempUnitC } = useForecast();
   // Filter 5 day / 3 hour forecast-data (each day have 8 readings).
-  const dailyForecasts = filterArr(weatherData.list, 8);
+  const dailyForecasts = filterArr(forecast.list, 8);
 
   // Get the dates and weekdays
   const dates = dailyForecasts.map((d) => {
@@ -18,7 +20,7 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
 
   // Get temperatures
   const temps = dailyForecasts.map((d) => {
-    const temp = tempUnitConverter(isTempUnit, d.main.temp);
+    const temp = tempUnitConverter(isTempUnitC, d.main.temp);
     return temp;
   });
 
@@ -33,7 +35,7 @@ const WeekOverview = ({ weatherData, isTempUnit }) => {
         <div className="item">
           <p>{dates[i]}</p>
           <p>
-            {temps[i]} {isTempUnit ? "℃" : "℉"}
+            {temps[i]} {isTempUnitC ? "℃" : "℉"}
           </p>
         </div>
         <img src={iconsURL[i]} alt={d.weather[0].main} />

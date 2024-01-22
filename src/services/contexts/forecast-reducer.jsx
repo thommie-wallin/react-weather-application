@@ -4,6 +4,7 @@ export const initialState = {
   // locationName: "",
   currentWeather: {},
   forecast: {},
+  isTempUnitC: true,
   // position: null,
   // isLoading: false,
   // error: null,
@@ -22,6 +23,17 @@ export const forecastReducer = (state, action) => {
         // locationName: action.payload[0].name,
         currentWeather: payload.currentWeather,
         forecast: payload.forecast,
+        // isLoading: false,
+        // position: null,
+      };
+    case "SET_TEMPUNIT":
+      console.log("SET_TEMPUNIT", !state.isTempUnitC);
+      return {
+        ...state,
+        isTempUnitC: !state.isTempUnitC,
+        // locationName: action.payload[0].name,
+        // currentWeather: payload.currentWeather,
+        // forecast: payload.forecast,
         // isLoading: false,
         // position: null,
       };
