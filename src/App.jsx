@@ -54,8 +54,13 @@ function App() {
     currentWeather,
     // setCurrentWeather,
     forecast,
+    isLoading,
+    error,
     // setforecast,
     setForecast,
+    loadingStart,
+    loadingStop,
+    setError,
   } = useForecast();
 
   // const [currentWeather, setCurrentWeather] = useState({});
@@ -77,9 +82,11 @@ function App() {
   const weatherAbortControllerRef = useRef(null);
   const searchAbortControllerRef = useRef(null);
 
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
+
+  useGetGeolocationPosition(setPosition, loadingStart, loadingStop, setError);
 
   // Callback to toggle isTempUnitC from header component
   // const handleTempUnit = (tempUnit) => {
@@ -102,7 +109,8 @@ function App() {
     searchAbortControllerRef.current = new AbortController();
     const signal = searchAbortControllerRef.current?.signal;
 
-    setIsLoading(true);
+    // setIsLoading(true);
+    loadingStart();
     try {
       const data = await getPosition(searchData, { signal });
       setPosition({
@@ -116,7 +124,8 @@ function App() {
       }
       setError(error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
+      loadingStop();
     }
   }
 
@@ -165,7 +174,8 @@ function App() {
     weatherAbortControllerRef.current = new AbortController();
     const signal = weatherAbortControllerRef.current?.signal;
 
-    setIsLoading(true);
+    // setIsLoading(true);
+    loadingStart();
     try {
       const data = await getForecast(position, { signal });
       // console.log(data);
@@ -181,7 +191,8 @@ function App() {
       }
       setError(error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
+      loadingStop();
     }
   }
 
@@ -206,7 +217,7 @@ function App() {
   //   });
   // }, []);
 
-  useGetGeolocationPosition(setPosition, setIsLoading, setError);
+  // useGetGeolocationPosition(setPosition, setIsLoading, setError);
 
   // Close autocomplete when click outside of search component.
   useEffect(() => {

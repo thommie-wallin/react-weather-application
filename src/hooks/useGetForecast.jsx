@@ -108,7 +108,7 @@ export const useGetForecast = (position) => {
       // Abort previous api call
       weatherAbortControllerRef.current?.abort();
     };
-  }, [position]);
+  }, []);
 
   // const setPosition = (position) => {
   //   // console.log(position);

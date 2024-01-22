@@ -43,13 +43,16 @@ export function ForecastProvider({ children }) {
 
   const setForecast = (forecastData) => {
     // const { currentWeather, forecast } = useGetForecast(position);
+    // console.log(currentWeather);
     // console.log(forecastData[0]);
     dispatch({
       type: "SET_FORECAST",
       payload: {
         // forecastData,
         currentWeather: forecastData[0],
+        // currentWeather: currentWeather,
         forecast: forecastData[1],
+        // forecast: forecast,
       },
     });
   };
@@ -57,6 +60,27 @@ export function ForecastProvider({ children }) {
   const toggleTempUnit = () => {
     dispatch({
       type: "SET_TEMPUNIT",
+    });
+  };
+
+  const loadingStart = () => {
+    dispatch({
+      type: "LOADING_START",
+    });
+  };
+
+  const setError = (error) => {
+    dispatch({
+      type: "ERROR",
+      payload: {
+        error: error,
+      },
+    });
+  };
+
+  const loadingStop = () => {
+    dispatch({
+      type: "LOADING_STOP",
     });
   };
 
@@ -105,11 +129,15 @@ export function ForecastProvider({ children }) {
     // currentWeather: state.currentWeather,
     // forecast: state.forecast,
     // position: state.position,
-    // isLoading: state.isLoading,
-    // error: state.error,
+    isLoading: state.isLoading,
+    error: state.error,
     isTempUnitC: state.isTempUnitC,
     setForecast,
     toggleTempUnit,
+    loadingStart,
+    loadingStop,
+    setError,
+
     // setPosition,
   };
 

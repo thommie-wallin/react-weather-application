@@ -6,8 +6,8 @@ export const initialState = {
   forecast: {},
   isTempUnitC: true,
   // position: null,
-  // isLoading: false,
-  // error: null,
+  isLoading: false,
+  error: null,
   // setForecast: null,
   // setCurrentWeather: null,
 };
@@ -43,25 +43,25 @@ export const forecastReducer = (state, action) => {
     //     ...state,
     //     position: payload,
     //   };
-    // case "LOADING":
-    //   console.log("LOADING", payload);
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //   };
-    // case "ERROR":
-    //   console.log("ERROR", payload);
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     error: action.error,
-    //   };
-    // case "SUCCESS":
-    //   console.log("SUCCESS", payload);
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //   };
+    case "LOADING_START":
+      console.log("LOADING_START");
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case "ERROR":
+      console.log("ERROR", payload);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+    case "LOADING_STOP":
+      console.log("LOADING_STOP");
+      return {
+        ...state,
+        isLoading: false,
+      };
     default:
       throw new Error(`No case for type ${type} found in forecastReducer.`);
   }
