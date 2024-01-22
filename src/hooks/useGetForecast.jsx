@@ -129,10 +129,10 @@ export const useGetForecast = (position) => {
   // );
 
   return {
-    locationName,
+    // locationName,
     currentWeather,
     forecast,
-    isLoading,
-    error,
+    // isLoading,
+    // error,
   };
 };

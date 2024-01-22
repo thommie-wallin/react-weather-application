@@ -31,7 +31,7 @@ export const Search = ({
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    // setuser({ search });
+    // setuser(search);
 
     // Check if search term matches input pattern.
     if (inputRef.current.checkValidity() && search !== null) {

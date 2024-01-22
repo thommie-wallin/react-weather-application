@@ -11,18 +11,18 @@ import { initialState, forecastReducer } from "./forecast-reducer";
 import useGetGeolocationPosition from "../../hooks/useGetGeolocationPosition";
 import getGeolocationPosition from "../../hooks/useGetGeolocationPosition";
 
-export const ForecastContext = createContext(initialState);
+export const ForecastContext = createContext(undefined);
 // export const ForecastContext = createContext();
 
-// export function useForecast() {
-//   const context = useContext(ForecastContext);
+export function useForecast() {
+  const context = useContext(ForecastContext);
 
-//   if (context === undefined) {
-//     throw new Error("useForecast must be used within ForecastContext");
-//   }
+  if (context === undefined) {
+    throw new Error("useForecast must be used within ForecastContext");
+  }
 
-//   return context;
-// }
+  return context;
+}
 
 export function ForecastProvider({ children }) {
   const [user, setuser] = useState(null);
@@ -30,7 +30,7 @@ export function ForecastProvider({ children }) {
   // const [currentWeather, setCurrentWeather] = useState({});
   // const [forecast, setforecast] = useState({});
 
-  // const [state, dispatch] = useReducer(forecastReducer, initialState);
+  const [state, dispatch] = useReducer(forecastReducer, initialState);
 
   // const setPosition = (position) => {
   //   // setForecast(position);
@@ -41,21 +41,18 @@ export function ForecastProvider({ children }) {
   //   });
   // };
 
-  // const setForecast = (position) => {
-  //   const { locationName, currentWeather, forecast, isLoading, error } =
-  //     useGetForecast(position);
-
-  //   dispatch({
-  //     type: "SET_FORECAST",
-  //     payload: {
-  //       locationName,
-  //       currentWeather,
-  //       forecast,
-  //       isLoading,
-  //       error,
-  //     },
-  //   });
-  // };
+  const setForecast = (forecastData) => {
+    // const { currentWeather, forecast } = useGetForecast(position);
+    // console.log(forecastData[0]);
+    dispatch({
+      type: "SET_FORECAST",
+      payload: {
+        // forecastData,
+        currentWeather: forecastData[0],
+        forecast: forecastData[1],
+      },
+    });
+  };
 
   // useGetGeolocationPosition();
 
@@ -92,11 +89,11 @@ export function ForecastProvider({ children }) {
   // }, [state.position]);
 
   const value = {
-    user,
-    setuser,
-    // currentWeather,
+    // user,
+    // setuser,
+    currentWeather: state.currentWeather,
     // setCurrentWeather,
-    // forecast,
+    forecast: state.forecast,
     // setforecast,
     // locationName: state.locationName,
     // currentWeather: state.currentWeather,
@@ -104,7 +101,7 @@ export function ForecastProvider({ children }) {
     // position: state.position,
     // isLoading: state.isLoading,
     // error: state.error,
-    // setForecast,
+    setForecast,
     // setPosition,
   };
 

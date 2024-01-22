@@ -5,7 +5,7 @@ import { useGetForecast } from "../hooks/useGetForecast";
 import { ForecastContext } from "../services/contexts/forecast-context";
 
 export const Header = ({ toggleTempUnit, locationName, search }) => {
-  // const { user, setuser } = useContext(ForecastContext);
+  const { user, setuser } = useContext(ForecastContext);
   // const context = useForecast();
   // console.log(user);
 
