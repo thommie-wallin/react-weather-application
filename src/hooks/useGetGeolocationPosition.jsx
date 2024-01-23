@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getGeolocationPosition } from "../services/geolocation";
+import { useForecast } from "../services/contexts/forecast-context";
 // import { useForecast } from "../contexts/forecast-context";
 
 const useGetGeolocationPosition = (
@@ -8,6 +9,7 @@ const useGetGeolocationPosition = (
   loadingStop,
   setError,
 ) => {
+  // const { getForecast } = useForecast();
   // const [position, setPosition] = useState(null);
   // const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState();
@@ -20,6 +22,7 @@ const useGetGeolocationPosition = (
       if (res.state === "granted") {
         try {
           const posObj = await getGeolocationPosition();
+          // getForecast(posObj);
           setPosition({
             latitude: posObj.coords.latitude,
             longitude: posObj.coords.longitude,
@@ -33,6 +36,8 @@ const useGetGeolocationPosition = (
       }
     });
   }, []);
+
+  // getForecast(position);
 
   // console.log(position);
 

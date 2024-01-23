@@ -102,29 +102,26 @@
   align-items: center;
 }
 
-.navList {
+.nav-list {
   list-style-type: none;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.navList > li {
+.nav-list-link {
+  text-decoration: none;
+}
+
+.nav-list li {
   padding: 0.75rem;
   border-bottom: 3px solid #42265B;
-}
-
-.navList > li:hover {
-  border-bottom: 3px solid whitesmoke;
-}
-
-.navList > li > a {
   color: whitesmoke;
   text-decoration: none;
 }
 
-.navList > li > a:hover {
-  border-bottom-color: whitesmoke;
+.nav-list li:hover {
+  border-bottom: 3px solid whitesmoke;
 }
 
 /* PAGES */
@@ -132,9 +129,12 @@
   background: linear-gradient(#6E3F98, #F2E4DD);
   min-height: 82vh;
   padding: 1rem;
+}
+
+.page-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-
+  gap: 1rem;
+  /* align-items: center; */
+  /* justify-content: space-evenly; */
 }

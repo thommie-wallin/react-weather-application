@@ -1,11 +1,11 @@
 import React from "react";
-import { PageContainer } from "../../components/layouts/PageContainer/page-container";
+import { PageContainer } from "../../components/layouts/page-container/PageContainer";
 import Hourly from "../../components/forecasts/Hourly";
-import { Routes } from "../../config/routes";
+// import { Routes } from "../../config/routes";
 
 const HourlyPage = () => {
   return (
-    <PageContainer path={Routes.hourly}>
+    <PageContainer>
       <Hourly />
     </PageContainer>
   );

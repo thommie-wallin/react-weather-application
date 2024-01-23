@@ -19,9 +19,9 @@ export function useForecast() {
 
   if (context === undefined) {
     throw new Error("useForecast must be used within ForecastContext");
+  } else {
+    return context;
   }
-
-  return context;
 }
 
 export function ForecastProvider({ children }) {
@@ -41,9 +41,12 @@ export function ForecastProvider({ children }) {
   //   });
   // };
 
+  // const getForecast = (position) => {
+  //   const { currentWeather, forecast } = useGetForecast(position);
+  //   console.log(currentWeather);
+  // };
+
   const setForecast = (forecastData) => {
-    // const { currentWeather, forecast } = useGetForecast(position);
-    // console.log(currentWeather);
     // console.log(forecastData[0]);
     dispatch({
       type: "SET_FORECAST",
@@ -125,7 +128,7 @@ export function ForecastProvider({ children }) {
     // setCurrentWeather,
     forecast: state.forecast,
     // setforecast,
-    // locationName: state.locationName,
+    locationName: state.locationName,
     // currentWeather: state.currentWeather,
     // forecast: state.forecast,
     // position: state.position,
@@ -137,7 +140,7 @@ export function ForecastProvider({ children }) {
     loadingStart,
     loadingStop,
     setError,
-
+    // getForecast,
     // setPosition,
   };
 

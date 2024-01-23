@@ -25,6 +25,9 @@ import { getAutocompleteItems } from "./services/api/autocomplete-list.jsx";
 // import { ForecastContext } from "./service/contexts/forecast-context.jsx";
 import { useForecast } from "./services/contexts/forecast-context.jsx";
 import { ForecastProvider } from "./services/contexts/forecast-context.jsx";
+import TodayPage from "./pages/dashboard/today.jsx";
+import HourlyPage from "./pages/dashboard/hourly.jsx";
+import FiveDayPage from "./pages/dashboard/five-day.jsx";
 
 // const WeatherContext = createContext({
 //   cityList: [],
@@ -251,6 +254,8 @@ function App() {
   //   setCities((prevCities) => [...prevCities, { name, temperature }]);
   // };
 
+  // console.log(currentWeather);
+
   return (
     <div className="content">
       <Router>
@@ -279,40 +284,18 @@ function App() {
         <div className="router-content">
           {error && <p>Something went wrong! Please try again. Error:</p>}
           {isLoading && position !== null && <p>Loading...</p>}
-          {currentWeather && forecast && (
-            <Switch>
-              <Route exact path="/today">
-                {Object.keys(currentWeather).length > 0 && (
-                  <Today
-                  // weatherData={currentWeather}
-                  // isTempUnitC={isTempUnitC}
-                  />
-                )}
-                {Object.keys(forecast).length > 0 && (
-                  <WeekOverview
-                  // weatherData={forecast}
-                  // isTempUnitC={isTempUnitC}
-                  />
-                )}
-              </Route>
-              <Route path="/hourly">
-                {Object.keys(forecast).length > 0 && (
-                  <Hourly
-                  // weatherData={forecast}
-                  // isTempUnitC={isTempUnitC}
-                  />
-                )}
-              </Route>
-              <Route path="/fivedays">
-                {Object.keys(forecast).length > 0 && (
-                  <WeekForecast
-                  // weatherData={forecast}
-                  // isTempUnitC={isTempUnitC}
-                  />
-                )}
-              </Route>
-            </Switch>
-          )}
+          {/* {currentWeather && forecast && ( */}
+          <Switch>
+            <Route exact path="/">
+              <TodayPage />
+            </Route>
+            <Route path="/hourly">
+              <HourlyPage />
+            </Route>
+            <Route path="/fivedays">
+              <FiveDayPage />
+            </Route>
+          </Switch>
 
           {/* {isLoading ? (
               <div className="router-content">
