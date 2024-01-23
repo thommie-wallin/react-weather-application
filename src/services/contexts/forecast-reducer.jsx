@@ -43,7 +43,7 @@ export const forecastReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.error,
+        error: payload,
       };
     case "LOADING_STOP":
       console.log("LOADING_STOP");

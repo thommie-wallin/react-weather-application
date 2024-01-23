@@ -27,8 +27,6 @@ export function ForecastProvider({ children }) {
   const [state, dispatch] = useReducer(forecastReducer, initialState);
 
   const setPosition = (position) => {
-    // setForecast(position);
-
     dispatch({
       type: "SET_POSITION",
       payload: position,
@@ -41,6 +39,7 @@ export function ForecastProvider({ children }) {
   // };
 
   const setForecast = (forecastData) => {
+    console.log(forecastData);
     dispatch({
       type: "SET_FORECAST",
       payload: {
@@ -66,7 +65,7 @@ export function ForecastProvider({ children }) {
     dispatch({
       type: "ERROR",
       payload: {
-        error: error,
+        error,
       },
     });
   };
@@ -86,6 +85,7 @@ export function ForecastProvider({ children }) {
     error: state.error,
     isTempUnitC: state.isTempUnitC,
     setForecast,
+    setPosition,
     toggleTempUnit,
     loadingStart,
     loadingStop,

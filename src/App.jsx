@@ -13,11 +13,24 @@ import { useForecast } from "./services/contexts/forecast-context.jsx";
 import TodayPage from "./pages/dashboard/today.jsx";
 import HourlyPage from "./pages/dashboard/hourly.jsx";
 import FiveDayPage from "./pages/dashboard/five-day.jsx";
-import LoadingDisplay from "./components/LoadingDisplay.jsx";
+import { useGetForecast } from "./hooks/useGetForecast.jsx";
 
 function App() {
-  const { isLoading, setForecast, loadingStart, loadingStop, setError } =
-    useForecast();
+  const {
+    position,
+    isLoading,
+    setPosition,
+    setForecast,
+    loadingStart,
+    loadingStop,
+    setError,
+  } = useForecast();
+
+  // If allowed, get user position (Geolocation API).
+  useGetGeolocationPosition();
+
+  // Get weather data from updated position (OpenWeatherMap API).
+  useGetForecast(position);
 
   // const [currentWeather, setCurrentWeather] = useState({});
   // const [forecast, setforecast] = useState({});
@@ -28,7 +41,7 @@ function App() {
 
   // const [isTempUnitC, setisTempUnitC] = useState(true);
 
-  const [position, setPosition] = useState(null);
+  // const [position, setPosition] = useState(null);
   const [searchResult, setSearchResult] = useState({});
   const [autocompleteOpen, setAutocompleteOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(null);
@@ -42,8 +55,6 @@ function App() {
   // const [isLoading, setIsLoading] = useState(false);
   const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
   // const [error, setError] = useState(null);
-
-  useGetGeolocationPosition(setPosition, loadingStart, loadingStop, setError);
 
   // Callback to toggle isTempUnitC from header component
   // const handleTempUnit = (tempUnit) => {
@@ -185,11 +196,11 @@ function App() {
   }, []);
 
   // Get new forecast when position updates.
-  useEffect(() => {
-    if (position !== null) {
-      handlePositionChange(position);
-    }
-  }, [position]);
+  // useEffect(() => {
+  //   if (position !== null) {
+  //     handlePositionChange(position);
+  //   }
+  // }, [position]);
 
   // const [cities, setCities] = useState([]);
   // const addCity = (name, temperature) => {
@@ -221,8 +232,6 @@ function App() {
         />
 
         <div className="router-content">
-          {/* Place loading in PageContainer when position-state is in context */}
-          {isLoading && position !== null && <LoadingDisplay />}
           <Switch>
             <Route exact path="/">
               <TodayPage />

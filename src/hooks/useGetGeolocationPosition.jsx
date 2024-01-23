@@ -1,28 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getGeolocationPosition } from "../services/geolocation";
 import { useForecast } from "../services/contexts/forecast-context";
-// import { useForecast } from "../contexts/forecast-context";
 
-const useGetGeolocationPosition = (
-  setPosition,
-  loadingStart,
-  loadingStop,
-  setError,
-) => {
-  // const { getForecast } = useForecast();
-  // const [position, setPosition] = useState(null);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState();
-
+const useGetGeolocationPosition = () => {
+  const { setPosition, loadingStart, loadingStop, setError } = useForecast();
   // If allowed, get user position from Geolocation API after first render.
   useEffect(() => {
     navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
-      // setIsLoading(true);
       loadingStart();
       if (res.state === "granted") {
         try {
           const posObj = await getGeolocationPosition();
-          // getForecast(posObj);
           setPosition({
             latitude: posObj.coords.latitude,
             longitude: posObj.coords.longitude,
@@ -30,20 +18,11 @@ const useGetGeolocationPosition = (
         } catch (error) {
           setError(error);
         } finally {
-          // setIsLoading(false);
           loadingStop();
         }
       }
     });
   }, []);
-
-  // getForecast(position);
-
-  // console.log(position);
-
-  // return { position, isLoading, error };
-  // return { position };
-  // return { isLoading, error };
 };
 
 export default useGetGeolocationPosition;

@@ -11,10 +11,11 @@ export const getForecast = (position, signal) => {
   //   ],
   //   signal,
   // );
+  // console.log(responses);
   // return responses;
 
   // JSON Server
   const response = makeAPICall(`http://localhost:8000/data`);
-  // console.log(response);
+  console.log(response);
   return response;
 };
