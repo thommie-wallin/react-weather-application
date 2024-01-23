@@ -1,12 +1,15 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import { useForecast } from "../../../services/contexts/forecast-context";
+import ErrorDisplay from "../../ErrorDisplay";
 
 export const PageContainer = ({ children }) => {
-  const { currentWeather } = useForecast();
+  const { currentWeather, forecast, error } = useForecast();
   return (
     <div className="page-container">
-      {Object.keys(currentWeather).length > 0 && children}
+      {error && <ErrorDisplay error={error} />}
+      {Object.keys(currentWeather).length > 0 &&
+        Object.keys(forecast).length > 0 &&
+        children}
     </div>
   );
 };

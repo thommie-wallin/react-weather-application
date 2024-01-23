@@ -12,6 +12,6 @@ export const getPosition = (searchTerm, signal) => {
 
   // JSON Server
   const response = makeAPICall(`http://localhost:9000/data`);
-  // console.log(response);
+  console.log(response);
   return response;
 };

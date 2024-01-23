@@ -1,70 +1,23 @@
-import React, {
-  useEffect,
-  useState,
-  useLayoutEffect,
-  useRef,
-  createContext,
-  useContext,
-} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Today from "./components/forecasts/Today.jsx";
-import WeekOverview from "./components/forecasts/WeekOverview.jsx";
-import Hourly from "./components/forecasts/Hourly.jsx";
-import WeekForecast from "./components/forecasts/WeekForecast.jsx";
 import { Header } from "./components/Header.jsx";
 import { Search } from "./components/search/Search.jsx";
 import Autocomplete from "./components/search/Autocomplete.jsx";
 
-import { getGeolocationPosition } from "./services/geolocation.jsx";
 import useGetGeolocationPosition from "./hooks/useGetGeolocationPosition.jsx";
-import { useGetForecast } from "./hooks/useGetForecast.jsx";
 import { getForecast } from "./services/api/forecast.jsx";
 import { getPosition } from "./services/api/position.jsx";
 import { getAutocompleteItems } from "./services/api/autocomplete-list.jsx";
-// import { ForecastContext } from "./service/contexts/forecast-context.jsx";
 import { useForecast } from "./services/contexts/forecast-context.jsx";
-import { ForecastProvider } from "./services/contexts/forecast-context.jsx";
 import TodayPage from "./pages/dashboard/today.jsx";
 import HourlyPage from "./pages/dashboard/hourly.jsx";
 import FiveDayPage from "./pages/dashboard/five-day.jsx";
-
-// const WeatherContext = createContext({
-//   cityList: [],
-//   addCity: (name, temperature) => {},
-//   cityName: "",
-//   // addCityName: (name) => {},
-//   currentWeather: {},
-//   forecast: {},
-//   isTempUnitC: true,
-//   handleTempUnit: (bool) => {},
-// });
-
-// export function useForecast() {
-//   const context = useContext(WeatherContext);
-
-//   if (context === undefined) {
-//     throw new Error("useForecast must be used within WeatherContext");
-//   }
-
-//   return context;
-// }
+import LoadingDisplay from "./components/LoadingDisplay.jsx";
 
 function App() {
-  const [position, setPosition] = useState(null);
-
-  const {
-    currentWeather,
-    // setCurrentWeather,
-    forecast,
-    isLoading,
-    error,
-    // setforecast,
-    setForecast,
-    loadingStart,
-    loadingStop,
-    setError,
-  } = useForecast();
+  const { isLoading, setForecast, loadingStart, loadingStop, setError } =
+    useForecast();
 
   // const [currentWeather, setCurrentWeather] = useState({});
   // const [forecast, setforecast] = useState({});
@@ -75,6 +28,7 @@ function App() {
 
   // const [isTempUnitC, setisTempUnitC] = useState(true);
 
+  const [position, setPosition] = useState(null);
   const [searchResult, setSearchResult] = useState({});
   const [autocompleteOpen, setAutocompleteOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(null);
@@ -112,7 +66,6 @@ function App() {
     searchAbortControllerRef.current = new AbortController();
     const signal = searchAbortControllerRef.current?.signal;
 
-    // setIsLoading(true);
     loadingStart();
     try {
       const data = await getPosition(searchData, { signal });
@@ -127,7 +80,6 @@ function App() {
       }
       setError(error);
     } finally {
-      // setIsLoading(false);
       loadingStop();
     }
   }
@@ -177,14 +129,9 @@ function App() {
     weatherAbortControllerRef.current = new AbortController();
     const signal = weatherAbortControllerRef.current?.signal;
 
-    // setIsLoading(true);
     loadingStart();
     try {
       const data = await getForecast(position, { signal });
-      // console.log(data);
-      // addCityName(data[0].name);
-      // setCurrentWeather(data[0]);
-      // setforecast(data[1]);
       setForecast(data);
     } catch (error) {
       console.log(error);
@@ -194,7 +141,6 @@ function App() {
       }
       setError(error);
     } finally {
-      // setIsLoading(false);
       loadingStop();
     }
   }
@@ -242,9 +188,6 @@ function App() {
   useEffect(() => {
     if (position !== null) {
       handlePositionChange(position);
-      // setForecast(position);
-      // const { locationName, currentWeather, forecast } =
-      //   useGetForecast(position);
     }
   }, [position]);
 
@@ -254,14 +197,10 @@ function App() {
   //   setCities((prevCities) => [...prevCities, { name, temperature }]);
   // };
 
-  // console.log(currentWeather);
-
   return (
     <div className="content">
       <Router>
         <Header
-          // toggleTempUnit={handleTempUnit}
-          locationName={currentWeather.name}
           search={
             <Search
               getSearchData={handleSearch}
@@ -282,9 +221,8 @@ function App() {
         />
 
         <div className="router-content">
-          {error && <p>Something went wrong! Please try again. Error:</p>}
-          {isLoading && position !== null && <p>Loading...</p>}
-          {/* {currentWeather && forecast && ( */}
+          {/* Place loading in PageContainer when position-state is in context */}
+          {isLoading && position !== null && <LoadingDisplay />}
           <Switch>
             <Route exact path="/">
               <TodayPage />
@@ -296,45 +234,6 @@ function App() {
               <FiveDayPage />
             </Route>
           </Switch>
-
-          {/* {isLoading ? (
-              <div className="router-content">
-                {error ? (
-                  <p>Something went wrong! Please try again. Error: {error}</p>
-                ) : (
-                  <p>Loading...</p>
-                )}
-              </div>
-            ) : (
-              <div className="router-content">
-                <Switch>
-                  <Route exact path="/">
-                    {Object.keys(currentWeather).length > 0 && (
-                      <Today weatherData={currentWeather} isTempUnitC={isTempUnitC} />
-                    )}
-                    {Object.keys(forecast).length > 0 && (
-                      <WeekOverview
-                        weatherData={forecast}
-                        isTempUnitC={isTempUnitC}
-                      />
-                    )}
-                  </Route>
-                  <Route path="/hourly">
-                    {Object.keys(forecast).length > 0 && (
-                      <Hourly weatherData={forecast} isTempUnitC={isTempUnitC} />
-                    )}
-                  </Route>
-                  <Route path="/fiveday">
-                    {Object.keys(forecast).length > 0 && (
-                      <WeekForecast
-                        weatherData={forecast}
-                        isTempUnitC={isTempUnitC}
-                      />
-                    )}
-                  </Route>
-                </Switch>
-              </div>
-            )} */}
         </div>
       </Router>
     </div>

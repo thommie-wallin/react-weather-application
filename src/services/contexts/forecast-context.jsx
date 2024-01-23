@@ -11,8 +11,7 @@ import { initialState, forecastReducer } from "./forecast-reducer";
 import useGetGeolocationPosition from "../../hooks/useGetGeolocationPosition";
 import getGeolocationPosition from "../../hooks/useGetGeolocationPosition";
 
-export const ForecastContext = createContext(undefined);
-// export const ForecastContext = createContext();
+const ForecastContext = createContext(undefined);
 
 export function useForecast() {
   const context = useContext(ForecastContext);
@@ -25,21 +24,16 @@ export function useForecast() {
 }
 
 export function ForecastProvider({ children }) {
-  const [user, setuser] = useState(null);
-
-  // const [currentWeather, setCurrentWeather] = useState({});
-  // const [forecast, setforecast] = useState({});
-
   const [state, dispatch] = useReducer(forecastReducer, initialState);
 
-  // const setPosition = (position) => {
-  //   // setForecast(position);
+  const setPosition = (position) => {
+    // setForecast(position);
 
-  //   dispatch({
-  //     type: "SET_POSITION",
-  //     payload: position,
-  //   });
-  // };
+    dispatch({
+      type: "SET_POSITION",
+      payload: position,
+    });
+  };
 
   // const getForecast = (position) => {
   //   const { currentWeather, forecast } = useGetForecast(position);
@@ -47,22 +41,18 @@ export function ForecastProvider({ children }) {
   // };
 
   const setForecast = (forecastData) => {
-    // console.log(forecastData[0]);
     dispatch({
       type: "SET_FORECAST",
       payload: {
-        // forecastData,
         currentWeather: forecastData[0],
-        // currentWeather: currentWeather,
         forecast: forecastData[1],
-        // forecast: forecast,
       },
     });
   };
 
   const toggleTempUnit = () => {
     dispatch({
-      type: "SET_TEMPUNIT",
+      type: "SET_TEMPUNIT_C",
     });
   };
 
@@ -87,51 +77,11 @@ export function ForecastProvider({ children }) {
     });
   };
 
-  // useGetGeolocationPosition();
-
-  // useEffect(() => {
-  //   navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
-  //     // setIsLoading(true);
-  //     if (res.state === "granted") {
-  //       try {
-  //         const posObj = await getGeolocationPosition();
-  //         console.log(posObj);
-  //         setPosition({
-  //           latitude: posObj.coords.latitude,
-  //           longitude: posObj.coords.longitude,
-  //         });
-  //       } catch (error) {
-  //         // setError(error);
-  //       } finally {
-  //         // setIsLoading(false);
-  //       }
-  //     }
-  //   });
-  // }, []);
-
-  // Get new forecast when position updates.
-  // useEffect(() => {
-  //   if (state.position !== null) {
-  //     // handlePositionChange(position);
-  //     // console.log(useGetForecast(position));
-  //     // const { currentWeather, forecast, isLoading, error } =
-  //     //   useGetForecast(position);
-  //     // setPosition(position);
-  //   }
-  //   // console.log(state.position);
-  // }, [state.position]);
-
   const value = {
-    // user,
-    // setuser,
     currentWeather: state.currentWeather,
-    // setCurrentWeather,
     forecast: state.forecast,
-    // setforecast,
+    position: state.position,
     locationName: state.locationName,
-    // currentWeather: state.currentWeather,
-    // forecast: state.forecast,
-    // position: state.position,
     isLoading: state.isLoading,
     error: state.error,
     isTempUnitC: state.isTempUnitC,
@@ -140,12 +90,9 @@ export function ForecastProvider({ children }) {
     loadingStart,
     loadingStop,
     setError,
-    // getForecast,
-    // setPosition,
   };
 
   return (
-    // <ForecastContext.Provider value={useGetForecast()}>
     <ForecastContext.Provider value={value}>
       {children}
     </ForecastContext.Provider>

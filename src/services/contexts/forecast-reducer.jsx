@@ -1,15 +1,11 @@
 export const initialState = {
-  // user: null,
-  // setuser: null,
   locationName: "",
   currentWeather: {},
   forecast: {},
+  position: null,
   isTempUnitC: true,
-  // position: null,
   isLoading: false,
   error: null,
-  // setForecast: null,
-  // setCurrentWeather: null,
 };
 
 export const forecastReducer = (state, action) => {
@@ -24,18 +20,18 @@ export const forecastReducer = (state, action) => {
         currentWeather: payload.currentWeather,
         forecast: payload.forecast,
       };
-    case "SET_TEMPUNIT":
-      console.log("SET_TEMPUNIT", !state.isTempUnitC);
+    case "SET_TEMPUNIT_C":
+      console.log("SET_TEMPUNIT_C", !state.isTempUnitC);
       return {
         ...state,
         isTempUnitC: !state.isTempUnitC,
       };
-    // case "SET_POSITION":
-    //   console.log("SET_POSITION", payload);
-    //   return {
-    //     ...state,
-    //     position: payload,
-    //   };
+    case "SET_POSITION":
+      console.log("SET_POSITION", payload);
+      return {
+        ...state,
+        position: payload,
+      };
     case "LOADING_START":
       console.log("LOADING_START");
       return {

@@ -1,21 +1,9 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-// import { useForecast } from "../App.jsx";
-import { useGetForecast } from "../hooks/useGetForecast";
-import { ForecastContext } from "../services/contexts/forecast-context";
 import { useForecast } from "../services/contexts/forecast-context";
 
 export const Header = ({ search }) => {
-  // const { user, setuser } = useContext(ForecastContext);
   const { locationName, isTempUnitC, toggleTempUnit } = useForecast();
-
-  // const [isTempUnitC, setisTempUnitC] = useState(false);
-
-  // Toggle temperature unit and send to parent
-  // const sendData = () => {
-  //   setisTempUnitC(isTempUnitC ? false : true);
-  //   toggleTempUnit(isTempUnitC);
-  // };
 
   return (
     <header>
@@ -29,7 +17,6 @@ export const Header = ({ search }) => {
         <div className="search">{search}</div>
         <div className="location">
           <h3>{locationName ? locationName : "Welcome"}</h3>
-          {/* <h3>{user ? user : "Welcome"}</h3> */}
         </div>
       </div>
       <nav className="navbar">

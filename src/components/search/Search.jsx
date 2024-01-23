@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { ForecastContext } from "../../services/contexts/forecast-context";
-// import { useForecast } from "../../contexts/forecast-context";
+import React, { useState, useEffect, useRef } from "react";
 
 export const Search = ({
   getSearchData,
@@ -8,10 +6,6 @@ export const Search = ({
   setAutocompleteOpen,
   autocomplete,
 }) => {
-  // const { user, setuser } = useContext(ForecastContext);
-  // const { currentWeather } = useForecast();
-  // console.log(currentWeather);
-
   const [search, setSearch] = useState(null);
   const inputRef = useRef();
 
@@ -30,9 +24,6 @@ export const Search = ({
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-
-    // setuser(search);
-
     // Check if search term matches input pattern.
     if (inputRef.current.checkValidity() && search !== null) {
       getSearchData(search.trim());

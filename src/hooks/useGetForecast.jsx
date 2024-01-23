@@ -78,14 +78,10 @@ export const useGetForecast = (position) => {
       const signal = weatherAbortControllerRef.current?.signal;
 
       setIsLoading(true);
-      // dispatch({ type: "isLoading" });
       try {
         const data = await getForecast(position, { signal });
-        setLocationName(data[0].name);
         setCurrentWeather(data[0]);
         setforecast(data[1]);
-        // dispatch({ type: "setForecast", payload: data });
-        // console.log(position);
       } catch (error) {
         if (error.name === "AbortError") {
           console.error(error);
@@ -101,38 +97,16 @@ export const useGetForecast = (position) => {
 
     if (position !== null) {
       handlePositionChange();
-      // console.log(position);
     }
 
     return () => {
       // Abort previous api call
       weatherAbortControllerRef.current?.abort();
     };
-  }, []);
-
-  // const setPosition = (position) => {
-  //   // console.log(position);
-  //   dispatch({
-  //     type: "setPosition",
-  //     payload: position,
-  //   });
-  // };
-
-  // console.log(
-  //   locationName,
-  //   currentWeather,
-  //   forecast,
-  //   // search,
-  //   // setPosition,
-  //   // isLoading,
-  //   // error,
-  // );
+  });
 
   return {
-    // locationName,
     currentWeather,
     forecast,
-    // isLoading,
-    // error,
   };
 };
