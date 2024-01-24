@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useReducer,
   useEffect,
+  useCallback,
 } from "react";
 import { useGetForecast } from "../../hooks/useGetForecast";
 import { initialState, forecastReducer } from "./forecast-reducer";
@@ -26,20 +27,15 @@ export function useForecast() {
 export function ForecastProvider({ children }) {
   const [state, dispatch] = useReducer(forecastReducer, initialState);
 
-  const setPosition = (position) => {
+  const setPosition = useCallback((position) => {
     dispatch({
       type: "SET_POSITION",
       payload: position,
     });
-  };
+  }, []);
 
-  // const getForecast = (position) => {
-  //   const { currentWeather, forecast } = useGetForecast(position);
-  //   console.log(currentWeather);
-  // };
-
-  const setForecast = (forecastData) => {
-    console.log(forecastData);
+  const setForecast = useCallback((forecastData) => {
+    // console.log(forecastData);
     dispatch({
       type: "SET_FORECAST",
       payload: {
@@ -47,34 +43,34 @@ export function ForecastProvider({ children }) {
         forecast: forecastData[1],
       },
     });
-  };
+  }, []);
 
-  const toggleTempUnit = () => {
+  const toggleTempUnit = useCallback(() => {
     dispatch({
       type: "SET_TEMPUNIT_C",
     });
-  };
+  }, []);
 
-  const loadingStart = () => {
+  const loadingStart = useCallback(() => {
     dispatch({
       type: "LOADING_START",
     });
-  };
+  }, []);
 
-  const setError = (error) => {
+  const loadingStop = useCallback(() => {
+    dispatch({
+      type: "LOADING_STOP",
+    });
+  }, []);
+
+  const setError = useCallback((error) => {
     dispatch({
       type: "ERROR",
       payload: {
         error,
       },
     });
-  };
-
-  const loadingStop = () => {
-    dispatch({
-      type: "LOADING_STOP",
-    });
-  };
+  }, []);
 
   const value = {
     currentWeather: state.currentWeather,

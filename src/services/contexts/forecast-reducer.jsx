@@ -19,6 +19,7 @@ export const forecastReducer = (state, action) => {
         locationName: payload.currentWeather.name,
         currentWeather: payload.currentWeather,
         forecast: payload.forecast,
+        error: null,
       };
     case "SET_TEMPUNIT_C":
       console.log("SET_TEMPUNIT_C", !state.isTempUnitC);

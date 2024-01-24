@@ -1,14 +1,16 @@
 import { useForecast } from "../services/contexts/forecast-context";
 
 export async function makeAPICall(endpoint, signal) {
-  return await fetch(endpoint, signal);
+  const res = await fetch(endpoint, signal);
+  const data = await res.json();
+  return data;
   // try {
   //   const res = await fetch(endpoint, signal);
-  //   // if (!res.ok) {
-  //   //   throw Error("could not fetch the data from that resource");
-  //   // }
-  //   // const data = await res.json();
-  //   // return data;
+  //   if (!res.ok) {
+  //     throw Error("could not fetch the data from that resource");
+  //   }
+  //   const data = await res.json();
+  //   return data;
   // } catch (error) {
   //   if (error.name === "AbortError") {
   //     console.error(error);

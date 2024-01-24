@@ -15,11 +15,11 @@ export const useGetForecast = (position) => {
       loadingStart();
       try {
         const res = await getForecast(position, { signal });
-        if (!res.ok) {
+        if (res[0].cod !== 200 || res[1].cod !== "200") {
           setError({ message: "Could not fetch the data from that resource." });
+          return;
         } else {
-          const data = await res.json();
-          setForecast(data);
+          setForecast(res);
         }
       } catch (error) {
         if (error.name === "AbortError") {

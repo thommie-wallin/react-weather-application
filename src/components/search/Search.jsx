@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import useGetPosition from "../../hooks/useGetPosition";
 
 export const Search = ({
   getSearchData,
@@ -7,7 +8,10 @@ export const Search = ({
   autocomplete,
 }) => {
   const [search, setSearch] = useState(null);
-  const inputRef = useRef();
+  const [submitSearch, setSubmitSearch] = useState(null);
+  const inputRef = useRef(submitSearch);
+
+  useGetPosition(submitSearch);
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -26,7 +30,9 @@ export const Search = ({
     e.preventDefault();
     // Check if search term matches input pattern.
     if (inputRef.current.checkValidity() && search !== null) {
-      getSearchData(search.trim());
+      // getSearchData(search.trim());
+      // useGetPosition(search.trim());
+      setSubmitSearch(search.trim());
       inputRef.current.value = null;
       setAutocompleteOpen(false);
       setSearch(null);

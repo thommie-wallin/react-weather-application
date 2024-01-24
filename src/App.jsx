@@ -31,6 +31,7 @@ function App() {
 
   // Get weather data from updated position (OpenWeatherMap API).
   useGetForecast(position);
+  // console.log(position);
 
   // const [currentWeather, setCurrentWeather] = useState({});
   // const [forecast, setforecast] = useState({});
