@@ -9,11 +9,15 @@ export const PageContainer = ({ children }) => {
   //! All showing weather data when an error occur.
   return (
     <div className="page-container">
-      {error && <ErrorDisplay />}
-      {isLoading && position !== null && <LoadingDisplay />}
-      {Object.keys(currentWeather).length > 0 &&
+      {error ? (
+        <ErrorDisplay />
+      ) : isLoading && position !== null ? (
+        <LoadingDisplay />
+      ) : (
+        Object.keys(currentWeather).length > 0 &&
         Object.keys(forecast).length > 0 &&
-        children}
+        children
+      )}
     </div>
   );
 };

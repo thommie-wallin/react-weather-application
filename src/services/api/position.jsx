@@ -5,7 +5,7 @@ import { GEOCODING_API_URL } from "../../utils/constants";
 export const getPosition = (searchTerm, signal) => {
   const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
   const response = makeAPICall(
-    `${GEOCODING_API_URL}/dirct?q=${searchTerm}&limit=${1}&appid=${apiKey}`,
+    `${GEOCODING_API_URL}/direct?q=${searchTerm}&limit=${1}&appid=${apiKey}`,
     signal,
   );
   return response;

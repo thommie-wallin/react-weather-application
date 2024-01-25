@@ -1,15 +1,20 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
+import { useForecast } from "../../services/contexts/forecast-context";
 
 const Autocomplete = forwardRef(function Autocomplete(
   {
     searchResult,
     setSearchResult,
-    setPosition,
+    // setPosition,
     autocompleteOpen,
     autocompleteIsLoading,
   },
   ref,
 ) {
+  const { setPosition } = useForecast();
+  // const [searchResult, setSearchResult] = useState({});
+  // const [autocompleteOpen, setAutocompleteOpen] = useState(false);
+
   const autocomplete = searchResult.data?.map((result, key) => {
     return (
       <li

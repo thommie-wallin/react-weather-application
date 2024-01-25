@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import useGetPosition from "../../hooks/useGetPosition";
+import useDebounce from "../../hooks/useDebounce";
 
 export const Search = ({
   getSearchData,
@@ -10,6 +11,7 @@ export const Search = ({
   const [search, setSearch] = useState(null);
   const [submitSearch, setSubmitSearch] = useState(null);
   const inputRef = useRef(submitSearch);
+  const debouncedSearch = useDebounce(search, 1000);
 
   useGetPosition(submitSearch);
 

@@ -18,7 +18,6 @@ import { useGetForecast } from "./hooks/useGetForecast.jsx";
 function App() {
   const {
     position,
-    isLoading,
     setPosition,
     setForecast,
     loadingStart,
@@ -31,7 +30,6 @@ function App() {
 
   // Get weather data from updated position (OpenWeatherMap API).
   useGetForecast(position);
-  // console.log(position);
 
   // const [currentWeather, setCurrentWeather] = useState({});
   // const [forecast, setforecast] = useState({});
@@ -71,30 +69,30 @@ function App() {
   // };
 
   // Get weather for searched location (Geocoded API OpenWeatherMap).
-  async function handleSearch(searchData) {
-    // Abort previous api call
-    searchAbortControllerRef.current?.abort();
-    // Create new abortcontroller for new api call
-    searchAbortControllerRef.current = new AbortController();
-    const signal = searchAbortControllerRef.current?.signal;
+  // async function handleSearch(searchData) {
+  //   // Abort previous api call
+  //   searchAbortControllerRef.current?.abort();
+  //   // Create new abortcontroller for new api call
+  //   searchAbortControllerRef.current = new AbortController();
+  //   const signal = searchAbortControllerRef.current?.signal;
 
-    loadingStart();
-    try {
-      const data = await getPosition(searchData, { signal });
-      setPosition({
-        latitude: data[0].lat,
-        longitude: data[0].lon,
-      });
-    } catch (error) {
-      if (error.name === "AbortError") {
-        console.error(error);
-        return;
-      }
-      setError(error);
-    } finally {
-      loadingStop();
-    }
-  }
+  //   loadingStart();
+  //   try {
+  //     const data = await getPosition(searchData, { signal });
+  //     setPosition({
+  //       latitude: data[0].lat,
+  //       longitude: data[0].lon,
+  //     });
+  //   } catch (error) {
+  //     if (error.name === "AbortError") {
+  //       console.error(error);
+  //       return;
+  //     }
+  //     setError(error);
+  //   } finally {
+  //     loadingStop();
+  //   }
+  // }
 
   // Get search suggestions for autocomplete component (GeoDB-cities API).
   async function handleOnSearchChange(searchData) {
@@ -134,28 +132,28 @@ function App() {
   }
 
   // Get weather data from updated position (OpenWeatherMap API).
-  async function handlePositionChange(position) {
-    // Abort previous api call
-    weatherAbortControllerRef.current?.abort();
-    // Create new abortcontroller for new api call
-    weatherAbortControllerRef.current = new AbortController();
-    const signal = weatherAbortControllerRef.current?.signal;
+  // async function handlePositionChange(position) {
+  //   // Abort previous api call
+  //   weatherAbortControllerRef.current?.abort();
+  //   // Create new abortcontroller for new api call
+  //   weatherAbortControllerRef.current = new AbortController();
+  //   const signal = weatherAbortControllerRef.current?.signal;
 
-    loadingStart();
-    try {
-      const data = await getForecast(position, { signal });
-      setForecast(data);
-    } catch (error) {
-      console.log(error);
-      if (error.name === "AbortError") {
-        console.error(error);
-        return;
-      }
-      setError(error);
-    } finally {
-      loadingStop();
-    }
-  }
+  //   loadingStart();
+  //   try {
+  //     const data = await getForecast(position, { signal });
+  //     setForecast(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //     if (error.name === "AbortError") {
+  //       console.error(error);
+  //       return;
+  //     }
+  //     setError(error);
+  //   } finally {
+  //     loadingStop();
+  //   }
+  // }
 
   // If allowed, get user position from Geolocation API before first render.
   // useEffect(() => {
@@ -215,7 +213,7 @@ function App() {
         <Header
           search={
             <Search
-              getSearchData={handleSearch}
+              // getSearchData={handleSearch}
               onSearchChange={handleOnSearchChange}
               setAutocompleteOpen={setAutocompleteOpen}
               autocomplete={

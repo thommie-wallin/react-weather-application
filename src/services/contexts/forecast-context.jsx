@@ -35,7 +35,6 @@ export function ForecastProvider({ children }) {
   }, []);
 
   const setForecast = useCallback((forecastData) => {
-    // console.log(forecastData);
     dispatch({
       type: "SET_FORECAST",
       payload: {
