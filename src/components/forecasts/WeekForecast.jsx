@@ -2,10 +2,10 @@ import React from "react";
 import "./../../styles/WeekForecast.css";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { filterArr, tempUnitConverter } from "../../utils/numberUtils.jsx";
-import { useForecast } from "../../services/contexts/forecast-context.jsx";
+import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 
 const WeekForecast = () => {
-  const { forecast, isTempUnitC } = useForecast();
+  const { forecast, isTempUnitC } = useForecastContext();
   // Filter 5 day / 3 hour forecast-data (each day have 8 readings).
   const dailyForecasts = filterArr(forecast.list, 8);
 

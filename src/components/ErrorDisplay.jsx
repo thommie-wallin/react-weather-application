@@ -1,8 +1,8 @@
 import React from "react";
-import { useForecast } from "../services/contexts/forecast-context";
+import { useForecastContext } from "../services/contexts/forecast-context";
 
 const ErrorDisplay = () => {
-  const { error } = useForecast();
+  const { error } = useForecastContext();
   return (
     <div>
       <p>

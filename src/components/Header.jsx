@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useForecast } from "../services/contexts/forecast-context";
+import { useForecastContext } from "../services/contexts/forecast-context";
+import { SearchProvider } from "../services/contexts/search-context";
 
 export const Header = ({ search }) => {
-  const { locationName, isTempUnitC, toggleTempUnit } = useForecast();
+  const { locationName, isTempUnitC, toggleTempUnit } = useForecastContext();
 
   return (
     <header>
@@ -14,7 +15,7 @@ export const Header = ({ search }) => {
             Change to {isTempUnitC ? "℉" : "℃"}
           </button>
         </div>
-        <div className="search">{search}</div>
+        <div className="search">{search} </div>
         <div className="location">
           <h3>{locationName ? locationName : "Welcome"}</h3>
         </div>

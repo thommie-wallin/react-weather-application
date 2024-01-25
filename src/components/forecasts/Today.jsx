@@ -1,10 +1,10 @@
 import React from "react";
 import "../../styles/Today.css";
 import { tempUnitConverter } from "../../utils/numberUtils";
-import { useForecast } from "../../services/contexts/forecast-context";
+import { useForecastContext } from "../../services/contexts/forecast-context";
 
 const Today = () => {
-  const { currentWeather, isTempUnitC } = useForecast();
+  const { currentWeather, isTempUnitC } = useForecastContext();
   const sunrise = new Date(
     currentWeather.sys.sunrise * 1000,
   ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });

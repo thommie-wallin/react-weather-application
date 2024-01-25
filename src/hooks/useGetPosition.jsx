@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { getPosition } from "../services/api/position";
-import { useForecast } from "../services/contexts/forecast-context";
+import { useForecastContext } from "../services/contexts/forecast-context";
 
 const useGetPosition = (cityName) => {
-  const { setPosition, loadingStart, loadingStop, setError } = useForecast();
+  const { setPosition, loadingStart, loadingStop, setError } =
+    useForecastContext();
   const searchAbortControllerRef = useRef(null);
 
   useEffect(() => {

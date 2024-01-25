@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ForecastProvider } from "./services/contexts/forecast-context";
+import { SearchProvider } from "./services/contexts/search-context";
 
 ReactDOM.render(
   <React.StrictMode>
     <ForecastProvider>
-      <App />
+      <SearchProvider>
+        <App />
+      </SearchProvider>
     </ForecastProvider>
   </React.StrictMode>,
   document.getElementById("root"),

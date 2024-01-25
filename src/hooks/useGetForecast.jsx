@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
 import { getForecast } from "../services/api/forecast";
-import { useForecast } from "../services/contexts/forecast-context";
+import { useForecastContext } from "../services/contexts/forecast-context";
 
 export const useGetForecast = (position) => {
-  const { setForecast, loadingStart, loadingStop, setError } = useForecast();
+  const { setForecast, loadingStart, loadingStop, setError } =
+    useForecastContext();
   const weatherAbortControllerRef = useRef();
 
   useEffect(() => {

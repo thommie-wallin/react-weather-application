@@ -2,10 +2,10 @@ import React from "react";
 import "../../styles/Hourly.css";
 import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
-import { useForecast } from "../../services/contexts/forecast-context.jsx";
+import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 
 const Hourly = () => {
-  const { forecast, isTempUnitC } = useForecast();
+  const { forecast, isTempUnitC } = useForecastContext();
   // Get todays date
   const date = new Date(forecast.list[0].dt * 1000).toDateString();
 

@@ -9,11 +9,12 @@ import useGetGeolocationPosition from "./hooks/useGetGeolocationPosition.jsx";
 import { getForecast } from "./services/api/forecast.jsx";
 import { getPosition } from "./services/api/position.jsx";
 import { getAutocompleteItems } from "./services/api/autocomplete-list.jsx";
-import { useForecast } from "./services/contexts/forecast-context.jsx";
+import { useForecastContext } from "./services/contexts/forecast-context.jsx";
 import TodayPage from "./pages/dashboard/today.jsx";
 import HourlyPage from "./pages/dashboard/hourly.jsx";
 import FiveDayPage from "./pages/dashboard/five-day.jsx";
 import { useGetForecast } from "./hooks/useGetForecast.jsx";
+import { useSearchContext } from "./services/contexts/search-context.jsx";
 
 function App() {
   const {
@@ -23,7 +24,15 @@ function App() {
     loadingStart,
     loadingStop,
     setError,
-  } = useForecast();
+  } = useForecastContext();
+
+  const {
+    searchResult,
+    setSearchResult,
+    autocompleteOpen,
+    setAutocompleteOpen,
+    setAutocompleteClose,
+  } = useSearchContext();
 
   // If allowed, get user position (Geolocation API).
   useGetGeolocationPosition();
@@ -41,8 +50,8 @@ function App() {
   // const [isTempUnitC, setisTempUnitC] = useState(true);
 
   // const [position, setPosition] = useState(null);
-  const [searchResult, setSearchResult] = useState({});
-  const [autocompleteOpen, setAutocompleteOpen] = useState(false);
+  // const [searchResult, setSearchResult] = useState({});
+  // const [autocompleteOpen, setAutocompleteOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(null);
   let autocompleteRef = useRef();
 
@@ -61,7 +70,7 @@ function App() {
   // };
 
   // const addCityName = (name) => {
-  //   // const context = useForecast();
+  //   // const context = useForecastContext();
   //   // console.log(context);
   //   setCityName((name) => {
   //     name;
@@ -185,7 +194,8 @@ function App() {
         !autocompleteRef.current?.contains(e.target) &&
         e.target.id !== "search"
       ) {
-        setAutocompleteOpen(false);
+        // setAutocompleteOpen(false);
+        setAutocompleteClose();
       }
     };
     document.addEventListener("click", clickOutsideHandler);
@@ -216,16 +226,16 @@ function App() {
               // getSearchData={handleSearch}
               onSearchChange={handleOnSearchChange}
               setAutocompleteOpen={setAutocompleteOpen}
-              autocomplete={
-                <Autocomplete
-                  searchResult={searchResult}
-                  setSearchResult={setSearchResult}
-                  setPosition={setPosition}
-                  autocompleteOpen={autocompleteOpen}
-                  ref={autocompleteRef}
-                  autocompleteIsLoading={autocompleteIsLoading}
-                />
-              }
+              // autocomplete={
+              //   <Autocomplete
+              //     searchResult={searchResult}
+              //     setSearchResult={setSearchResult}
+              //     setPosition={setPosition}
+              //     autocompleteOpen={autocompleteOpen}
+              //     ref={autocompleteRef}
+              //     autocompleteIsLoading={autocompleteIsLoading}
+              //   />
+              // }
             />
           }
         />

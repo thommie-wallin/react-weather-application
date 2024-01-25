@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { getGeolocationPosition } from "../services/geolocation";
-import { useForecast } from "../services/contexts/forecast-context";
+import { useForecastContext } from "../services/contexts/forecast-context";
 
 const useGetGeolocationPosition = () => {
-  const { setPosition, loadingStart, loadingStop, setError } = useForecast();
+  const { setPosition, loadingStart, loadingStop, setError } =
+    useForecastContext();
   // If allowed, get user position from Geolocation API after first render.
   useEffect(() => {
     navigator.permissions.query({ name: "geolocation" }).then(async (res) => {

@@ -1,4 +1,4 @@
-import { useForecast } from "../services/contexts/forecast-context";
+import { useForecastContext } from "../services/contexts/forecast-context";
 
 export async function makeAPICall(endpoint, signal) {
   const res = await fetch(endpoint, signal);

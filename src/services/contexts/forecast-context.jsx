@@ -1,24 +1,18 @@
 import React, {
-  useState,
   createContext,
   useContext,
-  useMemo,
   useReducer,
-  useEffect,
   useCallback,
 } from "react";
-import { useGetForecast } from "../../hooks/useGetForecast";
 import { initialState, forecastReducer } from "./forecast-reducer";
-import useGetGeolocationPosition from "../../hooks/useGetGeolocationPosition";
-import getGeolocationPosition from "../../hooks/useGetGeolocationPosition";
 
 const ForecastContext = createContext(undefined);
 
-export function useForecast() {
+export function useForecastContext() {
   const context = useContext(ForecastContext);
 
   if (context === undefined) {
-    throw new Error("useForecast must be used within ForecastContext");
+    throw new Error("useForecastContext must be used within ForecastContext");
   } else {
     return context;
   }

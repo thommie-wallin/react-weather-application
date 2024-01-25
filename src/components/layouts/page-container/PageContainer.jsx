@@ -1,11 +1,11 @@
 import React from "react";
-import { useForecast } from "../../../services/contexts/forecast-context";
+import { useForecastContext } from "../../../services/contexts/forecast-context";
 import ErrorDisplay from "../../ErrorDisplay";
 import LoadingDisplay from "../../LoadingDisplay";
 
 export const PageContainer = ({ children }) => {
   const { currentWeather, forecast, position, isLoading, error } =
-    useForecast();
+    useForecastContext();
   //! All showing weather data when an error occur.
   return (
     <div className="page-container">

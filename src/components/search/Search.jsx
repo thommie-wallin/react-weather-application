@@ -1,19 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
 import useGetPosition from "../../hooks/useGetPosition";
 import useDebounce from "../../hooks/useDebounce";
+import useGetAutocompleteItems from "../../hooks/useGetAutocompleteItems";
+import Autocomplete from "./Autocomplete";
+import { useSearchContext } from "../../services/contexts/search-context";
 
 export const Search = ({
   getSearchData,
   onSearchChange,
-  setAutocompleteOpen,
+  // setAutocompleteOpen,
   autocomplete,
 }) => {
   const [search, setSearch] = useState(null);
   const [submitSearch, setSubmitSearch] = useState(null);
-  const inputRef = useRef(submitSearch);
   const debouncedSearch = useDebounce(search, 1000);
+  const inputRef = useRef(submitSearch);
+
+  const {
+    searchResult,
+    autocompleteOpen,
+    setAutocompleteOpen,
+    setAutocompleteClose,
+  } = useSearchContext();
+  // const [searchResult, setSearchResult] = useState({});
+  // const [autocompleteOpen, setAutocompleteOpen] = useState(false);
+  // const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
+  // const [searchTerm, setSearchTerm] = useState(null);
+  let autocompleteRef = useRef();
 
   useGetPosition(submitSearch);
+
+  useGetAutocompleteItems(debouncedSearch);
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -24,7 +41,8 @@ export const Search = ({
     } else {
       // Reset search when input-elements value is empty.
       setSearch(null);
-      setAutocompleteOpen(false);
+      // setAutocompleteOpen(false);
+      setAutocompleteClose();
     }
   };
 
@@ -36,7 +54,8 @@ export const Search = ({
       // useGetPosition(search.trim());
       setSubmitSearch(search.trim());
       inputRef.current.value = null;
-      setAutocompleteOpen(false);
+      // setAutocompleteOpen(false);
+      setAutocompleteClose();
       setSearch(null);
     }
   };
@@ -44,21 +63,22 @@ export const Search = ({
   // Show autocomplete if search field isn't empty after click outside.
   const showAutocomplete = () => {
     if (search !== null) {
-      setAutocompleteOpen(true);
+      // setAutocompleteOpen(true);
+      setAutocompleteOpen();
     }
   };
 
   // Debounce fast typing to hinder quick API-calls.
-  useEffect(() => {
-    if (search !== null && search.length !== 0) {
-      const timeoutID = setTimeout(() => {
-        onSearchChange(search);
-      }, 1000);
-      return () => {
-        clearTimeout(timeoutID);
-      };
-    }
-  }, [search]);
+  // useEffect(() => {
+  //   if (search !== null && search.length !== 0) {
+  //     const timeoutID = setTimeout(() => {
+  //       onSearchChange(search);
+  //     }, 1000);
+  //     return () => {
+  //       clearTimeout(timeoutID);
+  //     };
+  //   }
+  // }, [search]);
 
   return (
     <div>
@@ -80,7 +100,16 @@ export const Search = ({
             ref={inputRef}
             // value={search}
           />
-          {search && autocomplete}
+          {search && (
+            <Autocomplete
+              // searchResult={searchResult}
+              // setSearchResult={setSearchResult}
+              // setPosition={setPosition}
+              // autocompleteOpen={autocompleteOpen}
+              ref={autocompleteRef}
+              // autocompleteIsLoading={autocompleteIsLoading}
+            />
+          )}
         </div>
         <button type="submit">Search</button>
       </form>

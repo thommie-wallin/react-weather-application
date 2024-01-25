@@ -1,17 +1,27 @@
 import React, { forwardRef, useState } from "react";
-import { useForecast } from "../../services/contexts/forecast-context";
+import { useForecastContext } from "../../services/contexts/forecast-context";
+import { useSearchContext } from "../../services/contexts/search-context";
 
 const Autocomplete = forwardRef(function Autocomplete(
   {
-    searchResult,
-    setSearchResult,
+    props,
+    // searchResult,
+    // setSearchResult,
     // setPosition,
-    autocompleteOpen,
-    autocompleteIsLoading,
+    // autocompleteOpen,
+    // autocompleteIsLoading,
   },
   ref,
 ) {
-  const { setPosition } = useForecast();
+  const { setPosition } = useForecastContext();
+  const {
+    searchResult,
+    setSearchResult,
+    autocompleteOpen,
+    autocompleteIsLoading,
+    setAutocompleteOpen,
+    setAutocompleteClose,
+  } = useSearchContext();
   // const [searchResult, setSearchResult] = useState({});
   // const [autocompleteOpen, setAutocompleteOpen] = useState(false);
 
@@ -26,6 +36,7 @@ const Autocomplete = forwardRef(function Autocomplete(
             latitude: result.latitude,
             longitude: result.longitude,
           });
+          //! Doesn't seem to clear searchresult-state as it should.
           setSearchResult({});
           document.getElementById("search").value = null;
         }}
