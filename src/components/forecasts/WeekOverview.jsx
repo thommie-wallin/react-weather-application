@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/WeekOverview.css";
-import { filterArr, getFiveDays } from "../../utils/numberUtils.jsx";
+import { filterArr } from "../../utils/numberUtils.jsx";
 import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";

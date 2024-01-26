@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForecastContext } from "../services/contexts/forecast-context";
-import { SearchProvider } from "../services/contexts/search-context";
+import SearchBarContainer from "./layouts/searchbar/SearchBarContainer";
 
-export const Header = ({ search }) => {
+export const Header = () => {
   const { locationName, isTempUnitC, toggleTempUnit } = useForecastContext();
+
+  //? PLace locationName at the top of every page box instead of in the header. Refactor the router component.
 
   return (
     <header>
@@ -15,7 +17,7 @@ export const Header = ({ search }) => {
             Change to {isTempUnitC ? "℉" : "℃"}
           </button>
         </div>
-        <div className="search">{search} </div>
+        <SearchBarContainer />
         <div className="location">
           <h3>{locationName ? locationName : "Welcome"}</h3>
         </div>

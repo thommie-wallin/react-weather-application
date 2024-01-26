@@ -9,9 +9,9 @@ import { SearchProvider } from "./services/contexts/search-context";
 ReactDOM.render(
   <React.StrictMode>
     <ForecastProvider>
-      <SearchProvider>
-        <App />
-      </SearchProvider>
+      {/* <SearchProvider> */}
+      <App />
+      {/* </SearchProvider> */}
     </ForecastProvider>
   </React.StrictMode>,
   document.getElementById("root"),

@@ -21,7 +21,6 @@ export function SearchProvider({ children }) {
   const [state, dispatch] = useReducer(searchReducer, initialState);
 
   const setSearchResult = useCallback((searchData) => {
-    console.log(searchData);
     dispatch({
       type: "SET_SEARCH_RESULT",
       payload: {

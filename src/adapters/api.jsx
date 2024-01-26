@@ -1,5 +1,3 @@
-import { useForecastContext } from "../services/contexts/forecast-context";
-
 export async function makeAPICall(endpoint, signal) {
   const res = await fetch(endpoint, signal);
   const data = await res.json();
@@ -20,10 +18,6 @@ export async function makeAPICall(endpoint, signal) {
   //   return error.message;
   // }
 }
-
-// const api = (endpoint, signal) => {
-//   get: (endpoint) => fetch(endpoint, signal);
-// };
 
 export async function makeMultipleAPICalls(endpoints, signal) {
   const promises = endpoints.map((endpoint) => makeAPICall(endpoint, signal));

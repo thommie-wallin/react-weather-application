@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getAutocompleteItems } from "../services/api/autocomplete-list";
 import { useForecastContext } from "../services/contexts/forecast-context";
 import { useSearchContext } from "../services/contexts/search-context";
@@ -6,21 +6,12 @@ import { useSearchContext } from "../services/contexts/search-context";
 const useGetAutocompleteItems = (searchData) => {
   const { setError } = useForecastContext();
   const {
-    // searchResult,
-    // searchTermCache,
     setSearchResult,
-    autocompleteOpen,
-    // autocompleteIsLoading,
     autoLoadingStart,
     autoLoadingStop,
     setAutocompleteOpen,
-    setAutocompleteClose,
   } = useSearchContext();
-  // const [searchResult, setSearchResult] = useState({});
-  // const [autocompleteOpen, setAutocompleteOpen] = useState(false);
   const [searchTermCache, setSearchTermCache] = useState(null);
-  // const [autocompleteIsLoading, setAutocompleteIsLoading] = useState(false);
-  // const [error, setError] = useState();
   const autocompleteAbortControllerRef = useRef();
 
   useEffect(() => {
@@ -29,7 +20,6 @@ const useGetAutocompleteItems = (searchData) => {
       if (searchData !== null) {
         // Check if searchdata existed before correcting validation invalid.
         if (searchData === searchTermCache) {
-          // setAutocompleteOpen(true);
           setAutocompleteOpen();
           return;
         }
@@ -41,7 +31,6 @@ const useGetAutocompleteItems = (searchData) => {
         autocompleteAbortControllerRef.current = new AbortController();
         const signal = autocompleteAbortControllerRef.current.signal;
 
-        // setAutocompleteIsLoading(true);
         autoLoadingStart();
         setAutocompleteOpen(true);
         try {
@@ -54,7 +43,6 @@ const useGetAutocompleteItems = (searchData) => {
           }
           setError(error);
         } finally {
-          // setAutocompleteIsLoading(false);
           autoLoadingStop();
         }
       }
@@ -62,7 +50,6 @@ const useGetAutocompleteItems = (searchData) => {
 
     if (searchData !== null && searchData.length !== 0) {
       handleOnSearchChange();
-      console.log(searchData);
     }
 
     return () => {
@@ -72,8 +59,6 @@ const useGetAutocompleteItems = (searchData) => {
       }
     };
   }, [searchData]);
-
-  // return { searchResult, autocompleteOpen, autocompleteIsLoading };
 };
 
 export default useGetAutocompleteItems;
