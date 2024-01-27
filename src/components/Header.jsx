@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useForecastContext } from "../services/contexts/forecast-context";
 import SearchBarContainer from "./layouts/searchbar/SearchBarContainer";
+import NavBar from "./NavBar";
 
 export const Header = () => {
   const { locationName, isTempUnitC, toggleTempUnit } = useForecastContext();
@@ -22,7 +23,8 @@ export const Header = () => {
           <h3>{locationName ? locationName : "Welcome"}</h3>
         </div>
       </div>
-      <nav className="navbar">
+      <NavBar />
+      {/* <nav className="navbar">
         <ul className="nav-list">
           <Link to="/" className="nav-list-link">
             <li>Today</li>
@@ -34,7 +36,7 @@ export const Header = () => {
             <li>5 day</li>
           </Link>
         </ul>
-      </nav>
+      </nav> */}
     </header>
   );
 };
