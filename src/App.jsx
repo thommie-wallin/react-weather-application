@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { Header } from "./components/Header.jsx";
 import useGetGeolocationPosition from "./hooks/useGetGeolocationPosition.jsx";
@@ -8,6 +8,8 @@ import TodayPage from "./pages/dashboard/today.jsx";
 import HourlyPage from "./pages/dashboard/hourly.jsx";
 import FiveDayPage from "./pages/dashboard/five-day.jsx";
 import { useGetForecast } from "./hooks/useGetForecast.jsx";
+// import { routes } from "./config/routes.jsx";
+import RouterController from "./components/ui/Route.jsx";
 
 function App() {
   const { position } = useForecastContext();
@@ -29,17 +31,11 @@ function App() {
       <Router>
         <Header />
         <div className="router-content">
-          <Switch>
-            <Route exact path="/">
-              <TodayPage />
-            </Route>
-            <Route path="/hourly">
-              <HourlyPage />
-            </Route>
-            <Route path="/fivedays">
-              <FiveDayPage />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/today" element={<TodayPage />} />
+            <Route path="/hourly" element={<HourlyPage />} />
+            <Route path="/fivedays" element={<FiveDayPage />} />
+          </Routes>
         </div>
       </Router>
     </div>

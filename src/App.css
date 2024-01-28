@@ -94,33 +94,28 @@
 }
 
 /* NAVBAR */
-.navbar {
+#navbar {
   background-color: #42265B;
   height: 3rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.nav-list {
-  list-style-type: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 1rem;
 }
 
 .nav-list-link {
-  text-decoration: none;
-}
-
-.nav-list li {
+  height: 100%;
   padding: 0.75rem;
   border-bottom: 3px solid #42265B;
   color: whitesmoke;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.nav-list li:hover {
+.nav-list-link:hover {
+  border-bottom: 3px solid whitesmoke;
+}
+
+#navbar a.active {
   border-bottom: 3px solid whitesmoke;
 }
 

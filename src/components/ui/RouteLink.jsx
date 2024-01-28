@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const RouteLink = ({ linkAdress, pathName }) => {
+const RouteLink = ({ pathAdress, pathName }) => {
   return (
-    <Link to={`${linkAdress}`} className="nav-list-link">
-      <li>{pathName}</li>
-    </Link>
+    <NavLink to={`${pathAdress}`} className="nav-list-link">
+      {pathName}
+    </NavLink>
   );
 };
 

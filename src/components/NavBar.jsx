@@ -4,14 +4,10 @@ import RouteLink from "./ui/RouteLink";
 
 const NavBar = () => {
   return (
-    <nav className="navbar">
-      <ul className="nav-list">
-        {routes.map((route, i) => {
-          return (
-            <RouteLink key={i} linkAdress={route.path} pathName={route.name} />
-          );
-        })}
-      </ul>
+    <nav id="navbar">
+      {routes.map(({ path, name }, i) => {
+        return <RouteLink key={i} pathAdress={path} pathName={name} />;
+      })}
     </nav>
   );
 };
