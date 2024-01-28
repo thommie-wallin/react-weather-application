@@ -4,7 +4,7 @@ import { tempUnitConverter } from "../../utils/numberUtils";
 import { useForecastContext } from "../../services/contexts/forecast-context";
 
 const Today = () => {
-  const { currentWeather, isTempUnitC } = useForecastContext();
+  const { currentWeather, locationName, isTempUnitC } = useForecastContext();
   const sunrise = new Date(
     currentWeather.sys.sunrise * 1000,
   ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
@@ -18,7 +18,8 @@ const Today = () => {
 
   return (
     <div className="content-today">
-      <h3>The weather today</h3>
+      {/* <h3>The weather today</h3> */}
+      <h3>{locationName}</h3>
       <ul className="list-today">
         <li>
           <h1>

@@ -1,3 +1,15 @@
+/* CUSTOM PROPERTIES */
+:root {
+  --page-bg: #fff;
+
+  --primary-text: #fafafa;
+  --primary-text-dark: #000;
+
+  /* Cards */
+  --card-bg: var(--primary-text);
+  --card-text-header: var(--primary-text-dark);
+}
+
 /* GENERAL */
 * {
   margin: 0;
@@ -132,4 +144,20 @@
   gap: 1rem;
   /* align-items: center; */
   /* justify-content: space-evenly; */
+}
+
+/* CARDS */
+.card {
+  background: var(--card-bg);
+  color: var(--card-text-header);
+  border-radius: 6px;
+  box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
+}
+
+.card-header {
+  padding: 1rem;
+}
+
+.card-content {
+  padding: 0 0 1rem 0;
 }

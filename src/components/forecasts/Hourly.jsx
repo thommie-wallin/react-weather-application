@@ -3,6 +3,7 @@ import "../../styles/Hourly.css";
 import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
+import Card from "../ui/Card.jsx";
 
 const Hourly = () => {
   const { forecast, isTempUnitC } = useForecastContext();
@@ -38,10 +39,13 @@ const Hourly = () => {
   });
 
   return (
-    <div className="content-hourly">
-      <h3>Hourly weather - {date}</h3>
+    // <div className="content-hourly">
+    //   <h3>Hourly weather - {date}</h3>
+    //   <ul className="list-hourly">{hourlyData}</ul>
+    // </div>
+    <Card title={`Hourly weather - ${date}`}>
       <ul className="list-hourly">{hourlyData}</ul>
-    </div>
+    </Card>
   );
 };
 

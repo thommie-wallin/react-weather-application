@@ -3,6 +3,7 @@ import "./../../styles/WeekForecast.css";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { filterArr, tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
+import Card from "../ui/Card.jsx";
 
 const WeekForecast = () => {
   const { forecast, isTempUnitC } = useForecastContext();
@@ -38,10 +39,13 @@ const WeekForecast = () => {
   });
 
   return (
-    <div className="content-forecast">
-      <h3>5 Day Weather</h3>
+    // <div className="content-forecast">
+    //   <h3>5 Day Weather</h3>
+    //   <ul className="list-forecast">{dateData}</ul>
+    // </div>
+    <Card title={"5 Day Weather"}>
       <ul className="list-forecast">{dateData}</ul>
-    </div>
+    </Card>
   );
 };
 

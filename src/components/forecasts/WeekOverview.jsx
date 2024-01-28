@@ -4,6 +4,7 @@ import { filterArr } from "../../utils/numberUtils.jsx";
 import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
+import Card from "../ui/Card.jsx";
 
 const WeekOverview = () => {
   const { forecast, isTempUnitC } = useForecastContext();
@@ -37,17 +38,17 @@ const WeekOverview = () => {
           <p>
             {temps[i]} {isTempUnitC ? "℃" : "℉"}
           </p>
+          <img src={iconsURL[i]} alt={d.weather[0].main} />
         </div>
-        <img src={iconsURL[i]} alt={d.weather[0].main} />
+        {/* <div className="list-item-image"></div> */}
       </li>
     );
   });
 
   return (
-    <div className="content-overview">
-      <h3>Week overview</h3>
+    <Card title={"Week overview"}>
       <ul className="list-overview">{renderElement}</ul>
-    </div>
+    </Card>
   );
 };
 
