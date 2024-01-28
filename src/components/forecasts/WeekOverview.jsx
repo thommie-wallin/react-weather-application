@@ -35,8 +35,10 @@ const WeekOverview = () => {
       <li key={i} className="list-item">
         <div className="item">
           <p>{dates[i]}</p>
-          <p>
-            {temps[i]} {isTempUnitC ? "℃" : "℉"}
+          <p className="overview-list-temp">
+            {temps[i]}{" "}
+            <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
+            <span className="tempUnit-symbol">°</span>
           </p>
           <img src={iconsURL[i]} alt={d.weather[0].main} />
         </div>

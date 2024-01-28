@@ -159,5 +159,9 @@
 }
 
 .card-content {
-  padding: 0 0 1rem 0;
+  padding-bottom: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  
 }

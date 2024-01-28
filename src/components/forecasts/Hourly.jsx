@@ -9,6 +9,7 @@ const Hourly = () => {
   const { forecast, isTempUnitC } = useForecastContext();
   // Get todays date
   const date = new Date(forecast.list[0].dt * 1000).toDateString();
+  console.log(date);
 
   // Get data from every third hour from a day
   const hourlyData = forecast.list.slice(0, 8).map((d, i) => {
@@ -28,10 +29,17 @@ const Hourly = () => {
     const iconsURL = `${IMAGE_API_URL}/${d.weather[0].icon}.png`;
 
     const element = (
-      <li key={i}>
-        {hour} {temperature}
-        {isTempUnitC ? "℃" : "℉"} <img src={iconsURL} alt={d.weather[0].main} />{" "}
-        {d.weather[0].description} {windSpeed}m/s {humidity}%
+      <li key={i} className="hourly-list-item">
+        <p>{hour}</p>
+        <p className="hourly-list-temp">
+          {temperature}{" "}
+          <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
+          <span className="tempUnit-symbol">°</span>
+        </p>
+        <img src={iconsURL} alt={d.weather[0].main} />{" "}
+        <p className="hourly-list-description">{d.weather[0].description}</p>
+        <p>{windSpeed}m/s</p>
+        <p>{humidity}%</p>
       </li>
     );
 
