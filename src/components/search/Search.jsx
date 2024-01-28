@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import useGetPosition from "../../hooks/useGetPosition";
 import useDebounce from "../../hooks/useDebounce";
 import useGetAutocompleteItems from "../../hooks/useGetAutocompleteItems";
-import AutocompleteContainer from "../layouts/searchbar/AutocompleteContainer";
+import AutocompleteContainer from "../layouts/header/searchbar/AutocompleteContainer";
 import { useSearchContext } from "../../services/contexts/search-context";
-import SearchDisplay from "../layouts/searchbar/SearchDisplay";
-import AutocompleteList from "../layouts/searchbar/AutocompleteList";
+import SearchDisplay from "../layouts/header/searchbar/SearchDisplay";
+import AutocompleteList from "../layouts/header/searchbar/AutocompleteList";
 
 export const Search = () => {
   const [search, setSearch] = useState(null);

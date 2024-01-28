@@ -1,5 +1,5 @@
 import React from "react";
-import { useSearchContext } from "../../../services/contexts/search-context";
+import { useSearchContext } from "../../../../services/contexts/search-context";
 
 const SearchDisplay = ({
   children,

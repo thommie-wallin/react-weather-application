@@ -1,15 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import { Header } from "./components/Header.jsx";
 import useGetGeolocationPosition from "./hooks/useGetGeolocationPosition.jsx";
 import { useForecastContext } from "./services/contexts/forecast-context.jsx";
-import TodayPage from "./pages/dashboard/today.jsx";
-import HourlyPage from "./pages/dashboard/hourly.jsx";
-import FiveDayPage from "./pages/dashboard/five-day.jsx";
 import { useGetForecast } from "./hooks/useGetForecast.jsx";
-// import { routes } from "./config/routes.jsx";
-import RouterController from "./components/ui/Route.jsx";
+import router from "./router/create-router.jsx";
 
 function App() {
   const { position } = useForecastContext();
@@ -26,20 +21,7 @@ function App() {
   //   setCities((prevCities) => [...prevCities, { name, temperature }]);
   // };
 
-  return (
-    <div className="content">
-      <Router>
-        <Header />
-        <div className="router-content">
-          <Routes>
-            <Route path="/today" element={<TodayPage />} />
-            <Route path="/hourly" element={<HourlyPage />} />
-            <Route path="/fivedays" element={<FiveDayPage />} />
-          </Routes>
-        </div>
-      </Router>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

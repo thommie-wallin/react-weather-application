@@ -4,16 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ForecastProvider } from "./services/contexts/forecast-context";
-import { SearchProvider } from "./services/contexts/search-context";
-import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <BrowserRouter> */}
     <ForecastProvider>
       <App />
     </ForecastProvider>
-    {/* </BrowserRouter> */}
   </React.StrictMode>,
   document.getElementById("root"),
 );

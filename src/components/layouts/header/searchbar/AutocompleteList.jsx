@@ -1,6 +1,6 @@
 import React from "react";
-import { useSearchContext } from "../../../services/contexts/search-context";
-import { useForecastContext } from "../../../services/contexts/forecast-context";
+import { useSearchContext } from "../../../../services/contexts/search-context";
+import { useForecastContext } from "../../../../services/contexts/forecast-context";
 
 const AutocompleteList = ({ setSearch }) => {
   const { setPosition } = useForecastContext();

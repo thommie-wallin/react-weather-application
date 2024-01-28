@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useRef } from "react";
-import { useSearchContext } from "../../../services/contexts/search-context";
+import { useSearchContext } from "../../../../services/contexts/search-context";
 
 const AutocompleteContainer = ({ children }) => {
   const {

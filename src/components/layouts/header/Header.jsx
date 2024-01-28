@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useForecastContext } from "../services/contexts/forecast-context";
-import SearchBarContainer from "./layouts/searchbar/SearchBarContainer";
+import { useForecastContext } from "../../../services/contexts/forecast-context";
+import SearchBarContainer from "./searchbar/SearchBarContainer";
 import NavBar from "./NavBar";
 
 export const Header = () => {
@@ -24,19 +23,6 @@ export const Header = () => {
         </div>
       </div>
       <NavBar />
-      {/* <nav className="navbar">
-        <ul className="nav-list">
-          <Link to="/" className="nav-list-link">
-            <li>Today</li>
-          </Link>
-          <Link to="/hourly" className="nav-list-link">
-            <li>Hourly</li>
-          </Link>
-          <Link to="/fivedays" className="nav-list-link">
-            <li>5 day</li>
-          </Link>
-        </ul>
-      </nav> */}
     </header>
   );
 };
