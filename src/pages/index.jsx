@@ -4,7 +4,7 @@ import useGetGeolocationPosition from "../hooks/useGetGeolocationPosition";
 import { useGetForecast } from "../hooks/useGetForecast";
 import RootLayout from "../components/layouts/RootLayout";
 
-const Home = () => {
+const Root = () => {
   const { position } = useForecastContext();
 
   // If allowed, get user position (Geolocation API).
@@ -12,7 +12,8 @@ const Home = () => {
 
   // Get weather data from updated position (OpenWeatherMap API).
   useGetForecast(position);
+
   return <RootLayout />;
 };
 
-export default Home;
+export default Root;

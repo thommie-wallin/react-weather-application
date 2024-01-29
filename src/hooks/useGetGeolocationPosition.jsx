@@ -1,15 +1,19 @@
 import { useEffect } from "react";
 import { getGeolocationPosition } from "../services/geolocation";
 import { useForecastContext } from "../services/contexts/forecast-context";
+import { useNavigate } from "react-router-dom";
 
 const useGetGeolocationPosition = () => {
   const { setPosition, loadingStart, loadingStop, setError } =
     useForecastContext();
-  // If allowed, get user position from Geolocation API after first render.
+  const navigate = useNavigate();
+
+  // If permitted, get user position from Geolocation API after first render.
   useEffect(() => {
     navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
-      loadingStart();
+      console.log(res.state);
       if (res.state === "granted") {
+        loadingStart();
         try {
           const posObj = await getGeolocationPosition();
           setPosition({
@@ -21,6 +25,8 @@ const useGetGeolocationPosition = () => {
         } finally {
           loadingStop();
         }
+      } else if (res.state === "denied") {
+        navigate("/");
       }
     });
   }, []);

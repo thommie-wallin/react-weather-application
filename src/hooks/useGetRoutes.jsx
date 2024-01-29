@@ -1,12 +1,11 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { routes } from "../router/routes";
-import RootLayout from "../components/layouts/RootLayout";
-import Home from "../pages/home";
+import Root from "../pages";
 
 const useGetRoutes = () => {
   return (
-    <Route path="/" element={<Home />}>
+    <Route path="/" element={<Root />}>
       {routes.map(({ path, element }, i) => (
         <Route key={i} path={path} element={element} />
       ))}
