@@ -17,6 +17,12 @@
   box-sizing: border-box;
 }
 
+.content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 /* TITLE */
 .title {
   display: flex;
@@ -134,7 +140,7 @@
 /* PAGES */
 .router-content {
   background: linear-gradient(#6E3F98, #F2E4DD);
-  min-height: 82vh;
+  flex: 1;
   padding: 1rem;
 }
 
@@ -142,8 +148,6 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* align-items: center; */
-  /* justify-content: space-evenly; */
 }
 
 /* CARDS */
@@ -163,5 +167,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-  
+  .router-content {
+    padding: 1rem 0;
+  }
 }

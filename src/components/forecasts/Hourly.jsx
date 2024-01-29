@@ -47,10 +47,6 @@ const Hourly = () => {
   });
 
   return (
-    // <div className="content-hourly">
-    //   <h3>Hourly weather - {date}</h3>
-    //   <ul className="list-hourly">{hourlyData}</ul>
-    // </div>
     <Card title={`Hourly weather - ${date}`}>
       <ul className="list-hourly">{hourlyData}</ul>
     </Card>
