@@ -28,10 +28,17 @@ const WeekForecast = () => {
     const iconsURL = `${IMAGE_API_URL}/${d.weather[0].icon}.png`;
 
     const element = (
-      <li key={i}>
-        {dates} {temperature}
-        {isTempUnitC ? "℃" : "℉"} <img src={iconsURL} alt={d.weather[0].main} />{" "}
-        {d.weather[0].description} {windSpeed}m/s {humidity}%
+      <li key={i} className="forecast-list-item">
+        <p>{dates}</p>
+        <p className="forecast-list-temp">
+          {temperature}{" "}
+          <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
+          <span className="tempUnit-symbol">°</span>
+        </p>
+        <img src={iconsURL} alt={d.weather[0].main} />{" "}
+        <p className="forecast-list-description">{d.weather[0].description}</p>
+        <p>{windSpeed}m/s</p>
+        <p>{humidity}%</p>
       </li>
     );
 
@@ -39,11 +46,7 @@ const WeekForecast = () => {
   });
 
   return (
-    // <div className="content-forecast">
-    //   <h3>5 Day Weather</h3>
-    //   <ul className="list-forecast">{dateData}</ul>
-    // </div>
-    <Card title={"5 Day Weather"}>
+    <Card title={"5 Day Forecast"}>
       <ul className="list-forecast">{dateData}</ul>
     </Card>
   );

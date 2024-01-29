@@ -2,7 +2,6 @@
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  /* columns: 4 auto; */
 }
 
 .hourly-list-item {
