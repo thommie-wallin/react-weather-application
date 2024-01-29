@@ -1,11 +1,11 @@
 import React from "react";
 import "../../styles/WeekOverview.css";
 import { filterArr } from "../../utils/numberUtils.jsx";
-import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 import Card from "../ui/Card.jsx";
-import useGetDatesAndDays from "../../hooks/useGetDates.jsx";
+import useGetDatesAndDays from "../../hooks/useGetDatesAndDays.jsx";
+import useTempUnitConverter from "../../hooks/useTempUnitConverter.jsx";
 
 const WeekOverview = () => {
   const { forecast, isTempUnitC } = useForecastContext();
@@ -14,22 +14,10 @@ const WeekOverview = () => {
   const dailyForecasts = filterArr(forecast.list, 8);
 
   // Get the dates and weekdays
-  // const dates = dailyForecasts.map((d) => {
-  //   return new Date(d.dt * 1000).toLocaleDateString("en-US", {
-  //     weekday: "short",
-  //     day: "numeric",
-  //   });
-  // });
-
   const dates = useGetDatesAndDays(dailyForecasts);
 
-  // console.log(dates, dates2);
-
   // Get temperatures
-  const temps = dailyForecasts.map((d) => {
-    const temp = tempUnitConverter(isTempUnitC, d.main.temp);
-    return temp;
-  });
+  const temps = useTempUnitConverter(dailyForecasts, isTempUnitC);
 
   // Get weather icons URL endpoints
   const iconsURL = dailyForecasts.map((d) => {
@@ -48,7 +36,6 @@ const WeekOverview = () => {
           </p>
           <img src={iconsURL[i]} alt={d.weather[0].main} />
         </div>
-        {/* <div className="list-item-image"></div> */}
       </li>
     );
   });

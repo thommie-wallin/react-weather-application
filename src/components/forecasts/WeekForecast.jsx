@@ -4,22 +4,35 @@ import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { filterArr, tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 import Card from "../ui/Card.jsx";
+import useGetDatesAndDays from "../../hooks/useGetDatesAndDays.jsx";
+import useTempUnitConverter from "../../hooks/useTempUnitConverter.jsx";
 
 const WeekForecast = () => {
   const { forecast, isTempUnitC } = useForecastContext();
+
   // Filter 5 day / 3 hour forecast-data (each day have 8 readings).
   const dailyForecasts = filterArr(forecast.list, 8);
+
+  // Get the dates and weekdays
+  const dates = useGetDatesAndDays(dailyForecasts);
+
+  // Check if user choose celsius or fahrenheit, temp rounded to one decimal and parsed into an integer.
+  const temps = useTempUnitConverter(dailyForecasts, isTempUnitC);
 
   // Get data from every third hour from a day
   const dateData = dailyForecasts.map((d, i) => {
     // Get the dates and weekdays
-    const dates = new Date(d.dt * 1000).toLocaleDateString("en-US", {
-      weekday: "short",
-      day: "numeric",
-    });
+    // const dates = new Date(d.dt * 1000).toLocaleDateString("en-US", {
+    //   weekday: "short",
+    //   day: "numeric",
+    // });
+
+    // console.log(dates);
 
     // Check if user choose celsius or fahrenheit, temp rounded to one decimal and parsed into an integer.
-    const temperature = tempUnitConverter(isTempUnitC, d.main.temp);
+    // const temperature = tempUnitConverter(isTempUnitC, d.main.temp);
+
+    // console.log(temperature);
 
     const windSpeed = d.wind.speed;
     const humidity = d.main.humidity;
@@ -29,9 +42,9 @@ const WeekForecast = () => {
 
     const element = (
       <li key={i} className="forecast-list-item">
-        <p>{dates}</p>
+        <p>{dates[i]}</p>
         <p className="forecast-list-temp">
-          {temperature}{" "}
+          {temps[i]}{" "}
           <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
           <span className="tempUnit-symbol">°</span>
         </p>
