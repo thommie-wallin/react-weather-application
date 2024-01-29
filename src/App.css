@@ -2,7 +2,7 @@
 :root {
   --page-bg: #fff;
 
-  --primary-text: #fafafa;
+  --primary-text: #f5f5f5;
   --primary-text-dark: #000;
 
   /* Cards */
@@ -18,7 +18,8 @@
 }
 
 .content {
-  height: 100vh;
+  /* use min-height instead of just height to enable scrolling when content grows */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -29,7 +30,7 @@
   justify-content: space-around;
   align-items: center;
   background-color: #6E3F98;
-  color: whitesmoke;
+  color: var(--primary-text);
   height: 4.5rem;
 }
 
@@ -43,7 +44,7 @@
 
 .title > button:active {
   background-color: #6E3F98;
-  color: whitesmoke;
+  color: var(--primary-text);
 }
 
 /* SEARCH */
@@ -52,7 +53,7 @@
   justify-content: center;
   align-items: center;
   background-color: #8B65AD;
-  color: whitesmoke;
+  color: var(--primary-text);
   height: 2.5rem;
 }
 
@@ -107,7 +108,7 @@
   justify-content: center;
   align-items: center;
   background-color: #794c9e;
-  color: whitesmoke;
+  color: var(--primary-text);;
   height: 2rem;
 }
 
@@ -124,17 +125,17 @@
   height: 100%;
   padding: 0.75rem;
   border-bottom: 3px solid #42265B;
-  color: whitesmoke;
+  color: var(--primary-text);;
   text-decoration: none;
   cursor: pointer;
 }
 
 .nav-list-link:hover {
-  border-bottom: 3px solid whitesmoke;
+  border-bottom: 3px solid var(--primary-text);;
 }
 
 #navbar a.active {
-  border-bottom: 3px solid whitesmoke;
+  border-bottom: 3px solid var(--primary-text);;
 }
 
 /* PAGES */

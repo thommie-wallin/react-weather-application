@@ -1,11 +1,13 @@
 import { useEffect, useRef } from "react";
 import { getForecast } from "../services/api/forecast";
 import { useForecastContext } from "../services/contexts/forecast-context";
+import { useNavigate } from "react-router-dom";
 
 export const useGetForecast = (position) => {
   const { setForecast, loadingStart, loadingStop, setError } =
     useForecastContext();
   const weatherAbortControllerRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function handlePositionChange() {
@@ -29,6 +31,7 @@ export const useGetForecast = (position) => {
         }
         setError(error);
       } finally {
+        navigate("/today");
         loadingStop();
       }
     }
