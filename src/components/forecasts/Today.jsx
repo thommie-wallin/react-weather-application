@@ -2,6 +2,8 @@ import React from "react";
 import "../../styles/Today.css";
 import { tempUnitConverter } from "../../utils/numberUtils";
 import { useForecastContext } from "../../services/contexts/forecast-context";
+import HeroCard from "../ui/HeroCard";
+import { IMAGE_API_URL } from "../../utils/constants";
 
 const Today = () => {
   const { currentWeather, locationName, isTempUnitC } = useForecastContext();
@@ -16,23 +18,29 @@ const Today = () => {
   // Toggle celsius or fahrenheit, temp rounded to one decimal.
   const temp = tempUnitConverter(isTempUnitC, currentWeather.main.temp);
 
+  // Get weather icons URL-endpoint.
+  const iconsURL = `${IMAGE_API_URL}/${currentWeather.weather[0].icon}.png`;
+
   return (
-    <div className="content-today">
-      {/* <h3>The weather today</h3> */}
-      <h3>{locationName}</h3>
-      <ul className="list-today">
-        <li>
-          <h1>
-            {temp} {isTempUnitC ? "℃" : "℉"}
-          </h1>
-        </li>
-        <li>Wind speed: {currentWeather.wind.speed} m/s</li>
-        <li>Humidity: {currentWeather.main.humidity} %</li>
-        <li>
-          Sunrise/Sunset: {sunrise}/{sunset}
-        </li>
-      </ul>
-    </div>
+    <HeroCard title={locationName}>
+      <div className="hero-list-today">
+        <ul className="list-today">
+          <li>
+            <p className="today-list-temp">
+              {temp}{" "}
+              <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
+              <span className="tempUnit-symbol">°</span>
+            </p>
+          </li>
+          <li>Wind speed: {currentWeather.wind.speed} m/s</li>
+          <li>Humidity: {currentWeather.main.humidity} %</li>
+          <li>
+            Sunrise/Sunset: {sunrise}/{sunset}
+          </li>
+        </ul>
+        <img src={iconsURL} alt={currentWeather.weather[0].main} />
+      </div>
+    </HeroCard>
   );
 };
 

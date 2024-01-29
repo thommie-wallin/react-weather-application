@@ -9,7 +9,6 @@ const Hourly = () => {
   const { forecast, isTempUnitC } = useForecastContext();
   // Get todays date
   const date = new Date(forecast.list[0].dt * 1000).toDateString();
-  console.log(date);
 
   // Get data from every third hour from a day
   const hourlyData = forecast.list.slice(0, 8).map((d, i) => {

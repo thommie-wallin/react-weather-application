@@ -12,7 +12,6 @@ export default function RootLayout() {
 
   // If position updates and  user haven't clicked a router-link, navigate to TodayPage.
   useEffect(() => {
-    console.log(position, outlet);
     if (position && !outlet) {
       navigate("/today");
     }

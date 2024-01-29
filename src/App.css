@@ -8,6 +8,9 @@
   /* Cards */
   --card-bg: var(--primary-text);
   --card-text-header: var(--primary-text-dark);
+  --card-border-radius: 6px;
+  --card-box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
+  --card-header-padding: 1rem;
 }
 
 /* GENERAL */
@@ -155,12 +158,26 @@
 .card {
   background: var(--card-bg);
   color: var(--card-text-header);
-  border-radius: 6px;
-  box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
 }
 
 .card-header {
-  padding: 1rem;
+  padding: var(--card-header-padding);
+}
+
+.hero-card {
+  background: hsla(0, 0%, 100%, .1);
+  color: var(--primary-text);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+}
+
+.hero-card-header {
+  padding: var(--card-header-padding);
+  background: rgba(0,0,0,0.45);
+  border-top-right-radius: var(--card-border-radius);
+  border-top-left-radius:  var(--card-border-radius);
 }
 
 .card-content {
