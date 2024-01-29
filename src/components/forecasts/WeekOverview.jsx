@@ -5,19 +5,25 @@ import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 import Card from "../ui/Card.jsx";
+import useGetDatesAndDays from "../../hooks/useGetDates.jsx";
 
 const WeekOverview = () => {
   const { forecast, isTempUnitC } = useForecastContext();
+
   // Filter 5 day / 3 hour forecast-data (each day have 8 readings).
   const dailyForecasts = filterArr(forecast.list, 8);
 
   // Get the dates and weekdays
-  const dates = dailyForecasts.map((d) => {
-    return new Date(d.dt * 1000).toLocaleDateString("en-US", {
-      weekday: "short",
-      day: "numeric",
-    });
-  });
+  // const dates = dailyForecasts.map((d) => {
+  //   return new Date(d.dt * 1000).toLocaleDateString("en-US", {
+  //     weekday: "short",
+  //     day: "numeric",
+  //   });
+  // });
+
+  const dates = useGetDatesAndDays(dailyForecasts);
+
+  // console.log(dates, dates2);
 
   // Get temperatures
   const temps = dailyForecasts.map((d) => {
