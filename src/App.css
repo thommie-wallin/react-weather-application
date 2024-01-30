@@ -11,6 +11,9 @@
   --card-border-radius: 6px;
   --card-box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
   --card-header-padding: 1rem;
+
+  /* Button */
+  --button-bg-active: #6E3F98;
 }
 
 /* GENERAL */
@@ -55,7 +58,7 @@
 }
 
 .header-button:active {
-  background-color: #6E3F98;
+  background-color: var(--button-bg-active);
   color: var(--primary-text);
 }
 
@@ -69,7 +72,7 @@
   height: 2.5rem;
 }
 
-.search-component {
+.search-form {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -80,11 +83,31 @@
   width: 100%;
 }
 
+#search {
+  border-radius: var(--card-border-radius);
+  height: 1.5rem;
+  padding: 0 0.25rem;
+}
+
+
+
 /* #search:valid {
   border: 2px solid black;
 } */
 #search:invalid {
   border: red solid 2px;
+}
+
+.search-button {
+  border-radius: var(--card-border-radius);
+  height: 1.5rem;
+  padding: 0 0.25rem;
+  transition-duration: 0.2s;
+}
+
+.search-button:active {
+  background-color: var(--button-bg-active);
+  color: var(--primary-text);
 }
 
 .autocomplete-container.closed {
@@ -95,6 +118,11 @@
   display: block;
   position: absolute;
   width: 100%;
+  border-radius: var(--card-border-radius);
+}
+
+.autocomplete-container {
+  
 }
 
 .autocomplete-list-item {
@@ -102,6 +130,7 @@
   cursor: pointer;
   background-color: whitesmoke;
   color: black;
+  padding: 0 0.25rem;
 }
 
 .autocomplete-list-item:hover {

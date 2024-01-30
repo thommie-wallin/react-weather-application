@@ -18,7 +18,7 @@ const SearchDisplay = ({
 
   return (
     <div className="search">
-      <form className="search-component" onSubmit={handleOnSubmit}>
+      <form className="search-form" onSubmit={handleOnSubmit}>
         <div className="searchBar">
           <input
             type="search"
@@ -28,7 +28,7 @@ const SearchDisplay = ({
             size="30"
             maxLength="30"
             pattern="^[A-Za-z\s]*$"
-            aria-label="Search for forecast in specific city"
+            aria-label="Search city name using only letters"
             onChange={handleOnChange}
             autoComplete="off"
             onFocus={showAutocomplete}
@@ -36,7 +36,9 @@ const SearchDisplay = ({
           />
           {search && children}
         </div>
-        <button type="submit">Search</button>
+        <button type="submit" className="search-button">
+          Search
+        </button>
       </form>
     </div>
   );
