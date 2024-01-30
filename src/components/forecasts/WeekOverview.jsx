@@ -6,6 +6,7 @@ import { useForecastContext } from "../../services/contexts/forecast-context.jsx
 import Card from "../ui/Card.jsx";
 import useGetDatesAndDays from "../../hooks/useGetDatesAndDays.jsx";
 import useTempUnitConverter from "../../hooks/useTempUnitConverter.jsx";
+import WeekOverviewDisplay from "../layouts/forecast/WeekOverviewDisplay.jsx";
 
 const WeekOverview = () => {
   const { forecast, isTempUnitC } = useForecastContext();
@@ -24,25 +25,15 @@ const WeekOverview = () => {
     return `${IMAGE_API_URL}/${d.weather[0].icon}.png`;
   });
 
-  const renderElement = dailyForecasts.map((d, i) => {
-    return (
-      <li key={i} className="list-item">
-        <div className="item">
-          <p>{dates[i]}</p>
-          <p className="overview-list-temp">
-            {temps[i]}{" "}
-            <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
-            <span className="tempUnit-symbol">°</span>
-          </p>
-          <img src={iconsURL[i]} alt={d.weather[0].main} />
-        </div>
-      </li>
-    );
-  });
-
   return (
     <Card title={"Week overview"}>
-      <ul className="list-overview">{renderElement}</ul>
+      <WeekOverviewDisplay
+        dailyForecasts={dailyForecasts}
+        dates={dates}
+        temps={temps}
+        isTempUnitC={isTempUnitC}
+        iconsURL={iconsURL}
+      />
     </Card>
   );
 };
