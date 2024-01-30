@@ -5,6 +5,7 @@ import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 import Card from "../ui/Card.jsx";
 import useGetTime from "../../hooks/useGetTime.jsx";
+import HourlyDisplay from "../layouts/forecast/HourlyDisplay.jsx";
 
 const Hourly = () => {
   const { forecast, isTempUnitC } = useForecastContext();
@@ -26,27 +27,21 @@ const Hourly = () => {
     // Get weather icons URL endpoints
     const iconsURL = `${IMAGE_API_URL}/${d.weather[0].icon}.png`;
 
-    const element = (
-      <li key={i} className="hourly-list-item">
-        <p>{hour}</p>
-        <p className="hourly-list-temp">
-          {temperature}{" "}
-          <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
-          <span className="tempUnit-symbol">°</span>
-        </p>
-        <img src={iconsURL} alt={d.weather[0].main} />{" "}
-        <p className="hourly-list-description">{d.weather[0].description}</p>
-        <p>{windSpeed}m/s</p>
-        <p>{humidity}%</p>
-      </li>
-    );
+    const description = d.weather[0].description;
 
-    return element;
+    return {
+      hour,
+      temperature,
+      windSpeed,
+      humidity,
+      iconsURL,
+      description,
+    };
   });
 
   return (
     <Card title={`Hourly weather - ${date}`}>
-      <ul className="list-hourly">{hourlyData}</ul>
+      <HourlyDisplay hourlyData={hourlyData} isTempUnitC={isTempUnitC} />
     </Card>
   );
 };
