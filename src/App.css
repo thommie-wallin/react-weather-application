@@ -27,8 +27,13 @@
   flex-direction: column;
 }
 
-/* TITLE */
-.title {
+/* HEADER */
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -37,7 +42,11 @@
   height: 4.5rem;
 }
 
-.title > button {
+.title {
+  color: var(--primary-text);
+}
+
+.header-button {
   padding: .5rem;
   border-radius: 25px;
   box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
@@ -45,7 +54,7 @@
   background-color: whitesmoke;
 }
 
-.title > button:active {
+.header-button:active {
   background-color: #6E3F98;
   color: var(--primary-text);
 }
