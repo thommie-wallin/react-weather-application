@@ -1,11 +1,11 @@
 import React from "react";
 import { PageContainer } from "../../components/layouts/page-container/PageContainer";
-import WeekForecast from "../../components/forecasts/WeekForecast";
+import FiveDay from "../../components/forecasts/FiveDay";
 
 const FiveDayPage = () => {
   return (
     <PageContainer>
-      <WeekForecast />
+      <FiveDay />
     </PageContainer>
   );
 };

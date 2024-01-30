@@ -1,6 +1,6 @@
 import React from "react";
 
-const WeekForecastDisplay = ({ fiveDayforecast, isTempUnitC }) => {
+const FiveDayDisplay = ({ fiveDayforecast, isTempUnitC }) => {
   return (
     <ul className="list-forecast">
       {fiveDayforecast.map((d, i) => (
@@ -21,4 +21,4 @@ const WeekForecastDisplay = ({ fiveDayforecast, isTempUnitC }) => {
   );
 };
 
-export default WeekForecastDisplay;
+export default FiveDayDisplay;

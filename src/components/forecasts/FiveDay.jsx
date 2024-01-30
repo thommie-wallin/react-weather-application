@@ -1,11 +1,11 @@
 import React from "react";
-import "./../../styles/WeekForecast.css";
+import "./../../styles/FiveDay.css";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 import Card from "../ui/Card.jsx";
-import WeekForecastDisplay from "../layouts/forecast/WeekForecastDisplay.jsx";
+import FiveDayDisplay from "../layouts/forecast/FiveDayDisplay.jsx";
 import useDestructuringFiveDayForecast from "../../hooks/useDestructuringFiveDayForecast.jsx";
 
-const WeekForecast = () => {
+const FiveDayForecast = () => {
   const { forecast, isTempUnitC } = useForecastContext();
   const fiveDayforecast = useDestructuringFiveDayForecast(
     forecast,
@@ -14,7 +14,7 @@ const WeekForecast = () => {
 
   return (
     <Card title={"5 Day Forecast"}>
-      <WeekForecastDisplay
+      <FiveDayDisplay
         fiveDayforecast={fiveDayforecast}
         isTempUnitC={isTempUnitC}
       />
@@ -22,4 +22,4 @@ const WeekForecast = () => {
   );
 };
 
-export default WeekForecast;
+export default FiveDayForecast;
