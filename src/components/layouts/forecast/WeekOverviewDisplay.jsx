@@ -1,24 +1,18 @@
 import React from "react";
 
-const WeekOverviewDisplay = ({
-  dailyForecasts,
-  dates,
-  temps,
-  isTempUnitC,
-  iconsURL,
-}) => {
+const WeekOverviewDisplay = ({ fiveDayforecast, isTempUnitC }) => {
   return (
     <ul className="list-overview">
-      {dailyForecasts.map((d, i) => (
+      {fiveDayforecast.map((d, i) => (
         <li key={i} className="list-item">
           <div className="item">
-            <p>{dates[i]}</p>
+            <p>{d.dates}</p>
             <p className="overview-list-temp">
-              {temps[i]}{" "}
+              {d.temps}{" "}
               <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
               <span className="tempUnit-symbol">°</span>
             </p>
-            <img src={iconsURL[i]} alt={d.weather[0].main} />
+            <img src={d.iconsURL} alt={d.mainDescription} />
           </div>
         </li>
       ))}

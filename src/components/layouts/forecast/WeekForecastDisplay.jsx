@@ -1,30 +1,20 @@
 import React from "react";
 
-const WeekForecastDisplay = ({
-  dailyForecasts,
-  dates,
-  temps,
-  isTempUnitC,
-  iconsURL,
-  windSpeed,
-  humidity,
-}) => {
+const WeekForecastDisplay = ({ fiveDayforecast, isTempUnitC }) => {
   return (
     <ul className="list-forecast">
-      {dailyForecasts.map((d, i) => (
+      {fiveDayforecast.map((d, i) => (
         <li key={i} className="forecast-list-item">
-          <p>{dates[i]}</p>
+          <p>{d.dates}</p>
           <p className="forecast-list-temp">
-            {temps[i]}{" "}
+            {d.temps}{" "}
             <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
             <span className="tempUnit-symbol">°</span>
           </p>
-          <img src={iconsURL[i]} alt={d.weather[0].main} />{" "}
-          <p className="forecast-list-description">
-            {d.weather[0].description}
-          </p>
-          <p>{windSpeed[i]}m/s</p>
-          <p>{humidity[i]}%</p>
+          <img src={d.iconsURL} alt={d.mainDescription} />{" "}
+          <p className="forecast-list-description">{d.description}</p>
+          <p>{d.windSpeed}m/s</p>
+          <p>{d.humidity}%</p>
         </li>
       ))}
     </ul>
