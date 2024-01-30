@@ -1,7 +1,7 @@
 import React from "react";
 import "./../../styles/WeekForecast.css";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
-import { filterArr, tempUnitConverter } from "../../utils/numberUtils.jsx";
+import { filterArr } from "../../utils/numberUtils.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 import Card from "../ui/Card.jsx";
 import useGetDatesAndDays from "../../hooks/useGetDatesAndDays.jsx";
@@ -19,27 +19,24 @@ const WeekForecast = () => {
   // Check if user choose celsius or fahrenheit, temp rounded to one decimal and parsed into an integer.
   const temps = useTempUnitConverter(dailyForecasts, isTempUnitC);
 
-  // Get data from every third hour from a day
+  // Get weather icons URL endpoints
+  const iconsURL = dailyForecasts.map((d) => {
+    return `${IMAGE_API_URL}/${d.weather[0].icon}.png`;
+  });
+
+  // Get forecast windspeed
+  const windSpeed = dailyForecasts.map((d) => {
+    return d.wind.speed;
+  });
+
+  // Get forecast humidity
+  const humidity = dailyForecasts.map((d) => {
+    return d.main.humidity;
+  });
+
+  // Array of five days.
+  //! Refactor to layouts folder with forecast-components
   const dateData = dailyForecasts.map((d, i) => {
-    // Get the dates and weekdays
-    // const dates = new Date(d.dt * 1000).toLocaleDateString("en-US", {
-    //   weekday: "short",
-    //   day: "numeric",
-    // });
-
-    // console.log(dates);
-
-    // Check if user choose celsius or fahrenheit, temp rounded to one decimal and parsed into an integer.
-    // const temperature = tempUnitConverter(isTempUnitC, d.main.temp);
-
-    // console.log(temperature);
-
-    const windSpeed = d.wind.speed;
-    const humidity = d.main.humidity;
-
-    // Get weather icons URL endpoints
-    const iconsURL = `${IMAGE_API_URL}/${d.weather[0].icon}.png`;
-
     const element = (
       <li key={i} className="forecast-list-item">
         <p>{dates[i]}</p>
@@ -48,10 +45,10 @@ const WeekForecast = () => {
           <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
           <span className="tempUnit-symbol">°</span>
         </p>
-        <img src={iconsURL} alt={d.weather[0].main} />{" "}
+        <img src={iconsURL[i]} alt={d.weather[0].main} />{" "}
         <p className="forecast-list-description">{d.weather[0].description}</p>
-        <p>{windSpeed}m/s</p>
-        <p>{humidity}%</p>
+        <p>{windSpeed[i]}m/s</p>
+        <p>{humidity[i]}%</p>
       </li>
     );
 

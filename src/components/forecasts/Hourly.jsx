@@ -4,19 +4,18 @@ import { tempUnitConverter } from "../../utils/numberUtils.jsx";
 import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 import Card from "../ui/Card.jsx";
+import useGetTime from "../../hooks/useGetTime.jsx";
 
 const Hourly = () => {
   const { forecast, isTempUnitC } = useForecastContext();
+
   // Get todays date
   const date = new Date(forecast.list[0].dt * 1000).toDateString();
 
   // Get data from every third hour from a day
   const hourlyData = forecast.list.slice(0, 8).map((d, i) => {
     // Get the hour
-    const hour = new Date(d.dt * 1000).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    const hour = useGetTime(d.dt);
 
     // Check if user choose celsius or fahrenheit, temp rounded to one decimal and parsed into an integer.
     const temperature = tempUnitConverter(isTempUnitC, d.main.temp);

@@ -11,7 +11,6 @@ const useGetGeolocationPosition = () => {
   // If permitted, get user position from Geolocation API after first render.
   useEffect(() => {
     navigator.permissions.query({ name: "geolocation" }).then(async (res) => {
-      console.log(res.state);
       if (res.state === "granted") {
         loadingStart();
         try {
