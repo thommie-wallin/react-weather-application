@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo, useCallback } from "react";
 import useGetPosition from "../../hooks/useGetPosition";
 import useDebounce from "../../hooks/useDebounce";
 import useGetAutocompleteItems from "../../hooks/useGetAutocompleteItems";
@@ -13,11 +13,12 @@ export const Search = () => {
   const inputRef = useRef(submitSearch);
   const { setAutocompleteClose } = useSearchContext();
 
-  // Debounce fast typing to throttle API-calls.
+  // Debounce fast search inputs to throttle API-calls.
   const debouncedSearch = useDebounce(search, 1000);
+  const debouncedSubmitSearch = useDebounce(submitSearch, 1000);
 
   // Get position for searched location (Geocoded API OpenWeatherMap).
-  useGetPosition(submitSearch);
+  useGetPosition(debouncedSubmitSearch);
 
   // Get search suggestions for autocomplete-list component (GeoDB-cities API).
   useGetAutocompleteItems(debouncedSearch);
