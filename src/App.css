@@ -226,6 +226,45 @@
   padding-bottom: 1rem;
 }
 
+/* LOADING SKELETON CARD */
+.skeleton-card {
+  background-color: #E5E4E2;
+  border-radius: var(--card-border-radius);
+  animation: 4s infinite alternate skeleton-card;
+}
+
+.skeleton-header {
+  padding: var(--card-header-padding);
+  border-top-right-radius: var(--card-border-radius);
+  border-top-left-radius:  var(--card-border-radius);
+}
+
+.skeleton-header-content {
+  height: 25px;
+  max-width: 200px;
+  background-color: #c5c5c5;
+  animation: 2s infinite alternate skeleton-card;
+}
+
+.skeleton-content {
+  height: 128px;
+  background-color: #c5c5c5;
+  animation: 2s infinite alternate skeleton-card;
+}
+
+.skeleton-footer {
+  height: 1rem;
+}
+
+@keyframes skeleton-card {
+  from {
+    background-color: hsla(0, 0%, 100%, 0.1);
+  }
+  to {
+    background-color: hsla(0, 0%, 100%, .3);
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .router-content {
     padding: 1rem 0;

@@ -1,10 +1,15 @@
 import React from "react";
+import Card from "./ui/Card";
 
 const LoadingDisplay = () => {
   return (
-    <div>
-      <p>Loading...</p>
-    </div>
+    <section className="skeleton-card">
+      <header className="skeleton-header">
+        <p className="skeleton-header-content"></p>
+      </header>
+      <article className="skeleton-content"></article>
+      <footer className="skeleton-footer"></footer>
+    </section>
   );
 };
 

@@ -12,7 +12,7 @@ export const PageContainer = ({ children }) => {
       {error ? (
         <ErrorDisplay />
       ) : isLoading && position !== null ? (
-        <LoadingDisplay />
+        [1, 2].map((n) => <LoadingDisplay key={n} />)
       ) : (
         Object.keys(currentWeather).length > 0 &&
         Object.keys(forecast).length > 0 &&
