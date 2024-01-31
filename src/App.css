@@ -55,6 +55,7 @@
   box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
   transition-duration: 0.2s;
   background-color: whitesmoke;
+  cursor: pointer;
 }
 
 .header-button:active {
@@ -103,6 +104,7 @@
   height: 1.5rem;
   padding: 0 0.25rem;
   transition-duration: 0.2s;
+  cursor: pointer;
 }
 
 .search-button:active {
@@ -119,10 +121,6 @@
   position: absolute;
   width: 100%;
   border-radius: var(--card-border-radius);
-}
-
-.autocomplete-container {
-  
 }
 
 .autocomplete-list-item {
