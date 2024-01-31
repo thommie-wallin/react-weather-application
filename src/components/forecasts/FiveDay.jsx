@@ -2,7 +2,7 @@ import React from "react";
 import "./../../styles/FiveDay.css";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 import Card from "../ui/Card.jsx";
-import FiveDayDisplay from "../layouts/forecast/FiveDayDisplay.jsx";
+import FiveDayDisplay from "../layouts/page-container/pages/FiveDayDisplay.jsx";
 import useDestructuringFiveDayForecast from "../../hooks/useDestructuringFiveDayForecast.jsx";
 
 const FiveDayForecast = () => {

@@ -5,7 +5,7 @@ import { useForecastContext } from "../../services/contexts/forecast-context";
 import HeroCard from "../ui/HeroCard";
 import { IMAGE_API_URL } from "../../utils/constants";
 import useGetTime from "../../hooks/useGetTime";
-import TodayDisplay from "../layouts/forecast/TodayDisplay";
+import TodayDisplay from "../layouts/page-container/pages/TodayDisplay";
 
 const Today = () => {
   const { currentWeather, locationName, isTempUnitC } = useForecastContext();

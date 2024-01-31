@@ -1,10 +1,8 @@
 import React from "react";
 import "../../styles/Hourly.css";
-import { tempUnitConverter } from "../../utils/numberUtils.jsx";
-import { IMAGE_API_URL } from "../../utils/constants.jsx";
 import { useForecastContext } from "../../services/contexts/forecast-context.jsx";
 import Card from "../ui/Card.jsx";
-import HourlyDisplay from "../layouts/forecast/HourlyDisplay.jsx";
+import HourlyDisplay from "../layouts/page-container/pages/HourlyDisplay.jsx";
 import useDestructuringHourlyForecast from "../../hooks/useDestructuringHourlyForecast.jsx";
 
 const Hourly = () => {
