@@ -226,7 +226,12 @@
   padding-bottom: 1rem;
 }
 
-/* LOADING SKELETON CARD */
+/* ERROR */
+.error-text {
+  padding: 0 1rem;
+}
+
+/* LOADING */
 .skeleton-card {
   background-color: #E5E4E2;
   border-radius: var(--card-border-radius);
