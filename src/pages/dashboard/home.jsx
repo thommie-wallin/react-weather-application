@@ -1,18 +1,14 @@
 import React from "react";
 import "../../styles/Home.css";
-import Card from "../../components/ui/Card";
+import IndexContainer from "../../components/layouts/page-container/IndexContainer";
+import Home from "../../components/forecasts/Home";
 
-const Home = () => {
+const HomePage = () => {
   return (
-    <Card title={"Welcome"}>
-      <div className="home-page-card">
-        <p className="text">
-          Search for a weather forecast in your city or allow geolocation on
-          this website.
-        </p>
-      </div>
-    </Card>
+    <IndexContainer>
+      <Home />
+    </IndexContainer>
   );
 };
 
-export default Home;
+export default HomePage;
