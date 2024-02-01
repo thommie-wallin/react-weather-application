@@ -14,6 +14,9 @@
 
   /* Button */
   --button-bg-active: #6E3F98;
+
+  /* Search */
+  --search-bg: #8B65AD;
 }
 
 /* GENERAL */
@@ -49,9 +52,17 @@
   color: var(--primary-text);
 }
 
+.header-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.20rem;
+}
+
 .header-button {
   padding: .5rem;
   border-radius: 25px;
+  /* border-radius: 50%; */
   box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
   transition-duration: 0.2s;
   background-color: whitesmoke;
@@ -63,12 +74,44 @@
   color: var(--primary-text);
 }
 
+.position-button {
+  padding: .5rem;
+  border-radius: 25px;
+  /* border-radius: 50%; */
+  box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
+  transition-duration: 0.2s;
+  background-color: whitesmoke;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.location-on-svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.position-button:active {
+  background-color: var(--button-bg-active);
+  color: var(--primary-text);
+}
+
+.position-button:disabled {
+  background-color: var(--search-bg);
+  cursor: default;
+}
+
+.location-on-svg:disabled {
+  fill: white;
+}
+
 /* SEARCH */
 .search {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #8B65AD;
+  background-color: var(--search-bg);
   color: var(--primary-text);
   height: 2.5rem;
 }
@@ -110,6 +153,30 @@
 .search-button:active {
   background-color: var(--button-bg-active);
   color: var(--primary-text);
+}
+
+.near-me-button {
+  border-radius: var(--card-border-radius);
+  height: 1.5rem;
+  padding: 0 0.25rem;
+  margin-left: 0.20rem;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.near-me-button:active {
+  background-color: var(--button-bg-active);
+  color: var(--primary-text);
+}
+
+.near-me-button > img {
+  /* height: 24px; */
+  height: 1rem;
+  /* width: 16px; */
+  width: 1rem;
 }
 
 .autocomplete-container.closed {

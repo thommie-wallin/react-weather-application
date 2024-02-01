@@ -1,5 +1,7 @@
 import React from "react";
 import { useSearchContext } from "../../../../services/contexts/search-context";
+import useGetGeolocationPosition from "../../../../hooks/useGetGeolocationPosition";
+import { getGeolocationPosition } from "../../../../services/geolocation";
 
 const SearchDisplay = ({
   children,
@@ -40,6 +42,13 @@ const SearchDisplay = ({
           Search
         </button>
       </form>
+      {/* <button
+        type="search"
+        className="near-me-button"
+        onClick={getGeolocationPosition}
+      >
+        <img src="../../../../../public\near_me.svg" />
+      </button> */}
     </div>
   );
 };

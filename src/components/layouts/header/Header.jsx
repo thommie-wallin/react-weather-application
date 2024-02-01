@@ -3,6 +3,7 @@ import { useForecastContext } from "../../../services/contexts/forecast-context"
 import SearchBarContainer from "./searchbar/SearchBarContainer";
 import NavBar from "./NavBar";
 import HeaderButton from "./HeaderButton";
+import LocationButton from "./LocationButton";
 
 export const Header = () => {
   const { locationName, isTempUnitC, toggleTempUnit } = useForecastContext();
@@ -12,10 +13,13 @@ export const Header = () => {
       <div className="header">
         <div className="header-title">
           <h1 className="title">Weather App</h1>
-          <HeaderButton
-            isTempUnitC={isTempUnitC}
-            toggleTempUnit={toggleTempUnit}
-          />
+          <div className="header-buttons">
+            <LocationButton />
+            <HeaderButton
+              isTempUnitC={isTempUnitC}
+              toggleTempUnit={toggleTempUnit}
+            />
+          </div>
         </div>
         <SearchBarContainer />
         <div className="location">
