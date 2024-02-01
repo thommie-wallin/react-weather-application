@@ -94,17 +94,18 @@
 
 .position-button:active {
   background-color: var(--button-bg-active);
-  color: var(--primary-text);
+  fill: var(--primary-text);
 }
 
 .position-button:disabled {
   background-color: var(--search-bg);
   cursor: default;
+  pointer-events: none;
 }
 
-.location-on-svg:disabled {
+/* .location-on-svg:disabled {
   fill: white;
-}
+} */
 
 /* SEARCH */
 .search {
@@ -172,11 +173,20 @@
   color: var(--primary-text);
 }
 
-.near-me-button > img {
-  /* height: 24px; */
+.near-me-button:disabled {
+  background-color: var(--search-bg);
+  cursor: default;
+  pointer-events: none;
+}
+
+.search-near-me-svg {
   height: 1rem;
-  /* width: 16px; */
   width: 1rem;
+}
+
+.search-near-me-svg:active {
+  background-color: var(--button-bg-active);
+  fill: var(--primary-text);
 }
 
 .autocomplete-container.closed {

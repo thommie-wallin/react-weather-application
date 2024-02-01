@@ -6,16 +6,15 @@ const LocationButton = () => {
   const { setPosition, loadingStart, loadingStop, setError } =
     useForecastContext();
 
-  //! Use localstorage solution to save user persmission insted.
-  // Disable button when user allow geolocation
+  //! Use localstorage solution to save user persmission instead.
+  // Disable button when user doesn't allow geolocation
   const buttonRef = useRef();
 
   function report(state) {
     console.log("Permission: " + state);
   }
 
-  function locationQuery() {
-    console.log("rendered");
+  function handleOnClick() {
     navigator.permissions
       .query({ name: "geolocation" })
       .then(async function (result) {
@@ -49,7 +48,7 @@ const LocationButton = () => {
   return (
     <button
       className="position-button"
-      onClick={locationQuery}
+      onClick={handleOnClick}
       // disabled={geolocationAllowed}
       ref={buttonRef}
     >
