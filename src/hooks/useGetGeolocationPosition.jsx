@@ -31,6 +31,8 @@ const useGetGeolocationPosition = () => {
             loadingStop();
           }
         } else if (res.state === "denied") {
+          // localStorage.removeItem("location-allowed");
+          localStorage.setItem("location-allowed", false);
           navigate("/");
         }
       });

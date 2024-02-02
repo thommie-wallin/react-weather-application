@@ -4,9 +4,10 @@ import { Outlet, useOutlet } from "react-router-dom";
 import HomePage from "../../pages/dashboard/home";
 import { useForecastContext } from "../../services/contexts/forecast-context";
 import { useNavigate } from "react-router-dom";
+import ErrorDisplay from "../ErrorDisplay";
 
 export default function RootLayout() {
-  const { position } = useForecastContext();
+  const { position, error } = useForecastContext();
   const outlet = useOutlet();
   const navigate = useNavigate();
 
@@ -24,7 +25,8 @@ export default function RootLayout() {
         {/* <Outlet /> */}
         {/* {outlet || <HomePage />} */}
         {/* {outlet && !position && <HomePage />} */}
-        {!position ? <HomePage /> : outlet}
+        {/* {!position ? <HomePage /> : outlet} */}
+        {error ? <ErrorDisplay /> : !position ? <HomePage /> : outlet}
       </main>
     </div>
   );

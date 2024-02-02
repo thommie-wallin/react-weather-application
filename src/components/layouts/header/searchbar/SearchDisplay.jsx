@@ -42,7 +42,7 @@ const SearchDisplay = ({
           Search
         </button>
       </form>
-      <SearchNearMeButton />
+      {/* <SearchNearMeButton /> */}
     </div>
   );
 };
