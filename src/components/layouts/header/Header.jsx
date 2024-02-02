@@ -2,7 +2,7 @@ import React from "react";
 import { useForecastContext } from "../../../services/contexts/forecast-context";
 import SearchBarContainer from "./searchbar/SearchBarContainer";
 import NavBar from "./NavBar";
-import HeaderButton from "./HeaderButton";
+import TempUnitButton from "./TempUnitButton";
 import LocationButton from "./LocationButton";
 
 export const Header = () => {
@@ -15,7 +15,7 @@ export const Header = () => {
           <h1 className="title">Weather App</h1>
           <div className="header-buttons">
             <LocationButton />
-            <HeaderButton
+            <TempUnitButton
               isTempUnitC={isTempUnitC}
               toggleTempUnit={toggleTempUnit}
             />
