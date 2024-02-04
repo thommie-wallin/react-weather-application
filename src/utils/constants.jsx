@@ -4,4 +4,6 @@ export const IMAGE_API_URL = "https://openweathermap.org/img/wn";
 
 export const GEOCODING_API_URL = "http://api.openweathermap.org/geo/1.0";
 
+export const MAPS_API_URL = "https://tile.openweathermap.org/map";
+
 export const GEODB_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";

@@ -1,12 +1,13 @@
 import React from "react";
 import { LayersControl, TileLayer } from "react-leaflet";
+import { MAPS_API_URL } from "../../utils/constants";
 
-const MapTileLayer = ({ url }) => {
+const MapTileLayer = ({ name, layerName, checked = false }) => {
   return (
-    <LayersControl.Overlay name="Temperature">
+    <LayersControl.Overlay name={name} checked={checked}>
       <TileLayer
         attribution=""
-        url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${
+        url={`${MAPS_API_URL}/${layerName}/{z}/{x}/{y}.png?appid=${
           import.meta.env.VITE_WEATHER_API_KEY
         }`}
       />
