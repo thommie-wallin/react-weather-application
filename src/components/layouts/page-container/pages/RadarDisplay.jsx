@@ -12,48 +12,79 @@ import {
 import L from "leaflet";
 import { useMap } from "react-leaflet/hooks";
 import { ScaleControl } from "react-leaflet/ScaleControl";
-import { AttributionControl } from "react-leaflet/AttributionControl";
-import { Rectangle } from "react-leaflet/Rectangle";
+import legendData from "../../../../data/radar-map-legend";
+import { useForecastContext } from "../../../../services/contexts/forecast-context";
 
 function Legend({ layerName }) {
+  const { isTempUnitC } = useForecastContext();
   const map = useMap();
-  // const mapEvent = useMapEvents({
-  //   // click: () => {
-  //   //   map.locate();
-  //   // },
-  //   // locationfound: (location) => {
-  //   //   console.log("location found:", location);
-  //   // },
-  //   add: (e) => {
-  //     console.log("layer", e.target);
-  //   },
-  // });
-  console.log(layerName);
+
+  let title = "";
+  let scaleTemp = [];
+  let className = "";
+  let tempUnit = isTempUnitC ? "℃" : "℉";
+  legendData.filter((d, i) => {
+    if (d.name === layerName) {
+      title = d.title;
+      scaleTemp =
+        layerName !== "temperature"
+          ? d.scale
+          : isTempUnitC
+            ? d.scaleC
+            : d.scaleF;
+      className = d.className;
+    }
+  });
+
+  const scale = scaleTemp.map((d, i) => `<p key=${i}>${d}</p>`).join("");
 
   useEffect(() => {
     const legend = L.control({ position: "bottomright" });
     legend.onAdd = () => {
-      const div = L.DomUtil.create("div", "info legend");
-      div.innerHTML = `<h4>${layerName}</h4>`;
+      const div = L.DomUtil.create("div", "legend");
+      div.style.margin = "5px";
+      div.innerHTML = `
+        <p class="legend-title">${title} ${
+          layerName === "temperature" && tempUnit
+        }</p>
+        <div>
+          <div class="scale-dividers">
+            ${scale}
+          </div>
+          <div class="horizontal-gradient-scale ${className}"></div>
+        </div>
+      `;
       return div;
     };
     legend.addTo(map);
-    // legend.onAdd();
 
     return () => {
       legend.remove();
     };
-  }, [layerName]);
+  }, [layerName, isTempUnitC]);
 
   return null;
-  // return <div className="leaflet-bottom leaflet-right">Test</div>;
+  // return (
+  //   <div className="leaflet-bottom leaflet-right">
+  //     <div className="info legend">
+  //       <h4>{layerName}</h4>
+  //       <div>
+  //         <div className="scale-dividers">
+  //           {scale.map((d, i) => (
+  //             <p key={i}>{d}</p>
+  //           ))}
+  //         </div>
+  //         <div className="horizontal-gradient-scale temperature"></div>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 }
 
 const RadarDisplay = ({ position }) => {
   const [layerName, setLayerName] = useState("");
   return (
     <MapContainer center={[position.latitude, position.longitude]} zoom={5}>
-      {/* <AttributionControl position="bottomright" /> */}
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -66,7 +97,7 @@ const RadarDisplay = ({ position }) => {
       <ScaleControl position="bottomleft" />
       <Legend layerName={layerName} />
       <LayersControl position="topright">
-        <LayersControl.BaseLayer name="Temperature" checked={false}>
+        <LayersControl.BaseLayer name="Temperature" checked={true}>
           <TileLayer
             attribution=""
             url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${
@@ -78,7 +109,7 @@ const RadarDisplay = ({ position }) => {
                 setLayerName("temperature");
               },
               remove: (e) => {
-                console.log("Removed layer:", e.target);
+                // console.log("Removed layer:", e.target);
               },
             }}
           />
@@ -91,10 +122,11 @@ const RadarDisplay = ({ position }) => {
             }`}
             eventHandlers={{
               add: (e) => {
-                console.log("Added Layer:", e.target);
+                // console.log("Added Layer:", e.target);
+                setLayerName("clouds");
               },
               remove: (e) => {
-                console.log("Removed layer:", e.target);
+                // console.log("Removed layer:", e.target);
               },
             }}
           />
@@ -107,10 +139,11 @@ const RadarDisplay = ({ position }) => {
             }`}
             eventHandlers={{
               add: (e) => {
-                console.log("Added Layer:", e.target);
+                // console.log("Added Layer:", e.target);
+                setLayerName("precipitation");
               },
               remove: (e) => {
-                console.log("Removed layer:", e.target);
+                // console.log("Removed layer:", e.target);
               },
             }}
           />
@@ -123,10 +156,11 @@ const RadarDisplay = ({ position }) => {
             }`}
             eventHandlers={{
               add: (e) => {
-                console.log("Added Layer:", e.target);
+                // console.log("Added Layer:", e.target);
+                setLayerName("pressure");
               },
               remove: (e) => {
-                console.log("Removed layer:", e.target);
+                // console.log("Removed layer:", e.target);
               },
             }}
           />
@@ -139,25 +173,16 @@ const RadarDisplay = ({ position }) => {
             }`}
             eventHandlers={{
               add: (e) => {
-                console.log("Added Layer:", e.target);
+                // console.log("Added Layer:", e.target);
+                setLayerName("wind");
               },
               remove: (e) => {
-                console.log("Removed layer:", e.target);
+                // console.log("Removed layer:", e.target);
               },
             }}
           />
         </LayersControl.BaseLayer>
       </LayersControl>
-      {/* <LayersControl position="bottomright">
-        <LayersControl.BaseLayer name="Wind speed">
-          <TileLayer
-            attribution=""
-            url={`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${
-              import.meta.env.VITE_WEATHER_API_KEY
-            }`}
-          />
-        </LayersControl.BaseLayer>
-      </LayersControl> */}
     </MapContainer>
   );
 };
