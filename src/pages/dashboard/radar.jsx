@@ -1,6 +1,6 @@
 import React from "react";
 import { PageContainer } from "../../components/layouts/page-container/PageContainer";
-import Radar from "../../components/forecasts/Radar";
+import Radar from "../../components/radar/Radar";
 
 const RadarPage = () => {
   return (
