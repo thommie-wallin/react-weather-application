@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import "leaflet/dist/leaflet.css";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  LayersControl,
-  Popup,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, LayersControl } from "react-leaflet";
 import { ScaleControl } from "react-leaflet/ScaleControl";
 import Legend from "../../../radar/MapLegend";
 import legendData from "../../../../data/radar-map-legend";
 import MapLayersControlBaseLayer from "../../../radar/MapLayersControlBaseLayer";
+import MapMarkerPopup from "../../../radar/MapMarkerPopup";
 
 const RadarDisplay = ({ position }) => {
   const [layerName, setLayerName] = useState("");
@@ -21,9 +16,7 @@ const RadarDisplay = ({ position }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker position={[position.latitude, position.longitude]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
+        <MapMarkerPopup />
       </Marker>
       <ScaleControl position="bottomleft" />
       <Legend layerName={layerName} />

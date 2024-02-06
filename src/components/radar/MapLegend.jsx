@@ -10,6 +10,7 @@ export default function Legend({ layerName }) {
 
   let title = "";
   let scaleTemp = [];
+  let scaleUnit = "";
   let className = "";
   let tempUnit = isTempUnitC ? "℃" : "℉";
   legendData.filter((d, i) => {
@@ -21,7 +22,7 @@ export default function Legend({ layerName }) {
           : isTempUnitC
             ? d.scaleC
             : d.scaleF;
-
+      scaleUnit = d.scaleUnit;
       className = d.className;
     }
   });
@@ -35,7 +36,7 @@ export default function Legend({ layerName }) {
       div.style.margin = "5px";
       div.innerHTML = `
         <p class="legend-title">${title} ${
-          layerName === "temperature" ? tempUnit : ""
+          layerName === "temperature" ? tempUnit : scaleUnit
         }</p>
         <div>
           <div class="scale-dividers">
