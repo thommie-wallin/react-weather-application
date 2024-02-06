@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, LayersControl } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  LayersControl,
+  Tooltip,
+} from "react-leaflet";
 import { ScaleControl } from "react-leaflet/ScaleControl";
 import Legend from "../../../radar/MapLegend";
 import legendData from "../../../../data/radar-map-legend";
 import MapLayersControlBaseLayer from "../../../radar/MapLayersControlBaseLayer";
 import MapMarkerPopup from "../../../radar/MapMarkerPopup";
 
-const RadarDisplay = ({ position }) => {
+const RadarDisplay = ({ position, locationName }) => {
   const [layerName, setLayerName] = useState("");
   return (
     <MapContainer center={[position.latitude, position.longitude]} zoom={5}>
@@ -17,6 +23,7 @@ const RadarDisplay = ({ position }) => {
       />
       <Marker position={[position.latitude, position.longitude]}>
         <MapMarkerPopup />
+        <Tooltip>{locationName}</Tooltip>
       </Marker>
       <ScaleControl position="bottomleft" />
       <Legend layerName={layerName} />
