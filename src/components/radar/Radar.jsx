@@ -8,7 +8,7 @@ const Radar = () => {
   const { position, locationName } = useForecastContext();
   return (
     <Card title={"Current - updates every 3 hours"}>
-      <RadarDisplay position={position} locationName={locationName} />
+      {/* <RadarDisplay position={position} locationName={locationName} /> */}
     </Card>
   );
 };

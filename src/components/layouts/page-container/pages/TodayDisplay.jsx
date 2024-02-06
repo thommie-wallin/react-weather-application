@@ -2,6 +2,7 @@ import React from "react";
 
 const TodayDisplay = ({
   temp,
+  feelsLikeTemp,
   isTempUnitC,
   currentWeather,
   sunrise,
@@ -17,6 +18,11 @@ const TodayDisplay = ({
             <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
             <span className="tempUnit-symbol">°</span>
           </p>
+        </li>
+        <li>
+          Feels like: {feelsLikeTemp}{" "}
+          <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
+          <span className="tempUnit-symbol">°</span>
         </li>
         <li>Wind speed: {currentWeather.wind.speed} m/s</li>
         <li>Humidity: {currentWeather.main.humidity} %</li>

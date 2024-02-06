@@ -16,6 +16,10 @@ const Today = () => {
 
   // Toggle celsius or fahrenheit, temp rounded to one decimal.
   const temp = tempUnitConverter(isTempUnitC, currentWeather.main.temp);
+  const feelsLikeTemp = tempUnitConverter(
+    isTempUnitC,
+    currentWeather.main.feels_like,
+  );
 
   // Get weather icons URL-endpoint.
   const iconsURL = `${IMAGE_API_URL}/${currentWeather.weather[0].icon}.png`;
@@ -24,6 +28,7 @@ const Today = () => {
     <HeroCard title={locationName}>
       <TodayDisplay
         temp={temp}
+        feelsLikeTemp={feelsLikeTemp}
         isTempUnitC={isTempUnitC}
         currentWeather={currentWeather}
         sunrise={sunrise}
