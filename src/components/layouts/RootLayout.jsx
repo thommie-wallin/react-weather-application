@@ -5,6 +5,7 @@ import HomePage from "../../pages/dashboard/home";
 import { useForecastContext } from "../../services/contexts/forecast-context";
 import { useNavigate } from "react-router-dom";
 import ErrorDisplay from "../ErrorDisplay";
+import Footer from "./footer/Footer";
 
 export default function RootLayout() {
   const { position, error } = useForecastContext();
@@ -28,6 +29,7 @@ export default function RootLayout() {
         {/* {!position ? <HomePage /> : outlet} */}
         {error ? <ErrorDisplay /> : !position ? <HomePage /> : outlet}
       </main>
+      <Footer />
     </div>
   );
 }
