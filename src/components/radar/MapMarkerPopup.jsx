@@ -11,38 +11,38 @@ const MapMarkerPopup = () => {
   return (
     <Popup>
       <table>
-        <colgroup>
-          <col span={2} />
-        </colgroup>
+        <colgroup span={2}></colgroup>
         <tbody>
           <tr>
-            <th scope="col">{currentWeather.name}</th>
+            <th colSpan="2" scope="colgroup" className="popup-header">
+              {currentWeather.name}
+            </th>
           </tr>
           <tr>
-            <td>Temp</td>
-            <td>
+            <td className="popup-param-name">Temp</td>
+            <td className="popup-param">
               {temp} {isTempUnitC ? "℃" : "℉"}
             </td>
           </tr>
           <tr>
-            <td>Clouds</td>
-            <td>{currentWeather.clouds.all}%</td>
+            <td className="popup-param-name">Clouds</td>
+            <td className="popup-param">{currentWeather.clouds.all}%</td>
           </tr>
           <tr>
-            <td>Humidity</td>
-            <td>{currentWeather.main.humidity}%</td>
+            <td className="popup-param-name">Humidity</td>
+            <td className="popup-param">{currentWeather.main.humidity}%</td>
           </tr>
           <tr>
-            <td>Pressure</td>
-            <td>{currentWeather.main.pressure} hPa</td>
+            <td className="popup-param-name">Pressure</td>
+            <td className="popup-param">{currentWeather.main.pressure} hPa</td>
           </tr>
           <tr>
-            <td>Wind Direction</td>
-            <td>{currentWeather.wind.deg}°</td>
+            <td className="popup-param-name">Wind Direction</td>
+            <td className="popup-param">{currentWeather.wind.deg}°</td>
           </tr>
           <tr>
-            <td>Wind Speed</td>
-            <td>{currentWeather.wind.speed} m/s</td>
+            <td className="popup-param-name">Wind Speed</td>
+            <td className="popup-param">{currentWeather.wind.speed} m/s</td>
           </tr>
         </tbody>
       </table>

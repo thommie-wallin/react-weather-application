@@ -56,6 +56,24 @@
   background-image: linear-gradient(to right, rgba(255,255,255, 0),rgba(238,206,206, 0.4),rgba(179,100,188, 0.7),rgba(179,100,188, 0.7),rgba(63,33,59, 0.8),rgba(116,76,172, 0.9),rgba(70,0,175,1),rgba(13,17,38,1));
 }
 
+/* POPUP */
+.popup-header {
+  text-align: center;
+}
+
+.popup-param-name {
+  /* padding: 0.25rem; */
+  padding-right: 3px;
+  text-wrap: nowrap;
+}
+
+.popup-param {
+  /* padding: 0.25rem; */
+  padding: 1px 0 1px 0;
+  text-wrap: nowrap;
+  font-style: italic
+}
+
 @media only screen and (max-width: 600px) {
   .leaflet-container {
     height: 370px;
