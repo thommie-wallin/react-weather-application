@@ -3,18 +3,11 @@ import Card from "../ui/Card";
 import "../../styles/Radar.css";
 import { useForecastContext } from "../../services/contexts/forecast-context";
 import RadarDisplay from "../layouts/page-container/pages/RadarDisplay";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  ImageOverlay,
-  LayersControl,
-} from "react-leaflet";
 
 const Radar = () => {
-  const { locationName, position } = useForecastContext();
+  const { position } = useForecastContext();
   return (
-    <Card title={locationName}>
+    <Card title={"Current - updates every 3 hours"}>
       <RadarDisplay position={position} />
     </Card>
   );

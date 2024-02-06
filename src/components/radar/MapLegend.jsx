@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useForecastContext } from "../../services/contexts/forecast-context";
 import L from "leaflet";
 import { useMap } from "react-leaflet/hooks";
