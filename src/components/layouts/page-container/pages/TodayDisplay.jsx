@@ -19,7 +19,7 @@ const TodayDisplay = ({
             <span className="tempUnit-symbol">°</span>
           </p>
         </li>
-        <li>
+        <li className="today-list-feels-like">
           Feels like: {feelsLikeTemp}{" "}
           <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
           <span className="tempUnit-symbol">°</span>

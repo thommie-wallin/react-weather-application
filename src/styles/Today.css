@@ -21,6 +21,11 @@
   font-weight: 700;
 }
 
+.today-list-feels-like {
+  text-wrap: nowrap;
+  display: flex;
+}
+
 .tempUnit-symbol {
   display: none;
 }

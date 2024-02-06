@@ -304,6 +304,14 @@
   background: rgba(0,0,0,0.45);
   border-top-right-radius: var(--card-border-radius);
   border-top-left-radius:  var(--card-border-radius);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-card-header > span {
+  /* font-size: 13px; */
+  margin-left: 0.25rem;
 }
 
 .card-content {
@@ -364,6 +372,10 @@
     grid-column-start: 1;
     grid-column-end: -1;
   }
+
+  .hero-card-header > span {
+  font-size: 0.75rem;
+}
 }
 
 @media only screen and (min-width: 1000px) {

@@ -10,6 +10,9 @@ import TodayDisplay from "../layouts/page-container/pages/TodayDisplay";
 const Today = () => {
   const { currentWeather, locationName, isTempUnitC } = useForecastContext();
 
+  // Time of data calculation, unix, UTC
+  const timeOfUpdate = useGetTime(currentWeather.dt);
+
   // Get sunrise/sunset.
   const sunrise = useGetTime(currentWeather.sys.sunrise);
   const sunset = useGetTime(currentWeather.sys.sunset);
@@ -25,7 +28,7 @@ const Today = () => {
   const iconsURL = `${IMAGE_API_URL}/${currentWeather.weather[0].icon}.png`;
 
   return (
-    <HeroCard title={locationName}>
+    <HeroCard title={locationName} timeOfUpdate={timeOfUpdate}>
       <TodayDisplay
         temp={temp}
         feelsLikeTemp={feelsLikeTemp}
