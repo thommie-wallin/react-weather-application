@@ -8,9 +8,11 @@ import ErrorDisplay from "../ErrorDisplay";
 import Footer from "./footer/Footer";
 
 export default function RootLayout() {
-  const { position, error } = useForecastContext();
+  const { position, error, locationList, locationName } = useForecastContext();
   const outlet = useOutlet();
   const navigate = useNavigate();
+
+  console.log(locationList);
 
   // If position updates and  user haven't clicked a router-link, navigate to TodayPage.
   useEffect(() => {

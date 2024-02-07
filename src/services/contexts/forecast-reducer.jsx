@@ -1,8 +1,9 @@
 export const initialState = {
-  locationName: "",
+  locationName: null,
   currentWeather: {},
   forecast: {},
   position: null,
+  locationList: [],
   isTempUnitC: true,
   isLoading: false,
   error: null,
@@ -17,6 +18,10 @@ export const forecastReducer = (state, action) => {
       return {
         ...state,
         locationName: payload.currentWeather.name,
+        locationList: [
+          ...state.locationList,
+          { name: payload.currentWeather.name },
+        ],
         currentWeather: payload.currentWeather,
         forecast: payload.forecast,
         error: null,

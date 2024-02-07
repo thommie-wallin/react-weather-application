@@ -3,6 +3,7 @@ import React, {
   useContext,
   useReducer,
   useCallback,
+  useEffect,
 } from "react";
 import { initialState, forecastReducer } from "./forecast-reducer";
 
@@ -19,7 +20,21 @@ export function useForecastContext() {
 }
 
 export function ForecastProvider({ children }) {
-  const [state, dispatch] = useReducer(forecastReducer, initialState);
+  const [state, dispatch] = useReducer(forecastReducer, {}, () => {
+    const localStorageLocationList = localStorage.getItem("locationList");
+    return {
+      ...initialState,
+      locationList: localStorageLocationList
+        ? JSON.parse(localStorageLocationList)
+        : [],
+    };
+  });
+
+  useEffect(() => {
+    if (state.locationName !== null) {
+      localStorage.setItem("locationList", JSON.stringify(state.locationList));
+    }
+  }, [state.locationList]);
 
   const setPosition = useCallback((position) => {
     dispatch({
@@ -70,6 +85,7 @@ export function ForecastProvider({ children }) {
     forecast: state.forecast,
     position: state.position,
     locationName: state.locationName,
+    locationList: state.locationList,
     isLoading: state.isLoading,
     error: state.error,
     isTempUnitC: state.isTempUnitC,
