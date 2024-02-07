@@ -11,21 +11,37 @@ export const initialState = {
 
 export const forecastReducer = (state, action) => {
   const { type, payload } = action;
+  let findDublicate;
 
   switch (type) {
     case "SET_FORECAST":
       console.log("SET_FORECAST", payload);
-      return {
-        ...state,
-        locationName: payload.currentWeather.name,
-        locationList: [
-          ...state.locationList,
-          { name: payload.currentWeather.name },
-        ],
-        currentWeather: payload.currentWeather,
-        forecast: payload.forecast,
-        error: null,
-      };
+      findDublicate = state.locationList.find(
+        (location) => location.name === payload.currentWeather.name,
+      );
+
+      if (findDublicate === undefined) {
+        return {
+          ...state,
+          locationName: payload.currentWeather.name,
+          locationList: [
+            ...state.locationList,
+            { name: payload.currentWeather.name },
+          ],
+          currentWeather: payload.currentWeather,
+          forecast: payload.forecast,
+          error: null,
+        };
+      } else {
+        return {
+          ...state,
+          locationName: payload.currentWeather.name,
+          currentWeather: payload.currentWeather,
+          forecast: payload.forecast,
+          error: null,
+        };
+      }
+
     case "SET_TEMPUNIT_C":
       console.log("SET_TEMPUNIT_C", !state.isTempUnitC);
       return {
