@@ -1,9 +1,10 @@
 import React from "react";
 import { useForecastContext } from "../../../services/contexts/forecast-context";
-import SearchBarContainer from "./searchbar/SearchBarContainer";
+import SearchBarContainer from "./search-bar/SearchBarContainer";
 import NavBar from "./NavBar";
 import TempUnitButton from "./TempUnitButton";
 import LocationButton from "./LocationButton";
+import LocationList from "./location-list/LocationList";
 
 export const Header = () => {
   const { locationName, isTempUnitC, toggleTempUnit } = useForecastContext();
@@ -22,9 +23,7 @@ export const Header = () => {
           </div>
         </div>
         <SearchBarContainer />
-        <div className="location">
-          <h3>{locationName ? locationName : "Welcome"}</h3>
-        </div>
+        <LocationList locationName={locationName} />
       </div>
       <NavBar />
     </header>

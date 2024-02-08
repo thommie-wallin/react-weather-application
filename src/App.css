@@ -17,6 +17,13 @@
 
   /* Search */
   --search-bg: #8B65AD;
+
+  /* Navbar */
+  --nav-bg: #42265B;
+
+  /* Location-list */
+  --location-list-bg: #794c9e;
+  --location-list-item-active-bg: hsla(0, 0%, 100%, .1);;
 }
 
 /* GENERAL */
@@ -80,6 +87,7 @@
 .tempunit-button > p {
   height: 1rem;
   width: 1rem;
+  user-select: none;
 }
 
 .position-button {
@@ -93,6 +101,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 .location-on-svg {
@@ -140,6 +149,7 @@
   border-radius: var(--card-border-radius);
   height: 1.5rem;
   padding: 0 0.25rem;
+  user-select: none;
 }
 
 
@@ -157,6 +167,7 @@
   padding: 0 0.25rem;
   transition-duration: 0.2s;
   cursor: pointer;
+  user-select: none;
 }
 
 .search-button:active {
@@ -227,18 +238,148 @@
   color: black;
 }
 
-.location {
+/* LOCATIONLIST */
+.location-list {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  background-color: #794c9e;
-  color: var(--primary-text);;
+  background-color: var(--location-list-bg);
+  color: var(--primary-text);
+  font-size: 0.75rem;
   height: 2rem;
+  overflow: hidden;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: relative;
 }
+
+.location-list::-webkit-scrollbar {
+  display: none;
+}
+
+.location-list-item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-right: 1px dotted var(--nav-bg);
+  background-color: var(--location-list-bg);
+}
+
+/* .location-list-item.active {
+  background-color: var(--location-list-item-active-bg);
+  background-color: red;
+} */
+
+.location-list-link.active {
+  background-color: red;
+}
+
+.location-list-item a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--primary-text);
+  user-select: none;
+}
+.location-list-item a:active {
+  text-decoration: none;
+  color: var(--primary-text-dark);
+}
+
+.location-list-item-text {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.location-list-button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.location-list-button {
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--primary-text);
+  fill: var(--nav-bg);
+  outline: none;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.location-list-button:active {
+  background-color: var(--button-bg-active);
+  fill: var(--primary-text);
+}
+
+.location-list-left-arrow-icon,
+.location-list-right-arrow-icon {
+  width: 24px;
+  height: 24px;
+  padding: 0.25rem;
+  cursor: pointer;
+  fill: var(--primary-text);
+  /* background-color: var(--nav-bg); */
+  
+}
+
+.location-list-left-arrow-icon svg,
+.location-list-right-arrow-icon svg {
+  border-radius: 25px;
+  background: var(--nav-bg);
+}
+
+.location-list-left-arrow-icon svg:hover,
+.location-list-right-arrow-icon svg:hover {
+  background: var(--search-bg);
+}
+
+/* .location-list-right-arrow-icon {
+  width: 24px;
+  height: 24px;
+  padding: 0.25rem;
+  cursor: pointer;
+  fill: var(--nav-bg);
+} */
+
+.location-list .location-list-left-arrow-icon, .location-list .location-list-right-arrow-icon {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  /* width: 100px; */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  /* padding: 0 0.5rem; */
+}
+
+.location-list .location-list-left-arrow-icon.active, .location-list .location-list-right-arrow-icon.active {
+  display: flex;
+}
+
+
+.location-list .location-list-left-arrow-icon {
+  /* right: 0; */
+  background: linear-gradient(to right, var(--location-list-bg) 50%, transparent);
+}
+
+.location-list .location-list-right-arrow-icon {
+  right: 0;
+  background: linear-gradient(to left, var(--location-list-bg) 50%, transparent);
+}
+
+
+
+/* .location-list svg:hover {
+  background: #333;
+} */
 
 /* NAVBAR */
 #navbar {
-  background-color: #42265B;
+  background-color: var(--nav-bg);
   height: 3rem;
   display: flex;
   justify-content: center;
@@ -249,9 +390,10 @@
   height: 100%;
   padding: 0.75rem;
   border-bottom: 3px solid #42265B;
-  color: var(--primary-text);;
+  color: var(--primary-text);
   text-decoration: none;
   cursor: pointer;
+  user-select: none;
 }
 
 .nav-list-link:hover {

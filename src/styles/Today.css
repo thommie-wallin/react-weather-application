@@ -22,7 +22,7 @@
 }
 
 .today-list-feels-like {
-  text-wrap: nowrap;
+  white-space: nowrap;
   display: flex;
 }
 
