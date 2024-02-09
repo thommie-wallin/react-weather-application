@@ -1,79 +1,163 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useForecastContext } from "../../../../services/contexts/forecast-context";
+import LocationListItem from "./LocationListItem";
 
-const LocationList = ({ locationName }) => {
-  const { locationList } = useForecastContext();
-  const [isActive, setIsActive] = useState();
-  const [toggle, setToggle] = useState({});
-  let linkRef = useRef(null);
-  // console.log(linkRef);
-
-  // Close autocomplete when click outside of search-input.
-  // useEffect(() => {
-  //   let clickOutsideHandler = (e) => {
-  //     // if (
-  //     //   !autocompleteRef.current?.contains(e.target) &&
-  //     //   e.target.id !== "search"
-  //     // ) {
-  //     //   setAutocompleteClose();
-  //     // }
-  //     console.log(e);
-  //   };
-  //   // linkRef.addEventListener("click", clickOutsideHandler);
-  //   // return () => {
-  //   //   linkRef.removeEventListener("click", clickOutsideHandler);
-  //   // };
-  // }, []);
-
-  function handleOnClick(e) {
-    // linkRef.current.classList.add("active");
-    e.target.classList.toggle("active");
-    console.log(e.target);
+// If geolocated name is stored in localstorage, focus on that list-item from initial render.
+function setInitialActiveIndex({ locationList, locationName }) {
+  let initialActiveIndex = null;
+  for (let i = 0; i < locationList.length; i++) {
+    if (locationList[i].name === locationName) {
+      return (initialActiveIndex = i);
+    }
   }
+  return initialActiveIndex;
+}
 
-  function toggleFunction(id) {
-    setToggle({
-      ...toggle,
-      [id]: !toggle[id],
+//! Implement throttling when checking windows-size.
+// Check window size
+function useWindowSize() {
+  const [size, setSize] = useState([0, 0]);
+  useEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth, window.innerHeight]);
+    }
+    window.addEventListener("resize", updateSize);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+  return size;
+}
+
+const LocationList = () => {
+  const { locationList, locationName } = useForecastContext();
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeArrowLeft, setActiveArrowLeft] = useState(false);
+  const [activeArrowRight, setActiveArrowRight] = useState(false);
+  const sliderRef = useRef();
+  const windowSize = useWindowSize();
+  // console.log(windowSize);
+
+  // Handle scroll with mouse wheel
+  // const handleScroll = (event) => {
+  //   const container = event.target;
+  //   const scrollAmount = event.deltaY;
+  //   container.scrollTo({
+  //     top: 0,
+  //     left: container.scrollLeft + scrollAmount,
+  //     behavior: "smooth",
+  //   });
+  // };
+
+  // OnClick left slider
+  const slideLeft = (e) => {
+    e.preventDefault();
+    sliderRef.current.scrollTo({
+      left: sliderRef.current.scrollLeft - 200,
+      // behavior: "smooth",
     });
-    console.log(toggle);
-  }
+    manageShowArrowIcons();
+  };
 
-  // const handleClick = () => setIsActive(!isActive);
+  // OnClick right slider
+  const slideRight = (e) => {
+    e.preventDefault();
+    sliderRef.current.scrollBy({
+      left: sliderRef.current.scrollLeft + 200,
+      // behavior: "smooth",
+    });
+    manageShowArrowIcons();
+  };
 
-  //! Every button should have it's own state for when clicked in its own component.
+  /** Decrements or increments scollLeft property to scroll left or right respectively */
+  // const handleSlider = (direction) => {
+  //   if (direction === "left") {
+  //     sliderRef ? (sliderRef.current.scrollLeft -= 200) : null;
+  //   } else {
+  //     sliderRef ? (sliderRef.current.scrollLeft += 200) : null;
+  //   }
+  //   manageShowArrowIcons();
+  //   console.log(sliderRef.current.scrollLeft);
+  // };
+
+  // How to show arrow icons
+  const manageShowArrowIcons = () => {
+    if (sliderRef.current.scrollLeft > 20) {
+      setActiveArrowLeft(true);
+    } else {
+      setActiveArrowLeft(false);
+    }
+    let maxScrollValue =
+      sliderRef.current.scrollWidth - sliderRef.current.clientWidth - 20;
+
+    // console.log("scroll width: ", sliderRef.current.scrollWidth);
+    // console.log("client width: ", sliderRef.current.clientWidth);
+    // console.log("maxScrollValue: ", maxScrollValue);
+
+    if (sliderRef.current.scrollLeft > maxScrollValue) {
+      setActiveArrowRight(false);
+    } else {
+      setActiveArrowRight(true);
+    }
+  };
+
+  // Check if overflow of list is outside of window-size, then show icons.
+  useEffect(() => {
+    manageShowArrowIcons();
+  }, [windowSize]);
+
+  // Focus list-item with active class if geolocated name is saved in localstorage and it's initital render.
+  useEffect(() => {
+    const res = setInitialActiveIndex({ locationList, locationName });
+    if (res !== null) {
+      setActiveIndex(res);
+    }
+    // manageShowArrowIcons();
+  }, [locationName]);
 
   return (
     <div className="location-list">
       {/* <h3>{locationName ? locationName : "Welcome"}</h3> */}
-      {locationList.map((d, i) => (
-        <div
-          key={i}
-          // className={`location-list-item ${isActive ? "active" : null}`}
-          className="location-list-item"
-          ref={linkRef}
+      <div
+        className="location-list-slider"
+        // onWheel={handleScroll}
+        ref={sliderRef}
+      >
+        {locationList.map((listItem, i) => (
+          <LocationListItem
+            key={i}
+            isActive={activeIndex === i}
+            onClick={() => setActiveIndex(i)}
+          >
+            {listItem.name}
+          </LocationListItem>
+        ))}
+      </div>
+
+      <div
+        className={`location-list-left-arrow-icon ${
+          activeArrowLeft && "active"
+        }`}
+      >
+        <svg
+          onClick={slideLeft}
+          // onClick={() => handleSlider("left")}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
         >
-          <a href="#" onClick={handleOnClick} className="location-list-link">
-            {/* <span className="location-list-item-text"> */}
-            {d.name}
-            {/* </span> */}
-          </a>
-          <div className="location-list-button-container">
-            <button className="location-list-button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      ))}
-      <div className="location-list-left-arrow-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
           <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
         </svg>
       </div>
-      <div className="location-list-right-arrow-icon active">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+      <div
+        className={`location-list-right-arrow-icon ${
+          activeArrowRight && "active"
+        }`}
+      >
+        <svg
+          onClick={slideRight}
+          // onClick={() => handleSlider("right")}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+        >
           <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
         </svg>
       </div>

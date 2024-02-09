@@ -23,7 +23,7 @@ export const Header = () => {
           </div>
         </div>
         <SearchBarContainer />
-        <LocationList locationName={locationName} />
+        <LocationList />
       </div>
       <NavBar />
     </header>
