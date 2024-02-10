@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useForecastContext } from "../../../../services/contexts/forecast-context";
 import LocationListItem from "./LocationListItem";
+import useThrottle from "../../../../hooks/useThrottle";
 
 // If geolocated name is stored in localstorage, focus on that list-item from initial render.
 function setInitialActiveIndex({ locationList, locationName }) {
@@ -13,10 +14,11 @@ function setInitialActiveIndex({ locationList, locationName }) {
   return initialActiveIndex;
 }
 
-//! Implement throttling when checking windows-size.
-// Check window size
+// Get new window size
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);
+  const throttledSize = useThrottle(size);
+
   useEffect(() => {
     function updateSize() {
       setSize([window.innerWidth, window.innerHeight]);
@@ -25,7 +27,8 @@ function useWindowSize() {
     updateSize();
     return () => window.removeEventListener("resize", updateSize);
   }, []);
-  return size;
+
+  return throttledSize;
 }
 
 const LocationList = () => {
@@ -35,49 +38,20 @@ const LocationList = () => {
   const [activeArrowRight, setActiveArrowRight] = useState(false);
   const sliderRef = useRef();
   const windowSize = useWindowSize();
-  // console.log(windowSize);
-
-  // Handle scroll with mouse wheel
-  // const handleScroll = (event) => {
-  //   const container = event.target;
-  //   const scrollAmount = event.deltaY;
-  //   container.scrollTo({
-  //     top: 0,
-  //     left: container.scrollLeft + scrollAmount,
-  //     behavior: "smooth",
-  //   });
-  // };
-
-  // OnClick left slider
-  const slideLeft = (e) => {
-    e.preventDefault();
-    sliderRef.current.scrollTo({
-      left: sliderRef.current.scrollLeft - 200,
-      // behavior: "smooth",
-    });
-    manageShowArrowIcons();
-  };
-
-  // OnClick right slider
-  const slideRight = (e) => {
-    e.preventDefault();
-    sliderRef.current.scrollBy({
-      left: sliderRef.current.scrollLeft + 200,
-      // behavior: "smooth",
-    });
-    manageShowArrowIcons();
-  };
 
   /** Decrements or increments scollLeft property to scroll left or right respectively */
-  // const handleSlider = (direction) => {
-  //   if (direction === "left") {
-  //     sliderRef ? (sliderRef.current.scrollLeft -= 200) : null;
-  //   } else {
-  //     sliderRef ? (sliderRef.current.scrollLeft += 200) : null;
-  //   }
-  //   manageShowArrowIcons();
-  //   console.log(sliderRef.current.scrollLeft);
-  // };
+  const handleArrowOnClick = (direction) => {
+    if (direction === "left") {
+      sliderRef.current.scrollTo({
+        left: sliderRef.current.scrollLeft - 200,
+      });
+    } else {
+      sliderRef.current.scrollBy({
+        left: sliderRef.current.scrollLeft + 200,
+      });
+    }
+    manageShowArrowIcons();
+  };
 
   // How to show arrow icons
   const manageShowArrowIcons = () => {
@@ -88,10 +62,6 @@ const LocationList = () => {
     }
     let maxScrollValue =
       sliderRef.current.scrollWidth - sliderRef.current.clientWidth - 20;
-
-    // console.log("scroll width: ", sliderRef.current.scrollWidth);
-    // console.log("client width: ", sliderRef.current.clientWidth);
-    // console.log("maxScrollValue: ", maxScrollValue);
 
     if (sliderRef.current.scrollLeft > maxScrollValue) {
       setActiveArrowRight(false);
@@ -111,17 +81,12 @@ const LocationList = () => {
     if (res !== null) {
       setActiveIndex(res);
     }
-    // manageShowArrowIcons();
   }, [locationName]);
 
   return (
     <div className="location-list">
       {/* <h3>{locationName ? locationName : "Welcome"}</h3> */}
-      <div
-        className="location-list-slider"
-        // onWheel={handleScroll}
-        ref={sliderRef}
-      >
+      <div className="location-list-slider" ref={sliderRef}>
         {locationList.map((listItem, i) => (
           <LocationListItem
             key={i}
@@ -139,8 +104,7 @@ const LocationList = () => {
         }`}
       >
         <svg
-          onClick={slideLeft}
-          // onClick={() => handleSlider("left")}
+          onClick={() => handleArrowOnClick("left")}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 -960 960 960"
         >
@@ -153,8 +117,7 @@ const LocationList = () => {
         }`}
       >
         <svg
-          onClick={slideRight}
-          // onClick={() => handleSlider("right")}
+          onClick={() => handleArrowOnClick("right")}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 -960 960 960"
         >

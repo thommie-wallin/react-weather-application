@@ -262,7 +262,7 @@
   overflow-x: scroll;
   scrollbar-width: none;
   /* Scroll-behaviour breaks slider, problem in chromium with scrolling. */
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
   /* -ms-overflow-style: none; */
 }
 
