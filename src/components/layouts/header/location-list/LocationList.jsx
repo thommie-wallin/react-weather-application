@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useForecastContext } from "../../../../services/contexts/forecast-context";
 import LocationListItem from "./LocationListItem";
 import useThrottle from "../../../../hooks/useThrottle";
+import useWindowSize from "../../../../hooks/useWindowSize";
 
 // If geolocated name is stored in localstorage, focus on that list-item from initial render.
 function setInitialActiveIndex({ locationList, locationName }) {
@@ -12,23 +13,6 @@ function setInitialActiveIndex({ locationList, locationName }) {
     }
   }
   return initialActiveIndex;
-}
-
-// Get new window size
-function useWindowSize() {
-  const [size, setSize] = useState([0, 0]);
-  const throttledSize = useThrottle(size);
-
-  useEffect(() => {
-    function updateSize() {
-      setSize([window.innerWidth, window.innerHeight]);
-    }
-    window.addEventListener("resize", updateSize);
-    updateSize();
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
-
-  return throttledSize;
 }
 
 const LocationList = () => {

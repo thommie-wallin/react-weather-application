@@ -19,13 +19,6 @@ const useThrottle = (value, interval = 500) => {
   }, [value, interval]);
 
   return throttledValue;
-
-  // return function () {
-  //   if (Date.now() - lastRun.current >= limit) {
-  //     callbackFunction();
-  //     lastRun.current = Date.now();
-  //   }
-  // };
 };
 
 export default useThrottle;
