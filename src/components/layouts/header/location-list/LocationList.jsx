@@ -32,7 +32,8 @@ function useWindowSize() {
 }
 
 const LocationList = () => {
-  const { locationList, locationName } = useForecastContext();
+  const { locationList, locationName, updateLocationList } =
+    useForecastContext();
   const [activeIndex, setActiveIndex] = useState(null);
   const [activeArrowLeft, setActiveArrowLeft] = useState(false);
   const [activeArrowRight, setActiveArrowRight] = useState(false);
@@ -70,6 +71,14 @@ const LocationList = () => {
     }
   };
 
+  // Filter out city name from locationList and send updated list to forecast-context.
+  const handleOnClickDelete = (cityName) => {
+    const updatedList = locationList.filter((location) => {
+      return location.name !== cityName;
+    });
+    updateLocationList(updatedList);
+  };
+
   // Check if overflow of list is outside of window-size, then show icons.
   useEffect(() => {
     manageShowArrowIcons();
@@ -92,6 +101,7 @@ const LocationList = () => {
             key={i}
             isActive={activeIndex === i}
             onClick={() => setActiveIndex(i)}
+            onClickDelete={() => handleOnClickDelete(listItem.name)}
           >
             {listItem.name}
           </LocationListItem>

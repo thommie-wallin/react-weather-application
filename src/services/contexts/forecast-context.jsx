@@ -36,6 +36,13 @@ export function ForecastProvider({ children }) {
     }
   }, [state.locationList]);
 
+  const updateLocationList = useCallback((updatedList) => {
+    dispatch({
+      type: "UPDATE_LOCATION_LIST",
+      payload: updatedList,
+    });
+  }, []);
+
   const setPosition = useCallback((position) => {
     dispatch({
       type: "SET_POSITION",
@@ -95,6 +102,7 @@ export function ForecastProvider({ children }) {
     loadingStart,
     loadingStop,
     setError,
+    updateLocationList,
   };
 
   return (

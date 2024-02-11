@@ -217,6 +217,7 @@
   position: absolute;
   width: 100%;
   border-radius: var(--card-border-radius);
+  z-index: 100;
 }
 
 .autocomplete-list-item {

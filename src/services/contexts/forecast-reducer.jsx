@@ -42,6 +42,13 @@ export const forecastReducer = (state, action) => {
         };
       }
 
+    case "UPDATE_LOCATION_LIST":
+      console.log("UPDATE_LOCATION_LIST", payload);
+      return {
+        ...state,
+        locationList: payload,
+      };
+
     case "SET_TEMPUNIT_C":
       console.log("SET_TEMPUNIT_C", !state.isTempUnitC);
       return {
