@@ -70,6 +70,7 @@ const LocationList = () => {
       return location.name !== cityName;
     });
     updateLocationList(updatedList);
+    setActiveIndex(null);
   };
 
   // Check if overflow of list is outside of window-size, then show icons.
