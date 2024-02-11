@@ -4,7 +4,7 @@ import SearchBarContainer from "./search-bar/SearchBarContainer";
 import NavBar from "./NavBar";
 import TempUnitButton from "./TempUnitButton";
 import LocationButton from "./LocationButton";
-import LocationList from "./location-list/LocationList";
+import LocationList from "../../location-list/LocationList";
 
 export const Header = () => {
   const { locationName, isTempUnitC, toggleTempUnit } = useForecastContext();
