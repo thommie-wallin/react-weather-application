@@ -30,6 +30,7 @@ export function ForecastProvider({ children }) {
     };
   });
 
+  // Update and set local storage.
   useEffect(() => {
     if (state.locationName !== null) {
       localStorage.setItem("locationList", JSON.stringify(state.locationList));

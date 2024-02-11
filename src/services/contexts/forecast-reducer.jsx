@@ -26,7 +26,13 @@ export const forecastReducer = (state, action) => {
           locationName: payload.currentWeather.name,
           locationList: [
             ...state.locationList,
-            { name: payload.currentWeather.name },
+            {
+              name: payload.currentWeather.name,
+              position: {
+                latitude: payload.currentWeather.coord.lat,
+                longitude: payload.currentWeather.coord.lon,
+              },
+            },
           ],
           currentWeather: payload.currentWeather,
           forecast: payload.forecast,

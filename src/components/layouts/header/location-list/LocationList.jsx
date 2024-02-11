@@ -16,7 +16,7 @@ function setInitialActiveIndex({ locationList, locationName }) {
 }
 
 const LocationList = () => {
-  const { locationList, locationName, updateLocationList } =
+  const { locationList, locationName, updateLocationList, setPosition } =
     useForecastContext();
   const [activeIndex, setActiveIndex] = useState(null);
   const [activeArrowLeft, setActiveArrowLeft] = useState(false);
@@ -24,7 +24,7 @@ const LocationList = () => {
   const sliderRef = useRef();
   const windowSize = useWindowSize();
 
-  /** Decrements or increments scollLeft property to scroll left or right respectively */
+  // Decrements or increments scollLeft property to scroll left or right respectively
   const handleArrowOnClick = (direction) => {
     if (direction === "left") {
       sliderRef.current.scrollTo({
@@ -38,7 +38,7 @@ const LocationList = () => {
     manageShowArrowIcons();
   };
 
-  // How to show arrow icons
+  // How to show arrow icons.
   const manageShowArrowIcons = () => {
     if (sliderRef.current.scrollLeft > 20) {
       setActiveArrowLeft(true);
@@ -53,6 +53,15 @@ const LocationList = () => {
     } else {
       setActiveArrowRight(true);
     }
+  };
+
+  // Set active index for UI purposes and position to fetch weather data for that position.
+  const handleOnClickListItem = (index, position) => {
+    setActiveIndex(index);
+    setPosition({
+      latitude: position.latitude,
+      longitude: position.longitude,
+    });
   };
 
   // Filter out city name from locationList and send updated list to forecast-context.
@@ -80,11 +89,12 @@ const LocationList = () => {
     <div className="location-list">
       {/* <h3>{locationName ? locationName : "Welcome"}</h3> */}
       <div className="location-list-slider" ref={sliderRef}>
-        {locationList.map((listItem, i) => (
+        {locationList.map((listItem, index) => (
           <LocationListItem
-            key={i}
-            isActive={activeIndex === i}
-            onClick={() => setActiveIndex(i)}
+            key={index}
+            isActive={activeIndex === index}
+            // onClick={() => setActiveIndex(index, listItem.position)}
+            onClick={() => handleOnClickListItem(index, listItem.position)}
             onClickDelete={() => handleOnClickDelete(listItem.name)}
           >
             {listItem.name}
