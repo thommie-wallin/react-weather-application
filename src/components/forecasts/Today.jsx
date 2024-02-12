@@ -25,7 +25,9 @@ const Today = () => {
   );
 
   // Get weather icons URL-endpoint.
-  const iconsURL = `${IMAGE_API_URL}/${currentWeather.weather[0].icon}.png`;
+  // const iconsURL = `${IMAGE_API_URL}/${currentWeather.weather[0].icon}.png`;
+  // const iconsURL = `${currentWeather.weather[0].icon}`;
+  const iconsURL = currentWeather.weather[0].icon;
 
   return (
     <HeroCard title={locationName} timeOfUpdate={timeOfUpdate}>

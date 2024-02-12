@@ -7,11 +7,9 @@ const HourlyDisplay = ({ hourlyData, isTempUnitC }) => {
         <tr key={i} className="hourly-list-item">
           <td>{d.hour}</td>
           <td className="hourly-list-temp">
-            {/* <div> */}
             {d.temperature}{" "}
             <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
             <span className="tempUnit-symbol">°</span>
-            {/* </div> */}
           </td>
           <td className="hourly-icon">
             <img src={d.iconsURL} />

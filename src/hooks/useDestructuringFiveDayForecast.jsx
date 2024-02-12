@@ -8,6 +8,7 @@ const useDestructuringFiveDayForecast = (forecast, isTempUnitC) => {
   const dailyForecasts = filterArr(forecast.list, 8);
 
   return dailyForecasts.map((d) => {
+    //! Remake file path for iconsUrl.
     const iconsURL = `${IMAGE_API_URL}/${d.weather[0].icon}.png`;
     const windSpeed = d.wind.speed;
     const humidity = d.main.humidity;
