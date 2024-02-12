@@ -2,22 +2,24 @@ import React from "react";
 
 const FiveDayDisplay = ({ fiveDayforecast, isTempUnitC }) => {
   return (
-    <ul className="list-forecast">
+    <table className="list-forecast">
       {fiveDayforecast.map((d, i) => (
-        <li key={i} className="forecast-list-item">
-          <p>{d.dates}</p>
-          <p className="forecast-list-temp">
+        <tr key={i} className="forecast-list-item">
+          <td>{d.dates}</td>
+          <td className="forecast-list-temp">
             {d.temps}{" "}
             <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
             <span className="tempUnit-symbol">°</span>
-          </p>
-          <img src={d.iconsURL} alt={d.mainDescription} />{" "}
-          <p className="forecast-list-description">{d.description}</p>
-          <p>{d.windSpeed}m/s</p>
-          <p>{d.humidity}%</p>
-        </li>
+          </td>
+          <td className="forecast-icon">
+            <img src={d.iconsURL} alt={d.mainDescription} />
+          </td>
+          <td className="forecast-list-description">{d.description}</td>
+          <td>{d.windSpeed}m/s</td>
+          <td>{d.humidity}%</td>
+        </tr>
       ))}
-    </ul>
+    </table>
   );
 };
 

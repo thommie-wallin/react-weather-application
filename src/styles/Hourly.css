@@ -1,10 +1,15 @@
 .list-hourly {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .hourly-list-item {
   display: flex;
   align-items: center;
+}
+
+.hourly-list-item:not(:last-child) {
+  border-bottom: 1px dotted black;
 }
 
 .hourly-list-item > td {
@@ -27,6 +32,7 @@
   justify-content: center;
   font-size: 1.25rem;
   font-weight: 700;
+  gap: 0.25rem;
 }
 
 .tempUnit-symbol {
@@ -39,20 +45,24 @@
   justify-content: center;
 }
 
-.hourly-list-item:not(:last-child) {
-  border-bottom: 1px dotted black;
-}
-
 @media only screen and (max-width: 600px) {
-  .hourly-list-temp {
-    font-weight: 700;
+  .hourly-list-item > td:first-child {
+    min-width: auto;
+    max-width: auto;
   }
+  .hourly-list-item > td:last-child {
+    min-width: auto;
+    max-width: auto;
+  }
+
   .tempUnit-letter {
     display: none;
   }
+
   .tempUnit-symbol {
     display: block;
   }
+
   .hourly-list-description {
     display: none;
   }
