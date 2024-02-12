@@ -1,19 +1,30 @@
 .list-hourly {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 }
 
 .hourly-list-item {
   display: flex;
-  justify-content:space-between;
-  flex-direction: row;
   align-items: center;
-  padding: 0 1rem 0 1rem;
+}
+
+.hourly-list-item > td {
+  text-align: center;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.hourly-list-item > td:first-child {
+  min-width: 4rem;
+  max-width: 4rem;
+}
+.hourly-list-item > td:last-child {
+  min-width: 4rem;
+  max-width: 4rem;
 }
 
 .hourly-list-temp {
   display: flex;
+  justify-content: center;
   font-size: 1.25rem;
   font-weight: 700;
 }
@@ -22,13 +33,18 @@
   display: none;
 }
 
+.hourly-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .hourly-list-item:not(:last-child) {
   border-bottom: 1px dotted black;
 }
 
 @media only screen and (max-width: 600px) {
   .hourly-list-temp {
-    font-size: 1rem;
     font-weight: 700;
   }
   .tempUnit-letter {
