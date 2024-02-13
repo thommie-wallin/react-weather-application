@@ -14,7 +14,7 @@ const Hourly = () => {
 
   return (
     <Card title={`Hourly weather - ${date}`}>
-      <HourlyDisplay hourlyData={hourlyData} isTempUnitC={isTempUnitC} />
+      <HourlyDisplay hourlyData={hourlyData} />
     </Card>
   );
 };

@@ -14,10 +14,7 @@ const FiveDayForecast = () => {
 
   return (
     <Card title={"5 Day Forecast"}>
-      <FiveDayDisplay
-        fiveDayforecast={fiveDayforecast}
-        isTempUnitC={isTempUnitC}
-      />
+      <FiveDayDisplay fiveDayforecast={fiveDayforecast} />
     </Card>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { Popup } from "react-leaflet";
 import { useForecastContext } from "../../services/contexts/forecast-context";
-import { tempUnitConverter } from "../../utils/numberUtils";
+import { tempUnitConverter } from "../../utils/number-util";
 
 const MapMarkerPopup = () => {
   const { currentWeather, isTempUnitC } = useForecastContext();

@@ -1,5 +1,8 @@
 import React from "react";
-import OpenWeatherMapLogo from "../../../assets/images/OpenWeather.png";
+const openWeatherMapLogoUrl = new URL(
+  "../../../assets/images/OpenWeather.png",
+  import.meta.url,
+).href;
 
 const Footer = () => {
   return (
@@ -9,7 +12,11 @@ const Footer = () => {
           Weather data provided by{" "}
           <a href="https://openweathermap.org/">OpenWeather</a>
         </span>
-        <img src={OpenWeatherMapLogo} alt="Open Weather Map logo" />
+        <img
+          src={openWeatherMapLogoUrl}
+          alt="Open Weather Map logo"
+          loading="lazy"
+        />
       </div>
     </footer>
   );

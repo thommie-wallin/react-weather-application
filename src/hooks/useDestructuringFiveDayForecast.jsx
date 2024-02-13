@@ -1,12 +1,12 @@
-import { filterArr } from "../utils/numberUtils";
-import { tempUnitConverter } from "../utils/numberUtils";
+import { filterArr } from "../utils/number-util";
+import { tempUnitConverter } from "../utils/number-util";
 
 const useDestructuringFiveDayForecast = (forecast, isTempUnitC) => {
   // Filter 5 day / 3 hour forecast-data (each day have 8 readings).
   const dailyForecasts = filterArr(forecast.list, 8);
 
   return dailyForecasts.map((d) => {
-    const iconsURL = d.weather[0].icon;
+    const iconsName = d.weather[0].icon;
     const windSpeed = d.wind.speed;
     const humidity = d.main.humidity;
     const dates = new Date(d.dt * 1000).toLocaleDateString("en-US", {
@@ -18,7 +18,7 @@ const useDestructuringFiveDayForecast = (forecast, isTempUnitC) => {
     const mainDescription = d.weather[0].main;
 
     return {
-      iconsURL,
+      iconsName,
       windSpeed,
       humidity,
       dates,

@@ -1,13 +1,8 @@
 import React from "react";
-import weatherIcons from "../../assets/icons";
+import getImageURL from "../../utils/image-util";
 
 const ForecastIcon = ({ iconName, iconAlt }) => {
-  const [icon] = weatherIcons.filter((d) => {
-    if (d.name === iconName) {
-      return d.src;
-    }
-  });
-  return <img src={icon.src} alt={`${iconAlt} icon`} />;
+  return <img src={getImageURL(iconName)} alt={`${iconAlt} icon`} />;
 };
 
 export default ForecastIcon;

@@ -1,7 +1,7 @@
 import React from "react";
 import ForecastIcon from "../../../ui/ForecastIcon";
 
-const FiveDayDisplay = ({ fiveDayforecast, isTempUnitC }) => {
+const FiveDayDisplay = ({ fiveDayforecast }) => {
   return (
     <table className="list-forecast">
       {fiveDayforecast.map((d, i) => (
@@ -9,7 +9,7 @@ const FiveDayDisplay = ({ fiveDayforecast, isTempUnitC }) => {
           <td>{d.dates}</td>
           <td className="forecast-list-temp">{d.temps}°</td>
           <td>
-            <ForecastIcon iconName={d.iconsURL} iconAlt={d.mainDescription} />
+            <ForecastIcon iconName={d.iconsName} iconAlt={d.mainDescription} />
           </td>
           <td className="forecast-list-description">{d.description}</td>
           <td>{d.windSpeed}m/s</td>

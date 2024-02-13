@@ -1,5 +1,5 @@
 import useGetTime from "./useGetTime";
-import { tempUnitConverter } from "../utils/numberUtils";
+import { tempUnitConverter } from "../utils/number-util";
 
 const useDestructuringHourlyForecast = (forecast, isTempUnitC) => {
   return forecast.list.slice(0, 8).map((d, i) => {
@@ -12,9 +12,10 @@ const useDestructuringHourlyForecast = (forecast, isTempUnitC) => {
     const windSpeed = d.wind.speed;
     const humidity = d.main.humidity;
 
-    // Get weather icons URL endpoints
-    const iconsURL = d.weather[0].icon;
+    // Get weather-icons name
+    const iconsName = d.weather[0].icon;
 
+    // Get short description of forecast
     const description = d.weather[0].description;
 
     return {
@@ -22,7 +23,7 @@ const useDestructuringHourlyForecast = (forecast, isTempUnitC) => {
       temperature,
       windSpeed,
       humidity,
-      iconsURL,
+      iconsName,
       description,
     };
   });

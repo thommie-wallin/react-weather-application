@@ -11,10 +11,7 @@ const WeekOverview = () => {
 
   return (
     <Card title={"Week overview"}>
-      <WeekOverviewDisplay
-        fiveDayforecast={fiveDayforecast}
-        isTempUnitC={isTempUnitC}
-      />
+      <WeekOverviewDisplay fiveDayforecast={fiveDayforecast} />
     </Card>
   );
 };

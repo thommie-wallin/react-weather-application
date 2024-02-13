@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/Today.css";
-import { tempUnitConverter } from "../../utils/numberUtils";
+import { tempUnitConverter } from "../../utils/number-util";
 import { useForecastContext } from "../../services/contexts/forecast-context";
 import HeroCard from "../ui/HeroCard";
 import useGetTime from "../../hooks/useGetTime";
@@ -24,7 +24,7 @@ const Today = () => {
   );
 
   // Get weather icons URL-endpoint.
-  const iconsURL = currentWeather.weather[0].icon;
+  const iconsName = currentWeather.weather[0].icon;
 
   return (
     <HeroCard title={locationName} timeOfUpdate={timeOfUpdate}>
@@ -35,7 +35,7 @@ const Today = () => {
         currentWeather={currentWeather}
         sunrise={sunrise}
         sunset={sunset}
-        iconsURL={iconsURL}
+        iconsName={iconsName}
       />
     </HeroCard>
   );

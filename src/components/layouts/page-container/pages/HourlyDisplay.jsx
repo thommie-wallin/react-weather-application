@@ -1,7 +1,7 @@
 import React from "react";
 import ForecastIcon from "../../../ui/ForecastIcon";
 
-const HourlyDisplay = ({ hourlyData, isTempUnitC }) => {
+const HourlyDisplay = ({ hourlyData }) => {
   return (
     <table className="list-hourly">
       {hourlyData.map((d, i) => (
@@ -9,7 +9,7 @@ const HourlyDisplay = ({ hourlyData, isTempUnitC }) => {
           <td>{d.hour}</td>
           <td className="hourly-list-temp">{d.temperature}°</td>
           <td>
-            <ForecastIcon iconName={d.iconsURL} iconAlt={d.mainDescription} />
+            <ForecastIcon iconName={d.iconsName} iconAlt={d.mainDescription} />
           </td>
           <td className="hourly-list-description">{d.description}</td>
           <td>{d.windSpeed}m/s</td>

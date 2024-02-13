@@ -4,11 +4,10 @@ import ForecastIcon from "../../../ui/ForecastIcon";
 const TodayDisplay = ({
   temp,
   feelsLikeTemp,
-  isTempUnitC,
   currentWeather,
   sunrise,
   sunset,
-  iconsURL,
+  iconsName,
 }) => {
   return (
     <div className="hero-list-today">
@@ -24,7 +23,7 @@ const TodayDisplay = ({
         </li>
       </ul>
       <ForecastIcon
-        iconName={iconsURL}
+        iconName={iconsName}
         iconAlt={currentWeather.weather[0].main}
       />
     </div>
