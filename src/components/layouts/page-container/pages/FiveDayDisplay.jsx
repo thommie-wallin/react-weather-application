@@ -7,11 +7,7 @@ const FiveDayDisplay = ({ fiveDayforecast, isTempUnitC }) => {
       {fiveDayforecast.map((d, i) => (
         <tr key={i} className="forecast-list-item">
           <td>{d.dates}</td>
-          <td className="forecast-list-temp">
-            {d.temps}{" "}
-            <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
-            <span className="tempUnit-symbol">°</span>
-          </td>
+          <td className="forecast-list-temp">{d.temps}°</td>
           <td>
             <ForecastIcon iconName={d.iconsURL} iconAlt={d.mainDescription} />
           </td>

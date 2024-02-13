@@ -8,11 +8,7 @@ const WeekOverviewDisplay = ({ fiveDayforecast, isTempUnitC }) => {
         <li key={i} className="list-item">
           <div className="item">
             <p>{d.dates}</p>
-            <p className="overview-list-temp">
-              {d.temps}{" "}
-              <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
-              <span className="tempUnit-symbol">°</span>
-            </p>
+            <p className="overview-list-temp">{d.temps}°</p>
           </div>
           <ForecastIcon iconName={d.iconsURL} iconAlt={d.mainDescription} />
         </li>

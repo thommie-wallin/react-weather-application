@@ -84,10 +84,11 @@
   color: var(--primary-text);
 }
 
-.tempunit-button > p {
+.tempunit-button > span {
   height: 1rem;
   width: 1rem;
   user-select: none;
+  /* font-weight: 500; */
 }
 
 .position-button {

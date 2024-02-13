@@ -14,17 +14,9 @@ const TodayDisplay = ({
     <div className="hero-list-today">
       <ul className="list-today">
         <li>
-          <p className="today-list-temp">
-            {temp}{" "}
-            <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
-            <span className="tempUnit-symbol">°</span>
-          </p>
+          <p className="today-list-temp">{temp}°</p>
         </li>
-        <li className="today-list-feels-like">
-          Feels like: {feelsLikeTemp}{" "}
-          <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
-          <span className="tempUnit-symbol">°</span>
-        </li>
+        <li className="today-list-feels-like">Feels like: {feelsLikeTemp}°</li>
         <li>Wind speed: {currentWeather.wind.speed} m/s</li>
         <li>Humidity: {currentWeather.main.humidity} %</li>
         <li>

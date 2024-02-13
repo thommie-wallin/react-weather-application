@@ -7,11 +7,7 @@ const HourlyDisplay = ({ hourlyData, isTempUnitC }) => {
       {hourlyData.map((d, i) => (
         <tr key={i} className="hourly-list-item">
           <td>{d.hour}</td>
-          <td className="hourly-list-temp">
-            {d.temperature}{" "}
-            <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
-            <span className="tempUnit-symbol">°</span>
-          </td>
+          <td className="hourly-list-temp">{d.temperature}°</td>
           <td>
             <ForecastIcon iconName={d.iconsURL} iconAlt={d.mainDescription} />
           </td>
