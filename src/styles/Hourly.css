@@ -39,10 +39,8 @@
   display: none;
 }
 
-.hourly-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.hourly-list-item > td > img {
+  height: 3rem;
 }
 
 @media only screen and (max-width: 600px) {

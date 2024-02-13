@@ -31,7 +31,6 @@ const TodayDisplay = ({
           Sunrise/Sunset: {sunrise}/{sunset}
         </li>
       </ul>
-      {/* <img src={iconsURL} alt={currentWeather.weather[0].main} /> */}
       <ForecastIcon
         iconName={iconsURL}
         iconAlt={currentWeather.weather[0].main}

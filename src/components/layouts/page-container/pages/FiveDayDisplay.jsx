@@ -1,4 +1,5 @@
 import React from "react";
+import ForecastIcon from "../../../ui/ForecastIcon";
 
 const FiveDayDisplay = ({ fiveDayforecast, isTempUnitC }) => {
   return (
@@ -11,8 +12,8 @@ const FiveDayDisplay = ({ fiveDayforecast, isTempUnitC }) => {
             <span className="tempUnit-letter">{isTempUnitC ? "℃" : "℉"}</span>
             <span className="tempUnit-symbol">°</span>
           </td>
-          <td className="forecast-icon">
-            <img src={d.iconsURL} alt={d.mainDescription} />
+          <td>
+            <ForecastIcon iconName={d.iconsURL} iconAlt={d.mainDescription} />
           </td>
           <td className="forecast-list-description">{d.description}</td>
           <td>{d.windSpeed}m/s</td>

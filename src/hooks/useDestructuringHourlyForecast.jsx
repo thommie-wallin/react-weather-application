@@ -1,6 +1,5 @@
 import useGetTime from "./useGetTime";
 import { tempUnitConverter } from "../utils/numberUtils";
-import { IMAGE_API_URL } from "../utils/constants";
 
 const useDestructuringHourlyForecast = (forecast, isTempUnitC) => {
   return forecast.list.slice(0, 8).map((d, i) => {
@@ -14,7 +13,7 @@ const useDestructuringHourlyForecast = (forecast, isTempUnitC) => {
     const humidity = d.main.humidity;
 
     // Get weather icons URL endpoints
-    const iconsURL = `${IMAGE_API_URL}/${d.weather[0].icon}.png`;
+    const iconsURL = d.weather[0].icon;
 
     const description = d.weather[0].description;
 
