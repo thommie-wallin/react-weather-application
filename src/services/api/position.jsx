@@ -1,7 +1,7 @@
 import { makeAPICall, makeMultipleAPICalls } from "../../adapters/api";
 import { GEOCODING_API_URL } from "../../utils/constants";
 
-// Geocoding API (Direct geocoding)(Limit(optional): number of search results).
+// Geocoding API (Direct geocoding openweathermap.org)(Limit(optional): number of search results).
 export const getPosition = (searchTerm, signal) => {
   const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
   const response = makeAPICall(

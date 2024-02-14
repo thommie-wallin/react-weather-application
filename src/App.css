@@ -12,18 +12,25 @@
   --card-box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
   --card-header-padding: 1rem;
 
+  /* Header title */
+  --header-title-bg: #6E3F98;
+
   /* Button */
+  --button-bg: var(--primary-text);
   --button-bg-active: #6E3F98;
 
   /* Search */
   --search-bg: #8B65AD;
+
+  /* 'Autocomplete */
+  --autocomplete-bg: var(--primary-text);
 
   /* Navbar */
   --nav-bg: #42265B;
 
   /* Location-list */
   --location-list-bg: #794c9e;
-  --location-list-item-active-bg: hsla(0, 0%, 100%, .1);;
+  --location-list-item-active-bg: hsla(0, 0%, 100%, .1);
 }
 
 /* GENERAL */
@@ -50,7 +57,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #6E3F98;
+  background-color: var(--header-title-bg);
   color: var(--primary-text);
   height: 4.5rem;
 }
@@ -72,7 +79,7 @@
   /* border-radius: 50%; */
   box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
   transition-duration: 0.2s;
-  background-color: whitesmoke;
+  background-color: var(--button-bg);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -97,7 +104,7 @@
   /* border-radius: 50%; */
   box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
   transition-duration: 0.2s;
-  background-color: whitesmoke;
+  background-color: var(--button-bg);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -163,6 +170,7 @@
 }
 
 .search-button {
+  background-color: var(--button-bg);
   border-radius: var(--card-border-radius);
   height: 1.5rem;
   padding: 0 0.25rem;
@@ -174,39 +182,6 @@
 .search-button:active {
   background-color: var(--button-bg-active);
   color: var(--primary-text);
-}
-
-.near-me-button {
-  border-radius: var(--card-border-radius);
-  height: 1.5rem;
-  padding: 0 0.25rem;
-  margin-left: 0.20rem;
-  transition-duration: 0.2s;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.near-me-button:active {
-  background-color: var(--button-bg-active);
-  color: var(--primary-text);
-}
-
-.near-me-button:disabled {
-  background-color: var(--search-bg);
-  cursor: default;
-  pointer-events: none;
-}
-
-.search-near-me-svg {
-  height: 1rem;
-  width: 1rem;
-}
-
-.search-near-me-svg:active {
-  background-color: var(--button-bg-active);
-  fill: var(--primary-text);
 }
 
 .autocomplete-container.closed {
@@ -224,19 +199,19 @@
 .autocomplete-list-item {
   list-style: none;
   cursor: pointer;
-  background-color: whitesmoke;
+  background-color: var(--autocomplete-bg);
   color: black;
   padding: 0 0.25rem;
 }
 
 .autocomplete-list-item:hover {
-  background-color: #8B65AD;
+  background-color: var(--search-bg);
 }
 
 .list-item-not-found {
   list-style: none;
   cursor: default;
-  background-color: whitesmoke;
+  background-color: var(--autocomplete-bg);
   color: black;
 }
 
@@ -401,7 +376,7 @@
 
 /* PAGES */
 .router-content {
-  background: linear-gradient(#6E3F98, #F2E4DD);
+  background: linear-gradient(var(--header-title-bg), var(--primary-text));
   flex: 1;
   padding: 1rem;
   display: grid;
