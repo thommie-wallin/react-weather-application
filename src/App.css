@@ -13,24 +13,27 @@
   --card-header-padding: 1rem;
 
   /* Header title */
-  --header-title-bg: #6E3F98;
+  --header-title-bg: #136ffb;
 
   /* Button */
   --button-bg: var(--primary-text);
-  --button-bg-active: #6E3F98;
+  --button-bg-active: var(--nav-bg);
 
   /* Search */
-  --search-bg: #8B65AD;
+  --search-bg: #6fa9fb;
 
   /* 'Autocomplete */
   --autocomplete-bg: var(--primary-text);
 
   /* Navbar */
-  --nav-bg: #42265B;
+  --nav-bg: #093c83;
 
   /* Location-list */
-  --location-list-bg: #794c9e;
+  --location-list-bg: #0d5ecf;
   --location-list-item-active-bg: hsla(0, 0%, 100%, .1);
+
+  /* Footer */
+  --footer-bg: #ffdab9;
 }
 
 /* GENERAL */
@@ -76,7 +79,6 @@
 .tempunit-button {
   padding: .5rem;
   border-radius: 25px;
-  /* border-radius: 50%; */
   box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
   transition-duration: 0.2s;
   background-color: var(--button-bg);
@@ -95,13 +97,11 @@
   height: 1rem;
   width: 1rem;
   user-select: none;
-  /* font-weight: 500; */
 }
 
 .position-button {
   padding: .5rem;
   border-radius: 25px;
-  /* border-radius: 50%; */
   box-shadow: 0 0 12px 0 rgb(0 0 0 / 20%);
   transition-duration: 0.2s;
   background-color: var(--button-bg);
@@ -127,10 +127,6 @@
   cursor: default;
   pointer-events: none;
 }
-
-/* .location-on-svg:disabled {
-  fill: white;
-} */
 
 /* SEARCH */
 .search {
@@ -160,13 +156,8 @@
   user-select: none;
 }
 
-
-
-/* #search:valid {
-  border: 2px solid black;
-} */
 #search:invalid {
-  border: red solid 2px;
+  border: #f28482 solid 2px;
 }
 
 .search-button {
@@ -222,7 +213,6 @@
   align-items: center;
   background-color: var(--location-list-bg);
   color: var(--primary-text);
-  /* font-size: 0.75rem; */
   font-size: 0.85rem;
   height: 2.5rem;
   position: relative;
@@ -239,20 +229,14 @@
   overflow: hidden;
   overflow-x: scroll;
   scrollbar-width: none;
-  /* Scroll-behaviour breaks slider, problem in chromium with scrolling. */
-  /* scroll-behavior: smooth; */
-  /* -ms-overflow-style: none; */
 }
 
 .location-list-item {
   display: flex;
   align-items: center;
   height: 100%;
-  /* gap: 0.5rem; */
   gap: 1rem;
   padding: 0 1rem;
-  /* padding-left: 0.5rem;
-  padding-right: 0.5rem; */
   border-right: 1px dotted var(--nav-bg);
   background-color: var(--location-list-bg);
 }
@@ -304,9 +288,7 @@
   width: 24px;
   height: 24px;
   padding: 0.25rem;
-  /* cursor: pointer; */
   fill: var(--primary-text);
-  /* background-color: var(--nav-bg); */
 }
 
 .location-list-left-arrow-icon svg,
@@ -325,11 +307,9 @@
   position: absolute;
   top: 0;
   height: 100%;
-  /* width: 100px; */
   display: none;
   align-items: center;
   justify-content: center;
-  /* padding: 0 0.5rem; */
 }
 
 .location-list .location-list-left-arrow-icon.active, .location-list .location-list-right-arrow-icon.active {
@@ -338,7 +318,6 @@
 
 
 .location-list .location-list-left-arrow-icon {
-  /* right: 0; */
   background: linear-gradient(to right, var(--location-list-bg) 50%, transparent);
 }
 
@@ -359,7 +338,7 @@
 .nav-list-link {
   height: 100%;
   padding: 0.75rem;
-  border-bottom: 3px solid #42265B;
+  border-bottom: 3px solid var(--nav-bg);
   color: var(--primary-text);
   text-decoration: none;
   cursor: pointer;
@@ -376,7 +355,7 @@
 
 /* PAGES */
 .router-content {
-  background: linear-gradient(var(--header-title-bg), var(--primary-text));
+  background: linear-gradient(var(--header-title-bg), var(--footer-bg));
   flex: 1;
   padding: 1rem;
   display: grid;
@@ -393,7 +372,6 @@
 
 /* CARDS */
 .card {
-  /* height: 100%; */
   background: var(--card-bg);
   color: var(--card-text-header);
   border-radius: var(--card-border-radius);
@@ -422,13 +400,11 @@
 }
 
 .hero-card-header > span {
-  /* font-size: 13px; */
   margin-left: 0.25rem;
 }
 
 .card-content {
   padding-bottom: 1rem;
-  /* height: 100%; */
 }
 
 /* FOOTER */
@@ -437,13 +413,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* height: 3rem; */
   padding: 1rem 0;
-  background-color: var(--primary-text);
+  background-color: var(--footer-bg);
 }
 
 .footer-text {
   font-size: 0.75rem;
+}
+
+.footer-text > a:visited {
+  color: #3333FF;
 }
 
 .footer > img {

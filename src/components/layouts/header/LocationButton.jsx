@@ -37,6 +37,7 @@ const LocationButton = () => {
       className="position-button"
       onClick={handleOnClick}
       // disabled={geolocationAllowed ? false : true}
+      aria-label="User position"
     >
       <svg
         className="location-on-svg"
