@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForecastContext } from "../../../services/contexts/forecast-context";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 
 const LocationButton = () => {
   const { setPosition, loadingStart, loadingStop, setError } =
     useForecastContext();
+  const [positionBtnDisabled, setPositionBtnDisabled] = useLocalStorage(
+    "positionBtnDisabled",
+    false,
+  );
 
-  function handleOnClick() {
+  function handleGeolocationPermission() {
     const success = (position) => {
       loadingStart();
-      localStorage.setItem("location-allowed", true);
+      setPositionBtnDisabled(false);
       setPosition({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
@@ -17,8 +22,7 @@ const LocationButton = () => {
     };
 
     const error = (error) => {
-      // localStorage.removeItem("location-allowed");
-      localStorage.setItem("location-allowed", false);
+      setPositionBtnDisabled(true);
       console.log(error);
       setError(error);
     };
@@ -32,11 +36,15 @@ const LocationButton = () => {
     }
   }
 
+  useEffect(() => {
+    handleGeolocationPermission();
+  }, []);
+
   return (
     <button
       className="position-button"
-      onClick={handleOnClick}
-      // disabled={geolocationAllowed ? false : true}
+      onClick={handleGeolocationPermission}
+      disabled={positionBtnDisabled}
       aria-label="User position"
     >
       <svg
