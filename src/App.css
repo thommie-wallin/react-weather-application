@@ -13,7 +13,8 @@
   --card-header-padding: 1rem;
 
   /* Header title */
-  --header-title-bg: #136ffb;
+  /* --header-title-bg: #136ffb; */
+  --header-title-bg: #1959b8;
 
   /* Button */
   --button-bg: var(--primary-text);
