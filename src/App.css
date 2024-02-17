@@ -176,6 +176,7 @@
   color: var(--primary-text);
 }
 
+/* AUTOCOMPLETE */
 .autocomplete-container.closed {
   display: none;
 }
@@ -188,12 +189,16 @@
   z-index: 100;
 }
 
+.autocomplete-list {
+  /* padding: .25rem; */
+}
+
 .autocomplete-list-item {
   list-style: none;
   cursor: pointer;
   background-color: var(--autocomplete-bg);
   color: black;
-  padding: 0 0.25rem;
+  padding: 0.25rem 0.25rem;
 }
 
 .autocomplete-list-item:hover {
@@ -205,6 +210,77 @@
   cursor: default;
   background-color: var(--autocomplete-bg);
   color: black;
+  padding: .25rem;
+}
+
+/* AUTOCOMPLETE LOADING */
+.autocomplete-loading-container {
+  background-color: var(--autocomplete-bg);
+  list-style: none;
+  display: flex;
+  width: 100%;
+}
+
+.autocomplete-loading-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: .25rem;
+  gap: .25rem;
+  animation: pulse 1500ms cubic-bezier(0.76, 0.09, 0.17, 0.68) infinite;
+}
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  60% {
+    opacity: .8;
+  }
+}
+
+.autocomplete-loading-spinner {
+  color: var(--search-bg);
+  height: 21px;
+  width: 17px;
+  animation: spin 1500ms linear infinite;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.autocomplete-loading-spinner-circle {
+  stroke-opacity: .6;
+}
+
+.autocomplete-loading-text {
+  list-style: none;
+  cursor: default;
+  background-color: var(--autocomplete-bg);
+  color: black;
+}
+
+.autocomplete-loading-text::after {
+  content: '';
+  animation: dots 1500ms ease-in-out infinite;
+}
+@keyframes dots {
+  0%{
+    content: '';
+  }
+  33% {
+    content: '.';
+  }
+  66% {
+    content: '..';
+  }
+  100% {
+    content: '...';
+  }
 }
 
 /* LOCATIONLIST */
