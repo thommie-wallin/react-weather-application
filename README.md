@@ -1,18 +1,8 @@
-3. Table of Contents (Optional)
-4. How to Install and Run the Project
-5. How to Use the Project
-6. Include Credits
-7. Add a License
-
-<!-- Optional -->
-
-8. Badges
-9. How to Contribute to the Project
-10. Include Tests
-
 # React Weather Application
 
 Simple overview of use/purpose.
+
+Get latest weather updates for your current position or use search for forecasts in other locations.
 
 ## Description
 
@@ -77,3 +67,15 @@ Inspiration, code snippets, etc.
 - [dbader](https://github.com/dbader/readme-template)
 - [zenorocha](https://gist.github.com/zenorocha/4526327)
 - [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+
+3. Table of Contents (Optional)
+4. How to Install and Run the Project
+5. How to Use the Project
+6. Include Credits
+7. Add a License
+
+<!-- Optional -->
+
+8. Badges
+9. How to Contribute to the Project
+10. Include Tests
