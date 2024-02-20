@@ -1,8 +1,6 @@
 # React Weather Application
 
-Simple overview of use/purpose.
-
-Get latest weather updates for your current position or use search for forecasts in other locations.
+Search the latest weather conditions and forecasts by city name or based on user position. Get a five day overview of forecast information, including hourly and radar data.
 
 ## Description
 
