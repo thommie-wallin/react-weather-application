@@ -8,12 +8,11 @@ An in-depth paragraph about your project and overview of use.
 
 This is a weather app for users to get information about the weather conditions in their location or somewhere else in the world. The project started out with the motivation for an easy way for users to quickly see an overview of todays weather with hourly forecast data using an weather api. With further developing of the app now includes the following:
 
-- Be able to see temperature and other weather conditions for current position.
-- Get forecast information over a five day interval.
-- Use the weather api from openweathermap.org to show the data.
-- Use geolocation api in the browser to get the user position.
-- Search for weather data in a specific location using Geocoding-api
-- Show radar image for location using openweathermaps layers over a interactive map.
+- Be able to see temperature and other weather conditions for the current position using Geolocation API.
+- Get forecast information over a five day interval using the weather-API from OpenWeatherMap.
+- Search for weather data in a specific location using the Geocoding API from OpenWeatherMap.
+- Show a forecast radar image for location using OpenWeatherMaps different radar-layers over an interactive map from Leaflet.
+- Make list of search history for easier use and save it in local storage to persist state over rerenders.
 
 A weather app consuming "OpenWeatherMaps" weather-api to search for the latest forecasts in different locations. User can enable geolocation to get forecasts using the current position of the device, or search city names for other locations. Search city names directly with "OpenWeatherMaps" geocoding-api, or start typing a name for autocomplete suggestions using "GeoDB Cities" api. Search history is saved using local storage and persist after each rerender of the app. The weather forecasts data consists of an overview for today, hourly data for the next twenty-four hours and data for the next five days.
 
