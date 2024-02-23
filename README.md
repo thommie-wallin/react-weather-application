@@ -12,7 +12,7 @@ This is a weather app for users to get information about the weather conditions 
 - Get forecast information over a five day interval using the weather-API from OpenWeatherMap.
 - Search for weather data in a specific location using the Geocoding API from OpenWeatherMap.
 - Show a forecast radar image for location using OpenWeatherMaps different radar-layers over an interactive map from Leaflet.
-- Make list of search history for easier use and save it in local storage to persist state over rerenders.
+- List of search history for ux and save it in local storage to persist state over rerenders.
 
 A weather app consuming "OpenWeatherMaps" weather-api to search for the latest forecasts in different locations. User can enable geolocation to get forecasts using the current position of the device, or search city names for other locations. Search city names directly with "OpenWeatherMaps" geocoding-api, or start typing a name for autocomplete suggestions using "GeoDB Cities" api. Search history is saved using local storage and persist after each rerender of the app. The weather forecasts data consists of an overview for today, hourly data for the next twenty-four hours and data for the next five days.
 
