@@ -28,6 +28,8 @@ A weather app consuming "OpenWeatherMaps" weather-api to search for the latest f
 - How/where to download your program
 - Any modifications needed to be made to files/folders
 
+- Clone/download repository.
+
 ### Executing program
 
 - How to run the program
