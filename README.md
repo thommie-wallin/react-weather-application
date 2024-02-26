@@ -20,12 +20,12 @@ This weather app let users get information about the weather conditions in their
 
 With this project I set out to further my knowledge of react and how to use it effectively when working with an API. The goal after that was to make a useful site for users to quickly check out the weather in their location, using the browsers geolocation when they first enter the site. Then they can seamlessly switch to another location by searching for it or select the city name in the list from the search history. There's autocomplete to help speed up the search process with suggestions for city names, when users start to type in the search input field.
 
-<style>
+<!-- <style>
   .images-container {
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
     width: 100%
   }
 
@@ -33,7 +33,7 @@ With this project I set out to further my knowledge of react and how to use it e
     width: 33%
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 480px) {
     .images-container {
       flex-direction: column;
     }
@@ -42,17 +42,13 @@ With this project I set out to further my knowledge of react and how to use it e
       width: 100%
     }
   }
-</style>
+</style> -->
 
-<div class="images-container">
-  <img class="screenshot-images" src="./src/assets/images/frontpage-today.png">
-  <img class="screenshot-images" src="./src/assets/images/frontpage-hourly.png">
-  <img class="screenshot-images" src="./src/assets/images/frontpage-radar.png">
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%" class="images-container">
+  <img class="screenshot-images" src="./src/assets/images/frontpage-today.png" width="33%">
+  <img class="screenshot-images" src="./src/assets/images/frontpage-hourly.png" width="33%">
+  <img class="screenshot-images" src="./src/assets/images/frontpage-radar.png" width="33%">
 </div>
-
-<!-- ![](/src/assets/images/frontpage-today.png)
-![](/src/assets/images/frontpage-hourly.png)
-![](/src/assets/images/frontpage-radar.png) -->
 
 ## Getting Started
 
