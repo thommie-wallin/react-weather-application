@@ -7,11 +7,21 @@ import {
   LayersControl,
   Tooltip,
 } from "react-leaflet";
+import L from "leaflet";
 import { ScaleControl } from "react-leaflet/ScaleControl";
 import Legend from "../../../radar/MapLegend";
 import legendData from "../../../../data/radar-map-legend";
 import MapLayersControlBaseLayer from "../../../radar/MapLayersControlBaseLayer";
 import MapMarkerPopup from "../../../radar/MapMarkerPopup";
+import iconMarker from "leaflet/dist/images/marker-icon.png";
+import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
+let defaultIcon = L.icon({
+  iconRetinaUrl: iconRetina,
+  iconUrl: iconMarker,
+  shadowUrl: iconShadow,
+});
 
 const RadarDisplay = ({ position, locationName }) => {
   const [layerName, setLayerName] = useState("");
@@ -21,7 +31,10 @@ const RadarDisplay = ({ position, locationName }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[position.latitude, position.longitude]}>
+      <Marker
+        position={[position.latitude, position.longitude]}
+        icon={defaultIcon}
+      >
         <MapMarkerPopup />
         <Tooltip>{locationName}</Tooltip>
       </Marker>
