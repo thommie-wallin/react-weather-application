@@ -1,4 +1,4 @@
-# React Weather Application ![Static Badge](https://img.shields.io/badge/v18.2.0-blue?logo=react&label=React) ![Static Badge](https://img.shields.io/badge/v5.0.10-blue?logo=vite&label=Vite)
+# React Weather Application ![Static Badge](https://img.shields.io/badge/v18.2.0-blue?logo=react&label=React) ![Static Badge](https://img.shields.io/badge/v5.0.10-blue?logo=vite&label=Vite) [![Netlify Status](https://api.netlify.com/api/v1/badges/0169c91a-d3dc-461d-8dcd-90ef7505c23d/deploy-status?branch=main)](https://app.netlify.com/sites/react-weather-applications/deploys)
 
 Search the latest weather conditions and forecasts by city name or based on user position. Get a five day overview of forecast information, including hourly and radar data.
 
