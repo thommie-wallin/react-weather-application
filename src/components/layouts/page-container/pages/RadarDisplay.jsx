@@ -33,7 +33,7 @@ const RadarDisplay = ({ position, locationName }) => {
       />
       <Marker
         position={[position.latitude, position.longitude]}
-        icon={defaultIcon}
+        // icon={defaultIcon}
       >
         <MapMarkerPopup />
         <Tooltip>{locationName}</Tooltip>
