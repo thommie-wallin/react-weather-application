@@ -19,9 +19,4 @@ export const getAutocompleteItems = async (inputValue, signal) => {
   } catch (error) {
     return error;
   }
-
-  // const response = makeAPICall(`http://localhost:9000/data`);
-  // // const response = api.get(`http://localhost:9000/data`);
-  // // console.log(response);
-  // return response;
 };

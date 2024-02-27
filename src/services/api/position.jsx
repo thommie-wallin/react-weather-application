@@ -1,4 +1,4 @@
-import { makeAPICall, makeMultipleAPICalls } from "../../adapters/api";
+import { makeAPICall } from "../../adapters/api";
 import { GEOCODING_API_URL } from "../../utils/constants";
 
 // Geocoding API (Direct geocoding openweathermap.org)(Limit(optional): number of search results).
@@ -9,9 +9,4 @@ export const getPosition = (searchTerm, signal) => {
     signal,
   );
   return response;
-
-  // JSON Server
-  // const response = makeAPICall(`http://localhost:9000/data`);
-  // console.log(response);
-  // return response;
 };

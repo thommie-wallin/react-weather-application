@@ -1,4 +1,4 @@
-import { makeAPICall, makeMultipleAPICalls } from "../../adapters/api";
+import { makeMultipleAPICalls } from "../../adapters/api";
 import { WEATHER_API_URL } from "../../utils/constants";
 
 // OpenWeatherMap API
@@ -13,9 +13,4 @@ export const getForecast = (position, signal) => {
     signal,
   );
   return responses;
-
-  // JSON Server
-  // const response = makeAPICall(`http://localhost:8000/data`);
-  // // console.log(response);
-  // return response;
 };
