@@ -1,43 +1,22 @@
 import React, { useState } from "react";
 import "leaflet/dist/leaflet.css";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  LayersControl,
-  Tooltip,
-} from "react-leaflet";
-import L from "leaflet";
+import { MapContainer, TileLayer, LayersControl } from "react-leaflet";
 import { ScaleControl } from "react-leaflet/ScaleControl";
 import Legend from "../../../radar/MapLegend";
 import legendData from "../../../../data/radar-map-legend";
 import MapLayersControlBaseLayer from "../../../radar/MapLayersControlBaseLayer";
-import MapMarkerPopup from "../../../radar/MapMarkerPopup";
-import iconMarker from "leaflet/dist/images/marker-icon.png";
-import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import MapMarker from "../../../radar/MapMarker";
 
-let defaultIcon = L.icon({
-  iconRetinaUrl: iconRetina,
-  iconUrl: iconMarker,
-  shadowUrl: iconShadow,
-});
-
-const RadarDisplay = ({ position, locationName }) => {
+const RadarDisplay = ({ position }) => {
   const [layerName, setLayerName] = useState("");
+
   return (
     <MapContainer center={[position.latitude, position.longitude]} zoom={5}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker
-        position={[position.latitude, position.longitude]}
-        // icon={defaultIcon}
-      >
-        <MapMarkerPopup />
-        <Tooltip>{locationName}</Tooltip>
-      </Marker>
+      <MapMarker position={position} />
       <ScaleControl position="bottomleft" />
       <Legend layerName={layerName} />
       <LayersControl position="topright">
